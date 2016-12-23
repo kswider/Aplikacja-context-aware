@@ -56,4 +56,14 @@
         android:layout_below="@+id/button4"
         android:layout_centerHorizontal="true"
         android:onClick="button5OnClick"/>
+
+    <Button
+        android:text="Odczytaj położenie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:id="@+id/button6"
+        android:layout_below="@+id/button5"
+        android:layout_centerHorizontal="true"
+        android:onClick="button6OnClick"/>
 </RelativeLayout>

@@ -43,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+    public void button6OnClick(View v){
+        ReadLocation rl = new ReadLocation();
+        Toast toast = Toast.makeText( getApplicationContext(),
+                rl.readLocationByBest(this), Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         final Button button3 = (Button) findViewById(R.id.button3);
         final Button button4 = (Button) findViewById(R.id.button3);
         final Button button5 = (Button) findViewById(R.id.button3);
+        final Button button6 = (Button) findViewById(R.id.button6);
 }
 }
 
