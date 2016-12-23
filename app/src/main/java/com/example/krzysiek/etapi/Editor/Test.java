@@ -1,5 +1,7 @@
 package Editor;
 
+import com.example.krzysiek.etapi.Editor.ModelCreator;
+
 import Editor.RuleExpressions.ALSVExpression;
 import Editor.RuleExpressions.ActionExpression;
 import Editor.RuleExpressions.DecisionExpression;

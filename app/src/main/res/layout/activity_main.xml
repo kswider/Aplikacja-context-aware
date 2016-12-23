@@ -14,18 +14,46 @@
         android:text="Odczytaj godzine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="65dp"
+        android:layout_marginTop="14dp"
         android:id="@+id/button2"
+        android:onClick="button1OnClick"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="odczytajGodzine"/>
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:text="Powiadomienie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button1"
-        android:layout_centerVertical="true"
+        android:onClick="button2OnClick"
+        android:layout_below="@+id/button2"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Wycisz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button3"
+        android:onClick="button3OnClick"
+        android:layout_below="@+id/button1"
         android:layout_centerHorizontal="true"
-        android:onClick="powiadomienie"/>
+        android:layout_marginTop="17dp" />
+
+    <Button
+        android:text="Tylko wibracje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4"
+        android:layout_below="@+id/button3"
+        android:layout_centerHorizontal="true"
+        android:onClick="button4OnClick"/>
+
+    <Button
+        android:text="Tryb Normalny"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button5"
+        android:layout_below="@+id/button4"
+        android:layout_centerHorizontal="true"
+        android:onClick="button5OnClick"/>
 </RelativeLayout>

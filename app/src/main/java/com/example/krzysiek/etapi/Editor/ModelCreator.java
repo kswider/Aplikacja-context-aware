@@ -1,4 +1,4 @@
-package Editor;
+package com.example.krzysiek.etapi.Editor;
 
 import Editor.Xtypes.Xattr;
 import Editor.Xtypes.Xrule;
