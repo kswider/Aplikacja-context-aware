@@ -1,19 +1,18 @@
 package com.example.krzysiek.etapi.Editor;
 
-import Editor.Xtypes.Xattr;
-import Editor.Xtypes.Xrule;
-import Editor.Xtypes.Xschm;
-import Editor.Xtypes.Xtype;
+import com.example.krzysiek.etapi.Editor.Xtypes.Xattr;
+import com.example.krzysiek.etapi.Editor.Xtypes.Xrule;
+import com.example.krzysiek.etapi.Editor.Xtypes.Xschm;
+import com.example.krzysiek.etapi.Editor.Xtypes.Xtype;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.*;
 import java.util.LinkedList;
 
 /**
  * Created by Krzysiek on 2016-12-16.
  */
-public class ModelCreator {
+public class ModelCreator implements Serializable {
     private String modelName;
     private LinkedList<Xtype> types = new LinkedList<>();
     private LinkedList<Xattr> attributes = new LinkedList<>();
@@ -40,49 +39,9 @@ public class ModelCreator {
         rules.add(xrule);
     }
 
-
-    /*
-    private ModelCreator(Builder builder) {
-        types = builder.types;
-        attributes = builder.attributes;
-        schemes = builder.schemes;
-        rules = builder.rules;
-    }
-    /*
-    static Builder builder(){
-        return new ModelCreator.Builder();
-    }
-    public static class Builder {
-        private LinkedList<Xtype> types = new LinkedList<>();
-        private LinkedList<Xattr> attributes = new LinkedList<>();
-        private LinkedList<Xschm>  schemes = new LinkedList<>();
-        private LinkedList<Xrule> rules = new LinkedList<>();
-
-        Builder addType(Xtype xtype) {
-            types.add(xtype);
-            return this;
-        }
-        Builder addAttr(Xattr xattr){
-            attributes.add(xattr);
-            return this;
-        }
-        Builder addSchm(Xschm xschm) {
-            schemes.add(xschm);
-            return this;
-        }
-        Builder addRule(Xrule xrule){
-            rules.add(xrule);
-            return this;
-        }
-        ModelCreator build() throws Exception {
-            if(types.isEmpty()) throw new Exception();
-            if(attributes.isEmpty()) throw new Exception();
-            if(schemes.isEmpty()) throw new Exception();
-            if(rules.isEmpty()) throw new Exception();
-            return new ModelCreator(this);
-        }
-    }
-    */
+    /**
+     * Method prints current model in console
+     */
     public void printModel(){
         for (Xtype i : types) {
             System.out.println(i.returnStringForModel());
@@ -98,9 +57,18 @@ public class ModelCreator {
         }
     }
 
+    /**
+     * Method saves current model in 2 files:
+     * 1) modelName.txt - model which is used by HearTDROID
+     * 2) modelName.ser - serialized model which is used in loading models to application
+     */
     public void saveModel(){
-        File file = new File(modelName + ".txt");
-        try (PrintWriter out = new PrintWriter(file)) {
+        PrintWriter out = null;
+        File file = new File(".\\app\\models\\" + modelName + ".txt");
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            out = new PrintWriter(file);
             for (Xtype i : types) {
                 out.println(i.returnStringForModel());
             }
@@ -113,9 +81,47 @@ public class ModelCreator {
             for (Xrule i : rules) {
                 out.println(i.returnStringForModel());
             }
-        } catch (IOException e){}
+            fos = new FileOutputStream(".\\app\\models\\" + modelName + ".ser");
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(this);
+        } catch (IOException e){
 
+        } finally {
+            out.close();
+          try {
+              if (fos != null) fos.close();
+          } catch (IOException e) {}
+          try {
+              if (fos != null) oos.close();
+          } catch (IOException e) {}
+        }
+    }
 
+    /**
+     * Static which loads ModelCreator from file and returns it
+     * @return ModelCreator loaded from file modelName.ser
+     */
+    public ModelCreator loadModel(){
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        ModelCreator model = null;
+        try{
+            fis = new FileInputStream(".\\app\\models\\" + modelName + ".ser");
+            ois = new ObjectInputStream(fis);
+            model = (ModelCreator) ois.readObject();
 
+        } catch (IOException e){
+
+        } catch (ClassNotFoundException e) {
+
+        } finally {
+            try {
+                if (fis != null) fis.close();
+            } catch (IOException e) {}
+            try {
+                if (ois != null) ois.close();
+            } catch (IOException e) {}
+        }
+        return model;
     }
 }

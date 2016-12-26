@@ -1,4 +1,4 @@
-package Editor.Xtypes;
+package com.example.krzysiek.etapi.Editor.Xtypes;
 
 /**
  * Created by Krzysiek on 2016-12-16.

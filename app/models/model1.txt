@@ -1,0 +1,42 @@
+xtype [name: hour_type,
+	   base: numeric,
+	   domain: [0.000 to 23.000]
+	  ].
+xtype [name: day_type,
+	   base: symbolic,
+	   domain: [mon/1,tue/2,wen/3,thu/4,fri/5,sat/6,sun/7],
+	   ordered: yes
+	  ].
+xtype [name: location_type,
+	   base: symbolic,
+	   domain: [AGH,home]
+	  ].
+xtype [name: sound_type,
+	   base: symbolic,
+	   domain: [on,off,vibration]
+	  ].
+xattr [name: hour,
+	   class: simple,
+	   type: hour_type,
+	   comm: in,
+	   callback: 'callbacks.getHour'
+	  ].
+xattr [name: day,
+	   class: simple,
+	   type: day_type,
+	   comm: in,
+	   callback: 'callbacks.getDay'
+	  ].
+xattr [name: sound,
+	   class: simple,
+	   type: sound_type,
+	   comm: inter
+	  ].
+xschm 'SetSounds': [hour,day] ==> [sound].
+xrule 'SetSounds'/1: 
+	   [hour in[8 to 17],
+	    day in[mon to fri]]
+	==>
+	   [sound set vibration]
+		**>
+		   ['actions.setSound'].

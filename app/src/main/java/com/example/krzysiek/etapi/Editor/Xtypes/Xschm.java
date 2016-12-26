@@ -1,11 +1,12 @@
-package Editor.Xtypes;
+package com.example.krzysiek.etapi.Editor.Xtypes;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
  * Created by Krzysiek on 2016-12-15.
  */
-public class Xschm implements XTT2StringRepresentation {
+public class Xschm implements XTT2StringRepresentation, Serializable {
     private String name; // Mandatory
     private String desc; // Optional
     private LinkedList<Xattr> attributesList = new LinkedList(); // Mandatory
@@ -17,6 +18,10 @@ public class Xschm implements XTT2StringRepresentation {
         this.attributesToSetList = attributesToSetList;
     }
 
+    /**
+     * Method returns String representation of object, useful in saving model into file
+     * @return String representation of Xschm
+     */
     @Override
     public String returnStringForModel() {
         String schmString = "xschm '" + name + "': [";
@@ -32,4 +37,5 @@ public class Xschm implements XTT2StringRepresentation {
         schmString += "].";
         return schmString;
     }
+
 }

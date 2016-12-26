@@ -1,24 +1,27 @@
-package Editor.RuleExpressions;
+package com.example.krzysiek.etapi.Editor.RuleExpressions;
 
-import Editor.Xtypes.XTT2StringRepresentation;
+import com.example.krzysiek.etapi.Editor.Xtypes.XTT2StringRepresentation;
+
+import java.io.Serializable;
 
 /**
  * Created by Krzysiek on 2016-12-15.
  */
-public class ActionExpression implements XTT2StringRepresentation {
+public class ActionExpression implements XTT2StringRepresentation, Serializable {
     private String actionName;
-    private String actionParameters = "";
 
-    public ActionExpression(String actionName, String actionParameters) {
-        this.actionName = actionName;
-        this.actionParameters = actionParameters;
+    public ActionExpression(String actionName) {
+            this.actionName = actionName;
     }
 
+    /**
+     * Method returns String representation of object, useful in saving model into file
+     * @return String representation of ActionExpression
+     */
     @Override
     public String returnStringForModel() {
         String actionString;
-        if(actionParameters.isEmpty()) actionString = "'actions." + actionName + "'";
-        else actionString = "'actions." + actionName + ",[" + actionParameters + "]'";
+        actionString = "'actions." + actionName + "'";
         return actionString;
     }
 }
