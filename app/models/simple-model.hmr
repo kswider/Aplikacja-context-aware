@@ -48,14 +48,14 @@ xrule 'SetSounds'/1:
 	==>
 	   [sound_settings set vibration]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].
+		   ['com.example.krzysiek.etapi.HeartDROID.actions.SetSound'].
 xrule 'SetSounds'/2: 
 	   [hour in [18.000 to 23.000],
 	    day in [mon to fri]]
 	==>
 	   [sound_settings set on]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.setSound'].
+		   ['com.example.krzysiek.etapi.HeartDROID.SetSound'].
 
 xrule 'SetSounds'/3: 
 	   [hour in [0.000 to 7.000],
@@ -63,18 +63,18 @@ xrule 'SetSounds'/3:
 	==>
 	   [sound_settings set off]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.setSound'].		   
+		   ['com.example.krzysiek.etapi.HeartDROID.SetSound'].		   
 xrule 'SetSounds'/4: 
 	   [hour in [0.000 to 7.000],
 	    day in [sat to sun]]
 	==>
 	   [sound_settings set off]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.setSound'].		   
+		   ['com.example.krzysiek.etapi.HeartDROID.SetSound'].		   
 xrule 'SetSounds'/5: 
 	   [hour in [8.000 to 23.000],
 	    day in [sat to sun]]
 	==>
 	   [sound_settings set on]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.setSound'].		   
+		   ['com.example.krzysiek.etapi.HeartDROID.SetSound'].		   

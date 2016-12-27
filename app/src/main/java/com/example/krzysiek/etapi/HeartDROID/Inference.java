@@ -1,5 +1,7 @@
 package com.example.krzysiek.etapi.HeartDROID;
 
+import android.content.Context;
+
 import heart.*;
 import heart.exceptions.*;
 import heart.parser.hmr.HMRParser;
@@ -11,9 +13,19 @@ import heart.xtt.*;
 /**
  * Created by Krzysiek on 2016-12-27.
  */
-public class test {
+public class Inference  {
 
-    public static void main(String [] args){
+    static Context mContext;
+
+    public Inference(Context mContext) {
+        this.mContext = mContext;
+    }
+
+    public static Context getmContext() {
+        return mContext;
+    }
+
+    public void runInference(String [] args){
         try {
             //Loading a file with a model
             XTTModel model = null;
