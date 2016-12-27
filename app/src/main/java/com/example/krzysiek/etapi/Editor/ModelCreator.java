@@ -64,7 +64,7 @@ public class ModelCreator implements Serializable {
      */
     public void saveModel(){
         PrintWriter out = null;
-        File file = new File(".\\app\\models\\" + modelName + ".txt");
+        File file = new File(".\\app\\models\\" + modelName + ".hmr");
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
