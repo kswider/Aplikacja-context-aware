@@ -1,5 +1,7 @@
 package com.example.krzysiek.etapi.HeartDROID.callbacks;
 
+import android.widget.Toast;
+
 import heart.Callback;
 import heart.Debug;
 import heart.WorkingMemory;
@@ -7,6 +9,8 @@ import heart.alsvfd.SimpleNumeric;
 import heart.exceptions.AttributeNotRegisteredException;
 import heart.exceptions.NotInTheDomainException;
 import heart.xtt.Attribute;
+
+import com.example.tomek.etapi.MyApplication;
 import com.example.tomek.etapi.ReadTime;
 /**
  * Created by Krzysiek on 2016-12-27.

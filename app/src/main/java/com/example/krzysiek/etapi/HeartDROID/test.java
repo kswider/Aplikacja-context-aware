@@ -1,5 +1,7 @@
 package com.example.krzysiek.etapi.HeartDROID;
 
+import android.widget.Toast;
+
 import com.example.tomek.etapi.MyApplication;
 
 import heart.*;
@@ -16,6 +18,9 @@ import heart.xtt.*;
 public class test {
 
     public String ubabu(){
+        try {
+            SourceFile simpleModel = new SourceFile(MyApplication.getContext().getFilesDir().toString() + "/simple-model.hmr");
+        }catch (Exception e){ return "aaaaaaaaaaaaa";}
         return "asdasdasdasd";
     }
 
@@ -23,7 +28,7 @@ public class test {
         try {
             //Loading a file with a model
             XTTModel model = null;
-            SourceFile simpleModel = new SourceFile(".\\app\\models\\simple-model.hmr");
+            SourceFile simpleModel = new SourceFile(MyApplication.getContext().getFilesDir().toString() + "/simple-model.hmr");
             HMRParser parser = new HMRParser();
 
             //Parsing the file with the model

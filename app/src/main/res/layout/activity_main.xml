@@ -86,5 +86,25 @@
         android:layout_centerHorizontal="true"
         android:onClick="button7OnClick"
         android:layout_marginTop="22dp"/>
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/button2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/tmp1"
+        android:onClick="tmp1OnClick"/>
+
+    <Button
+        android:text="Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tmp1"
+        android:layout_alignLeft="@+id/tmp1"
+        android:layout_alignStart="@+id/tmp1"
+        android:id="@+id/tmp2"
+        android:onClick="tmp2OnClick"/>
 </RelativeLayout>
 </ScrollView>

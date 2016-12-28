@@ -32,8 +32,10 @@ public class setSound implements Action {
             case "vibration":
                 //System.out.println("Wibracje włączone"); // TODO on Android
 
+
                 ResultActions rs = new ResultActions();
                 rs.vibrationsMode();
+
                 break;
         }
 
