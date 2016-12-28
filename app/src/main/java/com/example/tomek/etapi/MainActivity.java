@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.example.krzysiek.etapi.HeartDROID.test;
+import com.example.krzysiek.etapi.HeartDROID.Inference;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }catch (FileNotFoundException e){}
 
-        test test = new test();
-        out.setText(out.getText() + " \n" + test.ubabu());
-        //out.setText(out.getText() + " \n" + test.run());
+        Inference inference = new Inference(this);
+        inference.runInference();
+        //out.setText(out.getText() + " \n" + inference.runInference(); ????
 
     }
 

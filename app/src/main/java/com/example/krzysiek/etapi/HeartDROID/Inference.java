@@ -18,24 +18,16 @@ import heart.xtt.*;
  */
 public class Inference  {
 
-    static Context mContext;
+    static private Context mContext;
 
     public Inference(Context mContext) {
         this.mContext = mContext;
     }
-
     public static Context getmContext() {
         return mContext;
     }
-    public String ubabu(){
-        try {
-            SourceFile simpleModel = new SourceFile(MyApplication.getContext().getFilesDir().toString() + "/simple-model.hmr");
-        }catch (Exception e){ return "aaaaaaaaaaaaa";}
-        return "asdasdasdasd";
-    }
 
-
-    public void runInference(String [] args){
+    public void runInference(){
         try {
             //Loading a file with a model
             XTTModel model = null;
