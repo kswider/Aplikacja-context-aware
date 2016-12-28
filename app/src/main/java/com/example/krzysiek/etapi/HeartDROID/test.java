@@ -1,5 +1,7 @@
 package com.example.krzysiek.etapi.HeartDROID;
 
+import com.example.tomek.etapi.MyApplication;
+
 import heart.*;
 import heart.exceptions.*;
 import heart.parser.hmr.HMRParser;
@@ -13,7 +15,11 @@ import heart.xtt.*;
  */
 public class test {
 
-    public static void main(String [] args){
+    public String ubabu(){
+        return "asdasdasdasd";
+    }
+
+    public String run(){
         try {
             //Loading a file with a model
             XTTModel model = null;
@@ -52,5 +58,6 @@ public class test {
         } catch (ParsingSyntaxException e) {
             e.printStackTrace();
         }
+        return "asdasdasdasdasd";
     }
 }

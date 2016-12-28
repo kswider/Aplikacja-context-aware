@@ -17,7 +17,7 @@ import java.util.Calendar;
 public class GetSystemHourCallback implements Callback{
     @Override
     public void execute(Attribute subject, WorkingMemory wmm) {
-        System.out.println("Executing GetSystemHourCallback for "+subject.getName());
+        //System.out.println("Executing GetSystemHourCallback for "+subject.getName());
         int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         try {
             wmm.setAttributeValue(subject,new SimpleNumeric((double)hour),false);

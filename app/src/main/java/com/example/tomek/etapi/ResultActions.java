@@ -66,6 +66,11 @@ public class ResultActions {
         audio.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
     }
 
+    public void vibrationsMode(){
+        AudioManager audio = (AudioManager) MyApplication.getContext().getSystemService(Context.AUDIO_SERVICE);
+        audio.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+    }
+
     /**
      * Method returns phone to previous, unmuted mode.
      * @param mContext Context of the activity which calls the method.

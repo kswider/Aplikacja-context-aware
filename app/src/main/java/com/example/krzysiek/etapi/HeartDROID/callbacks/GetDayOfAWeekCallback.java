@@ -15,7 +15,7 @@ import com.example.tomek.etapi.ReadTime;
 public class GetDayOfAWeekCallback implements Callback{
     @Override
     public void execute(Attribute subject, WorkingMemory wmm) {
-        System.out.println("Executing GetDayOfAWeekCallback for "+subject.getName());
+        //System.out.println("Executing GetDayOfAWeekCallback for "+subject.getName());
         int day = ReadTime.ReadDay() - 1;
         day = (day == 0 ? 7 : day);
         try {

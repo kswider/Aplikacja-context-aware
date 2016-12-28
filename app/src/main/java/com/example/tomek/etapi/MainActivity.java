@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+import com.example.krzysiek.etapi.HeartDROID.test;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void button4OnClick(View v){
         ResultActions rs = new ResultActions();
-        rs.vibrationsMode(this);
+        rs.vibrationsMode();
         Toast toast = Toast.makeText( getApplicationContext(),
                 "Telefon w trycie samych wibracji", Toast.LENGTH_SHORT);
         toast.show();
@@ -50,6 +52,15 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+    public void button7OnClick(View v){
+        TextView out = (TextView) findViewById(R.id.textView);
+
+        test test = new test();
+
+        out.setText(out.getText() + " \n" + test.ubabu());
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +72,12 @@ public class MainActivity extends AppCompatActivity {
         final Button button4 = (Button) findViewById(R.id.button3);
         final Button button5 = (Button) findViewById(R.id.button3);
         final Button button6 = (Button) findViewById(R.id.button6);
+        final Button button7 = (Button) findViewById(R.id.button6);
+
+        TextView out = (TextView) findViewById(R.id.textView);
+
+        out.setText("null");
+
 }
 }
 

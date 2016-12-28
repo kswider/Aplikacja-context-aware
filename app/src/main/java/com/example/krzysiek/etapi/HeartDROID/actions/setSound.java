@@ -1,7 +1,13 @@
 package com.example.krzysiek.etapi.HeartDROID.actions;
 
+import android.widget.TextView;
+import android.widget.Toast;
+
 import heart.Action;
 import heart.State;
+
+import com.example.tomek.etapi.MyApplication;
+import com.example.tomek.etapi.R;
 import com.example.tomek.etapi.ResultActions;
 /**
  * Created by Krzysiek on 2016-12-27.
@@ -14,19 +20,20 @@ public class setSound implements Action {
         String argument = String.valueOf(state.getValueOfAttribute("sound_settings"));
         switch (argument){
             case "on":
-                System.out.println("Dźwięki włączone"); // TODO on Android
+                //System.out.println("Dźwięki włączone"); // TODO on Android
                 //ResultActions rs = new ResultActions();
                 //rs.normalMode(this);
                 break;
             case "off":
-                System.out.println("Dźwięki wyłączone"); // TODO on Android
+                //System.out.println("Dźwięki wyłączone"); // TODO on Android
                 //ResultActions rs = new ResultActions();
                 //rs.silentMode(this);
                 break;
             case "vibration":
-                System.out.println("Wibracje włączone"); // TODO on Android
-                //ResultActions rs = new ResultActions();
-                //rs.vibrationsMode(this);
+                //System.out.println("Wibracje włączone"); // TODO on Android
+
+                ResultActions rs = new ResultActions();
+                rs.vibrationsMode();
                 break;
         }
 
