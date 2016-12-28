@@ -13,7 +13,7 @@ import java.util.LinkedList;
  * Created by Krzysiek on 2016-12-15.
  */
 public class Test {
-    public static void main(String[] args){
+    public void run(){
         // We will use only these types in our model, user cant add his own types
         final Xtype hour_type = new Xtype("hour_type", "numeric", "[0.000 to 23.000]");
         final Xtype day_type = new Xtype("day_type", "symbolic", "[mon/1,tue/2,wen/3,thu/4,fri/5,sat/6,sun/7]","yes");

@@ -1,7 +1,13 @@
 package com.example.krzysiek.etapi.HeartDROID.actions;
 
+import android.widget.TextView;
+import android.widget.Toast;
+
 import heart.Action;
 import heart.State;
+
+import com.example.tomek.etapi.MyApplication;
+import com.example.tomek.etapi.R;
 import com.example.tomek.etapi.ResultActions;
 import com.example.krzysiek.etapi.HeartDROID.Inference;
 /**
@@ -16,15 +22,15 @@ public class setSound implements Action {
         ResultActions rs = new ResultActions();
         switch (argument){
             case "on":
-                System.out.println("Dźwięki włączone"); // TODO on Android
+                //System.out.println("Dźwięki włączone"); // TODO on Android
                 rs.normalMode(Inference.getmContext());
                 break;
             case "off":
-                System.out.println("Dźwięki wyłączone"); // TODO on Android
+                //System.out.println("Dźwięki wyłączone"); // TODO on Android
                 rs.silentMode(Inference.getmContext());
                 break;
             case "vibration":
-                System.out.println("Wibracje włączone"); // TODO on Android
+                //System.out.println("Wibracje włączone"); // TODO on Android
                 rs.vibrationsMode(Inference.getmContext());
                 break;
         }

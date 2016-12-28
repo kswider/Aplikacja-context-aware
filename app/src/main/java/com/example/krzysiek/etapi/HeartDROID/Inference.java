@@ -1,6 +1,9 @@
 package com.example.krzysiek.etapi.HeartDROID;
 
 import android.content.Context;
+import android.widget.Toast;
+
+import com.example.tomek.etapi.MyApplication;
 
 import heart.*;
 import heart.exceptions.*;
@@ -24,12 +27,19 @@ public class Inference  {
     public static Context getmContext() {
         return mContext;
     }
+    public String ubabu(){
+        try {
+            SourceFile simpleModel = new SourceFile(MyApplication.getContext().getFilesDir().toString() + "/simple-model.hmr");
+        }catch (Exception e){ return "aaaaaaaaaaaaa";}
+        return "asdasdasdasd";
+    }
+
 
     public void runInference(String [] args){
         try {
             //Loading a file with a model
             XTTModel model = null;
-            SourceFile simpleModel = new SourceFile(".\\app\\models\\simple-model.hmr");
+            SourceFile simpleModel = new SourceFile(MyApplication.getContext().getFilesDir().toString() + "/simple-model.hmr");
             HMRParser parser = new HMRParser();
 
             //Parsing the file with the model
@@ -64,5 +74,6 @@ public class Inference  {
         } catch (ParsingSyntaxException e) {
             e.printStackTrace();
         }
+        return "asdasdasdasdasd";
     }
 }
