@@ -74,6 +74,5 @@ public class Inference  {
         } catch (ParsingSyntaxException e) {
             e.printStackTrace();
         }
-        return "asdasdasdasdasd";
     }
 }
