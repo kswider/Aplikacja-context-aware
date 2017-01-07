@@ -66,19 +66,8 @@ public class MainActivity extends AppCompatActivity {
         createBaisicModelFiles cr = new createBaisicModelFiles();
         cr.create(this);
 
-        try {
-            File file = new File(MyApplication.getContext().getFilesDir().toString() + "/simple-model.hmr");
-            Scanner in = new Scanner(file);
-
-            while (in.hasNext()) {
-                String zdanie = in.nextLine();
-                out.setText(out.getText() + "\n" + zdanie);
-            }
-        }catch (FileNotFoundException e){}
-
         Inference inference = new Inference(this);
         inference.runInference();
-        //out.setText(out.getText() + " \n" + inference.runInference(); ????
 
     }
 

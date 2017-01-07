@@ -20,12 +20,22 @@ public class ReadTime {
 
     /**
      * Method returns current hour
-     * @return String with pattern HH:MM
+     * @return String with pattern HH
      */
-    public static String ReadHour(){
+    public static int ReadHour(){
         Calendar c = Calendar.getInstance();
-        return c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+        return c.get(Calendar.HOUR_OF_DAY);
     }
+
+    /**
+     * Method returns current minute
+     * @return String with pattern MM
+     */
+    public static int ReadMinute(){
+        Calendar c = Calendar.getInstance();
+        return c.get(Calendar.MINUTE);
+    }
+
 
     /**
      * Method returns current date

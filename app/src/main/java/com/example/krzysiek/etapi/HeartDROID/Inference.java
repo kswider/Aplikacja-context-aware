@@ -1,6 +1,7 @@
 package com.example.krzysiek.etapi.HeartDROID;
 
 import android.content.Context;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import com.example.tomek.etapi.MyApplication;
@@ -11,6 +12,25 @@ import heart.parser.hmr.HMRParser;
 import heart.parser.hmr.runtime.SourceFile;
 import heart.uncertainty.ConflictSetFireAll;
 import heart.xtt.*;
+
+import java.util.LinkedList;
+
+import heart.*;
+import heart.alsvfd.Formulae;
+import heart.alsvfd.SimpleNumeric;
+import heart.alsvfd.SimpleSymbolic;
+import heart.alsvfd.Value;
+import heart.alsvfd.expressions.ExpressionInterface;
+import heart.exceptions.*;
+import heart.parser.hmr.HMRParser;
+import heart.parser.hmr.runtime.SourceFile;
+import heart.uncertainty.ConflictSetFireAll;
+import heart.xtt.Attribute;
+import heart.xtt.Decision;
+import heart.xtt.Rule;
+import heart.xtt.Table;
+import heart.xtt.Type;
+import heart.xtt.XTTModel;
 
 
 /**
@@ -27,6 +47,7 @@ public class Inference  {
         return mContext;
     }
 
+    //public static void main(String args []){
     public void runInference(){
         try {
             //Loading a file with a model
@@ -40,7 +61,7 @@ public class Inference  {
 
             try{
                 Debug.debugLevel = Debug.Level.SILENT;
-                HeaRT.fixedOrderInference(model, new String[]{"SetSounds"},
+                HeaRT.goalDrivenInference(model, new String[]{"SetSounds"},
                         new Configuration.Builder().setCsr(new ConflictSetFireAll())
                                 .build());
 
