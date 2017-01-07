@@ -1,26 +1,26 @@
 package com.example.krzysiek.etapi.HeartDROID.callbacks;
 
+import com.example.krzysiek.etapi.HeartDROID.Inference;
+import com.example.tomek.etapi.ReadLocation;
+
 import heart.Callback;
 import heart.Debug;
-import heart.HeaRT;
 import heart.WorkingMemory;
 import heart.alsvfd.SimpleNumeric;
 import heart.exceptions.AttributeNotRegisteredException;
 import heart.exceptions.NotInTheDomainException;
 import heart.xtt.Attribute;
 
-import java.util.Calendar;
 /**
- * Created by Krzysiek on 2016-12-27.
+ * Created by Krzysiek on 2017-01-07.
  */
 
-public class GetSystemHourCallback implements Callback{
+public class GetLatitude implements Callback {
     @Override
     public void execute(Attribute subject, WorkingMemory wmm) {
-        //System.out.println("Executing GetSystemHourCallback for "+subject.getName());
-        int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        double latitude = ReadLocation.readLatitudeByBest(Inference.getmContext());
         try {
-            wmm.setAttributeValue(subject,new SimpleNumeric((double)hour),false);
+            wmm.setAttributeValue(subject,new SimpleNumeric(latitude),false);
         } catch (AttributeNotRegisteredException e) {
             Debug.debug("CALLBACK",
                     Debug.Level.WARNING,

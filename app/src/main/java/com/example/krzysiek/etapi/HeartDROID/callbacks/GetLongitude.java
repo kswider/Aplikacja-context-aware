@@ -1,6 +1,7 @@
 package com.example.krzysiek.etapi.HeartDROID.callbacks;
 
-import android.widget.Toast;
+import com.example.krzysiek.etapi.HeartDROID.Inference;
+import com.example.tomek.etapi.ReadLocation;
 
 import heart.Callback;
 import heart.Debug;
@@ -10,20 +11,16 @@ import heart.exceptions.AttributeNotRegisteredException;
 import heart.exceptions.NotInTheDomainException;
 import heart.xtt.Attribute;
 
-import com.example.tomek.etapi.MyApplication;
-import com.example.tomek.etapi.ReadTime;
 /**
- * Created by Krzysiek on 2016-12-27.
+ * Created by Krzysiek on 2017-01-07.
  */
 
-public class GetDayOfAWeekCallback implements Callback{
+public class GetLongitude implements Callback {
     @Override
     public void execute(Attribute subject, WorkingMemory wmm) {
-        //System.out.println("Executing GetDayOfAWeekCallback for "+subject.getName());
-        int day = ReadTime.ReadDay() - 1;
-        day = (day == 0 ? 7 : day);
+        double longitude = ReadLocation.readLongitudeByBest(Inference.getmContext());
         try {
-            wmm.setAttributeValue(subject,new SimpleNumeric((double)day),false);
+            wmm.setAttributeValue(subject,new SimpleNumeric(longitude),false);
         } catch (AttributeNotRegisteredException e) {
             Debug.debug("CALLBACK",
                     Debug.Level.WARNING,
