@@ -22,14 +22,14 @@ xattr [name: hour,
 	   class: simple,
 	   type: hour_type,
 	   comm: in,
-	   callback: 'com.example.krzysiek.etapi.HeartDROID.callbacks.GetSystemHourCallback'
+	   callback: 'com.example.krzysiek.etapi.HeartDROID.callbacks.GetTime'
 	  ].	  
 xattr [name: day,
 	   abbrev : day1,
 	   class: simple,
 	   type: day_type,
 	   comm: in,
-	   callback: 'com.example.krzysiek.etapi.HeartDROID.callbacks.GetDayOfAWeekCallback'
+	   callback: 'com.example.krzysiek.etapi.HeartDROID.callbacks.GetDayOfAWeek'
 	  ].
 xattr [name: sound_settings,
 	   abbrev : sound1,
@@ -55,7 +55,7 @@ xrule 'SetSounds'/2:
 	==>
 	   [sound_settings set on]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.setSound'].
+		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].
 
 xrule 'SetSounds'/3: 
 	   [hour in [0.000 to 7.000],
@@ -63,18 +63,18 @@ xrule 'SetSounds'/3:
 	==>
 	   [sound_settings set off]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.setSound'].		   
+		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].		   
 xrule 'SetSounds'/4: 
 	   [hour in [0.000 to 7.000],
 	    day in [sat to sun]]
 	==>
 	   [sound_settings set off]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.setSound'].		   
+		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].		   
 xrule 'SetSounds'/5: 
 	   [hour in [8.000 to 23.000],
 	    day in [sat to sun]]
 	==>
 	   [sound_settings set on]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.setSound'].		   
+		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].		   

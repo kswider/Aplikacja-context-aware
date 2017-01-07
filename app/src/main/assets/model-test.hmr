@@ -1,6 +1,6 @@
 xtype [name: hour_type,
 	   base: numeric,
-	   domain: [0.000 to 23.000]
+	   domain: [0.0000 to 23.0000]
 	  ].
 xtype [name: day_type,
 	   base: symbolic,
@@ -10,6 +10,14 @@ xtype [name: day_type,
 xtype [name: location_type,
 	   base: symbolic,
 	   domain: [agh,home]
+	  ].
+xtype [name: longitude_type,
+	   base: numeric,
+	   domain: [-180.0000000 to 180.0000000]
+	  ].
+xtype [name: latitude_type,
+	   base: numeric,
+	   domain: [-90.0000000 to 90.0000000]
 	  ].
 xtype [name: sound_settings_type,
 	   base: symbolic,
@@ -23,7 +31,21 @@ xattr [name: hour,
 	   type: hour_type,
 	   comm: in,
 	   callback: 'com.example.krzysiek.etapi.HeartDROID.callbacks.GetTime'
-	  ].	  
+	  ].
+xattr [name: longitude,
+	   abbrev : longitude1,
+	   class: simple,
+	   type: longitude_type,
+	   comm: in,
+	   callback: 'com.example.krzysiek.etapi.HeartDROID.callbacks.GetLongitude'
+	  ].
+xattr [name: latitude,
+	   abbrev : latitude,
+	   class: simple,
+	   type: latitude_type,
+	   comm: in,
+	   callback: 'com.example.krzysiek.etapi.HeartDROID.callbacks.GetLatitude'
+	  ].
 xattr [name: day,
 	   abbrev : day1,
 	   class: simple,
@@ -37,19 +59,18 @@ xattr [name: sound_settings,
 	   type: sound_settings_type,
 	   comm: inter
 	  ].
-	  
-	  
+
+
 xschm 'SetSounds': [hour,day] ==> [sound_settings].
 
-
-xrule 'SetSounds'/1: 
+xrule 'SetSounds'/1:
 	   [hour in [8.000 to 17.000],
 	    day in [mon to fri]]
 	==>
 	   [sound_settings set vibration]
 		**>
 		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].
-xrule 'SetSounds'/2: 
+xrule 'SetSounds'/2:
 	   [hour in [18.000 to 23.000],
 	    day in [mon to fri]]
 	==>
@@ -57,24 +78,25 @@ xrule 'SetSounds'/2:
 		**>
 		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].
 
-xrule 'SetSounds'/3: 
+xrule 'SetSounds'/3:
 	   [hour in [0.000 to 7.000],
 	    day in [mon to fri]]
 	==>
 	   [sound_settings set off]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].		   
-xrule 'SetSounds'/4: 
+		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].
+xrule 'SetSounds'/4:
 	   [hour in [0.000 to 7.000],
 	    day in [sat to sun]]
 	==>
 	   [sound_settings set off]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].		   
-xrule 'SetSounds'/5: 
+		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].
+
+xrule 'SetSounds'/5:
 	   [hour in [8.000 to 23.000],
 	    day in [sat to sun]]
 	==>
 	   [sound_settings set on]
 		**>
-		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].		   
+		   ['com.example.krzysiek.etapi.HeartDROID.actions.setSound'].
