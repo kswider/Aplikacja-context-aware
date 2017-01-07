@@ -15,15 +15,23 @@ import java.util.LinkedList;
 public class Test {
     public void run(){
         // We will use only these types in our model, user cant add his own types
-        final Xtype hour_type = new Xtype("hour_type", "numeric", "[0.000 to 23.000]");
+        final Xtype hour_type = new Xtype("hour_type", "numeric", "[0 to 23]");
+        final Xtype minute_type = new Xtype("minute_type", "numeric", "[0 to 59");
+        final Xtype time_type = new Xtype("time_type", "numeric", "[0.0000 to 23.0000]");
         final Xtype day_type = new Xtype("day_type", "symbolic", "[mon/1,tue/2,wen/3,thu/4,fri/5,sat/6,sun/7]","yes");
-        final Xtype location_type = new Xtype("location_type", "symbolic", "[AGH,home]");
+        final Xtype longitude_type = new Xtype("longitude_type", "numeric", "[-180.0000000 to 180.0000000]");
+        final Xtype latitude_type = new Xtype("latitude_type", "numeric","[-90.0000000 to 90.0000000]");
         final Xtype sound_type = new Xtype("sound_type","symbolic","[on,off,vibration]");
+
         //System.out.println(hour_type.returnStringForModel());
 
         //Creating example of attribute
-        Xattr hour = new Xattr(hour_type,"hour","hour1" ,"in","getHour");
+        Xattr hour = new Xattr(hour_type,"hour","hour1" ,"in","");
+        Xattr minute = new Xattr(minute_type,"minute","minute1" ,"in","");
+        Xattr time = new Xattr(time_type,"time","time1" ,"in","getTime");
         Xattr day = new Xattr(day_type,"day","day1","in","getDay");
+        Xattr longitude = new Xattr(longitude_type,"longitude","longitude1","in","getLongitude");
+        Xattr latitude = new Xattr(latitude_type,"latitude","latitude1","in","getLatitude");
         Xattr sound = new Xattr(sound_type,"sound","sound1","inter","");
         //System.out.println(atrybutE.returnStringForModel());
         LinkedList<Xattr> attrList1 = new LinkedList();

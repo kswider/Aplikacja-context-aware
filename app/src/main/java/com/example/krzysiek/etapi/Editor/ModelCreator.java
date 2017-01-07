@@ -4,6 +4,7 @@ import com.example.krzysiek.etapi.Editor.Xtypes.Xattr;
 import com.example.krzysiek.etapi.Editor.Xtypes.Xrule;
 import com.example.krzysiek.etapi.Editor.Xtypes.Xschm;
 import com.example.krzysiek.etapi.Editor.Xtypes.Xtype;
+import com.example.tomek.etapi.MyApplication;
 
 import java.io.PrintWriter;
 import java.io.*;
@@ -59,12 +60,12 @@ public class ModelCreator implements Serializable {
 
     /**
      * Method saves current model in 2 files:
-     * 1) modelName.txt - model which is used by HearTDROID
+     * 1) modelName.hmr - model which is used by HearTDROID
      * 2) modelName.ser - serialized model which is used in loading models to application
      */
     public void saveModel(){
         PrintWriter out = null;
-        File file = new File(".\\app\\models\\" + modelName + ".hmr");
+        File file = new File(MyApplication.getContext().getFilesDir().toString() + "/" + modelName + ".hmr");
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
@@ -81,7 +82,7 @@ public class ModelCreator implements Serializable {
             for (Xrule i : rules) {
                 out.println(i.returnStringForModel());
             }
-            fos = new FileOutputStream(".\\app\\models\\" + modelName + ".ser");
+            fos = new FileOutputStream(MyApplication.getContext().getFilesDir().toString() + "/" + modelName + ".ser");
             oos = new ObjectOutputStream(fos);
             oos.writeObject(this);
         } catch (IOException e){
@@ -106,7 +107,7 @@ public class ModelCreator implements Serializable {
         ObjectInputStream ois = null;
         ModelCreator model = null;
         try{
-            fis = new FileInputStream(".\\app\\models\\" + modelName + ".ser");
+            fis = new FileInputStream(MyApplication.getContext().getFilesDir().toString() + "/" + modelName + ".ser");
             ois = new ObjectInputStream(fis);
             model = (ModelCreator) ois.readObject();
 
