@@ -2,8 +2,6 @@ package pl.kit.context_aware.lemur;
 
         import android.content.Intent;
         import android.os.Bundle;
-        import android.support.design.widget.FloatingActionButton;
-        import android.support.design.widget.Snackbar;
         import android.util.Log;
         import android.view.View;
         import android.support.design.widget.NavigationView;
@@ -12,7 +10,6 @@ package pl.kit.context_aware.lemur;
         import android.support.v7.app.ActionBarDrawerToggle;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
-        import android.view.Menu;
         import android.view.MenuItem;
         import android.widget.Toast;
 
@@ -22,7 +19,7 @@ package pl.kit.context_aware.lemur;
         import pl.kit.context_aware.lemur.Readers.ReadTime;
         import pl.kit.context_aware.lemur.TmpTests.TestService;
 
-public class ScriptstList extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public void SilentButtonOnClick(View v){
@@ -55,20 +52,18 @@ public class ScriptstList extends AppCompatActivity
     }
 
     public void startServiceButtonOnClick(View v){
-        Log.d("App","123");
         startService(new Intent(getBaseContext(), TestService.class));
-        Log.d("App","124");
     }
 
     public void stopServiceButtonOnClick(View v){
-        Log.d("App","123");
         stopService(new Intent(getBaseContext(), TestService.class));
-        Log.d("App","124");
     }
 
     public void runSimModelButtonOnClick(View v){
-        Log.d("App","123");
+    }
 
+    public void floatingButtonOnClick(View v){
+        Toast.makeText(this,"Replace it with adding script action",Toast.LENGTH_SHORT).show();
     }
 
 
@@ -77,10 +72,10 @@ public class ScriptstList extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scriptst_list);
 
-        ToDoFragment tdf = new ToDoFragment();
+        ScriptsList sl = new ScriptsList();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container,tdf);
+        fragmentTransaction.replace(R.id.fragment_container,sl);
         fragmentTransaction.commit();
 
         /*ActionsTests at = new ActionsTests();
@@ -121,10 +116,10 @@ public class ScriptstList extends AppCompatActivity
         int id = item.getItemId();
 
          if (id == R.id.MyScripts) {
-             ToDoFragment tdf = new ToDoFragment();
+             ScriptsList sl = new ScriptsList();
              android.support.v4.app.FragmentTransaction fragmentTransaction =
                      getSupportFragmentManager().beginTransaction();
-             fragmentTransaction.replace(R.id.fragment_container,tdf);
+             fragmentTransaction.replace(R.id.fragment_container,sl);
              fragmentTransaction.commit();
         } else if (id == R.id.IEScripts){
              ToDoFragment tdf = new ToDoFragment();

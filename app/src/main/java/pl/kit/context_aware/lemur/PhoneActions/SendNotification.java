@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.support.v4.app.TaskStackBuilder;
 
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.ScriptstList;
+import pl.kit.context_aware.lemur.MainActivity;
 
 /**
  * Created by Tomek on 2017-01-07.
@@ -28,11 +28,11 @@ public class SendNotification {
                         .setContentTitle(title)
                         .setContentText(text);
 
-        Intent resultIntent = new Intent(mContext, ScriptstList.class);
+        Intent resultIntent = new Intent(mContext, MainActivity.class);
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(mContext);
 
-        stackBuilder.addParentStack(ScriptstList.class);
+        stackBuilder.addParentStack(MainActivity.class);
 
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
