@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pl.kit.context_aware.lemur.ReadersTests">
+
+    <Button
+        android:text="@string/rt_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:id="@+id/ReadLocationButton"
+        android:onClick="ReadLocationButtonOnClick"
+        android:layout_below="@+id/ReadTimeButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/rt_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:id="@+id/ReadTimeButton"
+        android:onClick="ReadTimeButtonOnClick"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Lemur</string>
+    <string name="tomek_mail">tomaboro96@gmail.com</string>
+    <string name="krzysiek_mail">krzysztof.swider@hotmail.com</string>
+
+    <string name="tests_ld">Testy</string>
+        <string name="readers_tests_ld">Odczyt</string>
+        <string name="actions_tests_ld">Akcje</string>
+        <string name="other_tests_ld">Pozostałe</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

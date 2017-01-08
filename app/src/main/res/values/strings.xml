@@ -1,3 +1,47 @@
 <resources>
-    <string name="app_name">EtapI</string>
+    <!-- Baisic info about App-->
+    <string name="app_name">Lemur</string>
+    <string name="tomek_mail">tomaboro96@gmail.com</string>
+    <string name="krzysiek_mail">krzysztof.swider@hotmail.com</string>
+
+    <!-- List of NavigationView elements -->
+    <string name="ld_tests">Tests</string>
+    <string name="ld_readers_tests">Readers</string>
+    <string name="ld_actions_tests">Actions</string>
+    <string name="ld_other_tests">Others</string>
+    <string name="ld_myScripts">My Scripts</string>
+    <string name="ld_IEScripts">Import/Export Scripts</string>\
+    <string name="ld_others">Others</string>
+    <string name="ld_Settings">Settings</string>
+    <string name="ld_AboutApp">About App</string>
+    <string name="ld_RateApp">Rate App</string>
+
+    <!--Actions Tests -->
+    <string name="at_silent">Silend Mode</string>
+    <string name="at_vibration">Vibration Mode</string>
+    <string name="at_normal">Normal Mode</string>
+    <string name="at_SendNotify">Send Notify</string>
+
+    <!-- Readers Tests-->
+    <string name="rt_time">Read Time</string>
+    <string name="rt_location">Read Location</string>
+
+    <!--Other Tests-->
+    <string name="ot_startService">Start Service</string>
+    <string name="ot_stopService">Stop Service</string>
+    <string name="ot_runHEART">Run simple-model.hmr</string>
+
+
+    <!--Automaticcaly created-->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <!--About App-->
+    <string name="AppVersion">Lemur v0.1</string>
+    <string name="AppWarning">This is the dev version of the App. Release version is still in progress.</string>
+    <string name="AppInfos">This App was created by Tomasz Borowicz and Krzysztof Swider as the final project for objective programming.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

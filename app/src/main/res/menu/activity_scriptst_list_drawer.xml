@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group>
+        <item
+            android:id="@+id/MyScripts"
+            android:title="@string/ld_myScripts" />
+
+        <item
+            android:id="@+id/IEScripts"
+            android:title="@string/ld_IEScripts" />
+    </group>
+
+    <item android:title="@string/ld_others">
+        <menu>
+            <item
+                android:id="@+id/Settings"
+                android:title="@string/ld_Settings" />
+
+            <item
+                android:id="@+id/AboutApp"
+                android:title="@string/ld_AboutApp" />
+
+            <item
+                android:id="@+id/RateApp"
+                android:title="@string/ld_RateApp" />
+        </menu>
+    </item>
+
+    <item android:title="@string/ld_tests">
+        <menu>
+        <item
+            android:id="@+id/Readers"
+            android:title="@string/ld_readers_tests" />
+
+            <item
+                android:id="@+id/Actions"
+                android:title="@string/ld_actions_tests" />
+
+            <item
+                android:id="@+id/Others"
+                android:title="@string/ld_other_tests" />
+        </menu>
+    </item>
+
+</menu>

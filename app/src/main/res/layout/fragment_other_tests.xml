@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pl.kit.context_aware.lemur.OtherTests">
+
+    <Button
+        android:text="@string/ot_stopService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/stopServiceButton"
+        android:layout_below="@+id/startServiceButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="stopServiceButtonOnClick"/>
+
+    <Button
+        android:text="@string/ot_runHEART"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:id="@+id/runSimModelButton"
+        android:layout_below="@+id/stopServiceButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="runSimModelButtonOnClick"/>
+
+    <Button
+        android:text="@string/ot_startService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="71dp"
+        android:id="@+id/startServiceButton"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="startServiceButtonOnClick"/>
+
+</RelativeLayout>
