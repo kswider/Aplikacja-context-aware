@@ -16,9 +16,9 @@ import android.support.v4.app.ActivityCompat;
  */
 
 public class ReadLocation {
-    private Criteria crit;
-    private LocationManager locMan;
-    private Location loc;
+    private static Criteria crit;
+    private static LocationManager locMan;
+    private static Location loc;
 
     /**
      * Method returns current location in String format
@@ -26,7 +26,7 @@ public class ReadLocation {
      * @param mContext Context of the activity which calls the method.
      * @return String in format Longitude Latitude
      */
-    public String readLocationByGPS(Context mContext) {
+    public static String readLocationByGPS(Context mContext) {
         return new String(readLongitudeByNetwork(mContext) + "    " + readLatitudeByNetwork(mContext));
     }
 
@@ -36,7 +36,7 @@ public class ReadLocation {
      * @param mContext Context of the activity which calls the method.
      * @return String in format Longitude Latitude
      */
-    public String readLocationByNetwork(Context mContext) {
+    public static String readLocationByNetwork(Context mContext) {
         return new String(readLongitudeByGPS(mContext) + "    " + readLatitudeByGPS(mContext));
     }
 
@@ -46,7 +46,7 @@ public class ReadLocation {
      * @param mContext Context of the activity which calls the method.
      * @return String in format Longitude Latitude
      */
-    public String readLocationByBest(Context mContext) {
+    public static String readLocationByBest(Context mContext) {
         return new String(readLongitudeByBest(mContext) + "    " + readLatitudeByBest(mContext));
     }
 
@@ -55,7 +55,7 @@ public class ReadLocation {
      * @param mContext Context of the activity which calls the method.
      * @return Longitude in double format
      */
-    public double readLongitudeByGPS(Context mContext) {
+    public static double readLongitudeByGPS(Context mContext) {
         crit = new Criteria();
         locMan = (LocationManager) mContext.getSystemService(mContext.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -77,7 +77,7 @@ public class ReadLocation {
      * @param mContext Context of the activity which calls the method.
      * @return Latitude in double format
      */
-    public double readLatitudeByGPS(Context mContext) {
+    public static double readLatitudeByGPS(Context mContext) {
         crit = new Criteria();
         locMan = (LocationManager) mContext.getSystemService(mContext.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -99,7 +99,7 @@ public class ReadLocation {
      * @param mContext Context of the activity which calls the method.
      * @return Longitude in double format
      */
-    public double readLongitudeByNetwork(Context mContext) {
+    public static double readLongitudeByNetwork(Context mContext) {
         crit = new Criteria();
         locMan = (LocationManager) mContext.getSystemService(mContext.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -121,7 +121,7 @@ public class ReadLocation {
      * @param mContext Context of the activity which calls the method.
      * @return Latitude in double format
      */
-    public double readLatitudeByNetwork(Context mContext) {
+    public static double readLatitudeByNetwork(Context mContext) {
         crit = new Criteria();
         locMan = (LocationManager) mContext.getSystemService(mContext.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -143,7 +143,7 @@ public class ReadLocation {
      * @param mContext Context of the activity which calls the method.
      * @return Longitude in double format
      */
-    public double readLongitudeByBest(Context mContext) {
+    public static double readLongitudeByBest(Context mContext) {
         crit = new Criteria();
         locMan = (LocationManager) mContext.getSystemService(mContext.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -165,7 +165,7 @@ public class ReadLocation {
      * @param mContext Context of the activity which calls the method.
      * @return Latitude in double format
      */
-    public double readLatitudeByBest(Context mContext) {
+    public static double readLatitudeByBest(Context mContext) {
         crit = new Criteria();
         locMan = (LocationManager) mContext.getSystemService(mContext.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

@@ -1,7 +1,4 @@
 <resources>
-    <string name="app_name">Lemur</string>
-    <string name="tomek_mail">tomaboro96@gmail.com</string>
-    <string name="krzysiek_mail">krzysztof.swider@hotmail.com</string>
 
     <string name="tests_ld">Testy</string>
         <string name="readers_tests_ld">Odczyt</string>
@@ -11,5 +8,24 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Ustawienia</string>
+    <string name="AppInfos">Ta aplikacja została stworzona przez Tomasza Borowicza i Krzysztowa Swidra jako projekt z Programowania Obiektowego.</string>
+    <string name="AppWarning">Ta aplikacja to wersja deweloperksa. Pełna wersja aplikacji wciąż znajduje się w przygotowaniu.</string>
+    <string name="at_SendNotify">Wyślij Powiadomienie</string>
+    <string name="at_normal">Tryb Normalny</string>
+    <string name="at_silent">Tryb Cichy</string>
+    <string name="at_vibration">Tryb Wibracj</string>
+    <string name="ld_AboutApp">O Aplikacji</string>
+    <string name="ld_IEScripts">Importuj/Eksportuj Skrypty</string>
+    <string name="ld_RateApp">Oceń Aplikację</string>
+    <string name="ld_Settings">Ustawienia</string>
+    <string name="ld_actions_tests">Akcje</string>
+    <string name="ld_myScripts">Moje Skrypty</string>
+    <string name="ld_other_tests">Inne</string>
+    <string name="ld_others">Inee</string>
+    <string name="ld_readers_tests">Odczyt</string>
+    <string name="ld_tests">Testy</string>
+    <string name="ot_runHEART">Uruchom simple-model.hmr</string>
+    <string name="rt_location">Odczyaj Położenie</string>
+    <string name="rt_time">Odczytaj Czas</string>
 </resources>

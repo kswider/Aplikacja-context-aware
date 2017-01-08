@@ -1,8 +1,8 @@
 <resources>
     <!-- Baisic info about App-->
-    <string name="app_name">Lemur</string>
-    <string name="tomek_mail">tomaboro96@gmail.com</string>
-    <string name="krzysiek_mail">krzysztof.swider@hotmail.com</string>
+    <string name="app_name" translatable="false">Lemur</string>
+    <string name="tomek_mail" translatable="false">tomaboro96@gmail.com</string>
+    <string name="krzysiek_mail" translatable="false">krzysztof.swider@hotmail.com</string>
 
     <!-- List of NavigationView elements -->
     <string name="ld_tests">Tests</string>
@@ -27,8 +27,8 @@
     <string name="rt_location">Read Location</string>
 
     <!--Other Tests-->
-    <string name="ot_startService">Start Service</string>
-    <string name="ot_stopService">Stop Service</string>
+    <string name="ot_startService" translatable="false">Start Service</string>
+    <string name="ot_stopService" translatable="false">Stop Service</string>
     <string name="ot_runHEART">Run simple-model.hmr</string>
 
 
@@ -38,10 +38,14 @@
     <string name="action_settings">Settings</string>
 
     <!--About App-->
-    <string name="AppVersion">Lemur v0.1</string>
+    <string name="AppVersion" translatable="false">Lemur v0.1</string>
     <string name="AppWarning">This is the dev version of the App. Release version is still in progress.</string>
     <string name="AppInfos">This App was created by Tomasz Borowicz and Krzysztof Swider as the final project for objective programming.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="other_tests_ld">Others</string>
+    <string name="readers_tests_ld">Readers</string>
+    <string name="actions_tests_ld">Actions</string>
+    <string name="tests_ld">Tests</string>
 </resources>

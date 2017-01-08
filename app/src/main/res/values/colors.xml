@@ -3,4 +3,6 @@
     <color name="colorPrimary">#f2c028</color>
     <color name="colorPrimaryDark">#f2c028</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="warningColor">#ff0033</color>
+    <color name="toDoColor">#ffcc00</color>
 </resources>
