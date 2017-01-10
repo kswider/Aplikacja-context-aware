@@ -28,4 +28,12 @@
     <string name="ot_runHEART">Uruchom simple-model.hmr</string>
     <string name="rt_location">Odczyaj Położenie</string>
     <string name="rt_time">Odczytaj Czas</string>
+    <string name="es_Added">Skrypt dodano pomyślnie</string>
+    <string name="es_Script">Skrypt</string>
+    <string name="es_Save">Zapisz</string>
+    <string name="title_activity_edit_script">Skrypt</string>
+    <string name="es_SetAction">Ustaw Akcje</string>
+    <string name="es_SetLocation">Ustaw Lokacje</string>
+    <string name="es_SetTime">Ustaw Czas</string>
+    <string name="es_SetDate">Ustaw Date</string>
 </resources>

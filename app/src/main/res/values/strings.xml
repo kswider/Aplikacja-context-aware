@@ -42,10 +42,45 @@
     <string name="AppWarning">This is the dev version of the App. Release version is still in progress.</string>
     <string name="AppInfos">This App was created by Tomasz Borowicz and Krzysztof Swider as the final project for objective programming.</string>
 
+    <!--EditScript-->
+    <string name="es_Save">Save</string>
+    <string name="es_Script">Script</string>
+    <string name="es_Added">Script Added successfully</string>
+    <string name="es_SetTime">Set Time</string>
+    <string name="es_SetDate">Set Date</string>
+    <string name="es_SetDay">Set Day</string>
+    <string name="es_SetLocation">Set Location</string>
+    <string name="es_SetAction">Set Action</string>
+    <string name="es_notSelected">----</string>
+
+    <!--Time Picker-->
+    <string name="tp_cancel">Cancel</string>
+    <string name="tp_ok">OK</string>
+    <string name="tp_setTime">Set Time</string>
+
+    <!--DayOfWeekPicker-->
+    <string-array name="days">
+        <item name="day_1">Monday</item>
+        <item name="day_2">Tuesday</item>
+        <item name="day_3">Wednesday</item>
+        <item name="day_4">Thursday</item>
+        <item name="day_5">Friday</item>
+        <item name="day_6">Saturday</item>
+        <item name="day_7">Sunday</item>
+    </string-array>
+
+    <string-array name="actions">
+        <item name="action_1">Action 1</item>
+        <item name="action_2">Action 2</item>
+        <item name="action_3">Action 3</item>
+        <item name="action_4">Action 4</item>
+    </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="other_tests_ld">Others</string>
     <string name="readers_tests_ld">Readers</string>
     <string name="actions_tests_ld">Actions</string>
     <string name="tests_ld">Tests</string>
+    <string name="title_activity_edit_script">Script</string>
 </resources>

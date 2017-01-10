@@ -1,0 +1,42 @@
+package pl.kit.context_aware.lemur;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.kit.context_aware.lemur.TmpTests.ListItem;
+
+/**
+ * Created by Tomek on 09.01.2017.
+ */
+
+public class EditScriptArrayAdapter extends ArrayAdapter<ListItem> {
+
+    public EditScriptArrayAdapter(Context context, ArrayList<ListItem> Texts) {
+        super(context,0, Texts);
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // Get the data item for this position
+        ListItem item = getItem(position);
+        // Check if an existing view is being reused, otherwise inflate the view
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_element, parent, false);
+        }
+        // Lookup view for data population
+        TextView main = (TextView) convertView.findViewById(R.id.le_main);
+        TextView sub = (TextView) convertView.findViewById(R.id.le_sub);
+        // Populate the data into the template view using the data object
+        main.setText(item.mainText);
+        sub.setText(item.subText);
+        // Return the completed view to render on screen
+        return convertView;
+    }
+}

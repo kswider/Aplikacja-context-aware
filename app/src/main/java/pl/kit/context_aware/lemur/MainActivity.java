@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void floatingButtonOnClick(View v){
-        Toast.makeText(this,"Replace it with adding script action",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this,EditScript.class);
+        startActivity(intent);
     }
 
 

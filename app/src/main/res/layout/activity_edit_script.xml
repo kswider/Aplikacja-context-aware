@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/okienko"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="pl.kit.context_aware.lemur.MainActivity"
+    tools:context="pl.kit.context_aware.lemur.EditScript"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -14,7 +15,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/edit_script_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
@@ -22,10 +23,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_container">
-    </android.support.design.widget.CoordinatorLayout>
+    <include layout="@layout/content_edit_script" />
 
 </LinearLayout>
