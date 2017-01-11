@@ -18,6 +18,10 @@ public class Xschm implements XTT2StringRepresentation, Serializable {
         this.attributesToSetList = attributesToSetList;
     }
 
+    public String getName() {
+        return name;
+    }
+
     /**
      * Method returns String representation of object, useful in saving model into file
      * @return String representation of Xschm

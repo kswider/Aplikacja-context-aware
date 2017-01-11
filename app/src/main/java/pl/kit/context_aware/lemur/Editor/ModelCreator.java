@@ -1,6 +1,8 @@
 package pl.kit.context_aware.lemur.Editor;
 
 
+import android.content.Context;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,6 +13,9 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+import pl.kit.context_aware.lemur.Editor.RuleExpressions.ALSVExpression;
+import pl.kit.context_aware.lemur.Editor.RuleExpressions.ActionExpression;
+import pl.kit.context_aware.lemur.Editor.RuleExpressions.DecisionExpression;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xattr;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xrule;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xtype;
@@ -27,8 +32,9 @@ public class ModelCreator implements Serializable {
     private LinkedList<Xschm>  schemes = new LinkedList<>();
     private LinkedList<Xrule> rules = new LinkedList<>();
 
-    public ModelCreator(String modelName,String path){
+    public ModelCreator(String modelName, String path){
         this.modelName = modelName;
+        //TODO
         this.path = path;
     }
 
@@ -46,6 +52,15 @@ public class ModelCreator implements Serializable {
     }
     public void addRule(Xrule xrule){
         rules.add(xrule);
+    }
+
+    public Xattr getAttribute(String attrName){
+        for(Xattr attribute : attributes){
+            if(attrName.equals(attribute.getName())){
+                return attribute;
+            }
+        }
+        return null; //TODO exception or sth
     }
 
     /**
@@ -131,6 +146,44 @@ public class ModelCreator implements Serializable {
                 if (ois != null) ois.close();
             } catch (IOException e) {}
         }
+        return model;
+    }
+    public static ModelCreator createBasicModel(String modelName,Context mContext) {
+        // We will use only these types in our model, user cant add his own types
+        final Xtype hour_type = new Xtype("hour_type", "numeric", "[0 to 23]");
+        final Xtype minute_type = new Xtype("minute_type", "numeric", "[0 to 59");
+        final Xtype time_type = new Xtype("time_type", "numeric", "[0.0000 to 23.0000]");
+        final Xtype day_type = new Xtype("day_type", "symbolic", "[mon/1,tue/2,wen/3,thu/4,fri/5,sat/6,sun/7]", "yes");
+        final Xtype longitude_type = new Xtype("longitude_type", "numeric", "[-180.0000000 to 180.0000000]");
+        final Xtype latitude_type = new Xtype("latitude_type", "numeric", "[-90.0000000 to 90.0000000]");
+        final Xtype sound_type = new Xtype("sound_type", "symbolic", "[on,off,vibration]");
+
+        //We will use only these arguments in our model, user can't add his own arguments
+        final Xattr hour = new Xattr(hour_type, "hour", "hour1", "in", "");
+        final Xattr minute = new Xattr(minute_type, "minute", "minute1", "in", "");
+        final Xattr time = new Xattr(time_type, "time", "time1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getTime");
+        final Xattr day = new Xattr(day_type, "day", "day1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getDayOfAWeek");
+        final Xattr longitude = new Xattr(longitude_type, "longitude", "longitude1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getLongitude");
+        final Xattr latitude = new Xattr(latitude_type, "latitude", "latitude1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getLatitude");
+        final Xattr sound = new Xattr(sound_type, "sound", "sound1", "inter", "");
+
+        // Creating model by adding everything into ModelCreator and saving it
+        ModelCreator model = new ModelCreator(modelName,mContext.getFilesDir().toString());
+        model.addType(hour_type);
+        model.addType(minute_type);
+        model.addType(time_type);
+        model.addType(day_type);
+        model.addType(longitude_type);
+        model.addType(latitude_type);
+        model.addType(sound_type);
+        model.addAttribute(hour);
+        model.addAttribute(minute);
+        model.addAttribute(time);
+        model.addAttribute(day);
+        model.addAttribute(longitude);
+        model.addAttribute(latitude);
+        model.addAttribute(sound);
+
         return model;
     }
 }

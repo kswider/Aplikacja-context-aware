@@ -20,9 +20,9 @@ public class Xrule implements XTT2StringRepresentation, Serializable {
     private LinkedList<ActionExpression> actionsList = new LinkedList(); // Optional
     private String schemaForTokenDriven; // Optional TODO
 
-    public Xrule(String nameOfSchema, String ID, LinkedList<ALSVExpression> conditionsList, LinkedList<DecisionExpression> decisionsList, LinkedList<ActionExpression> actionsList) {
-        this.nameOfSchema = nameOfSchema;
-        this.ID = ID;
+    public Xrule(Xschm schm, int ID, LinkedList<ALSVExpression> conditionsList, LinkedList<DecisionExpression> decisionsList, LinkedList<ActionExpression> actionsList) {
+        this.nameOfSchema = schm.getName();
+        this.ID = Integer.toString(ID);
         this.conditionsList = conditionsList;
         this.decisionsList = decisionsList;
         this.actionsList = actionsList;
