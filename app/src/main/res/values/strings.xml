@@ -70,10 +70,9 @@
     </string-array>
 
     <string-array name="actions">
-        <item name="action_1">Action 1</item>
-        <item name="action_2">Action 2</item>
-        <item name="action_3">Action 3</item>
-        <item name="action_4">Action 4</item>
+        <item name="action_1">Turn off sounds</item>
+        <item name="action_2">Turn on sounds</item>
+        <item name="action_3">Turn on vibration</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

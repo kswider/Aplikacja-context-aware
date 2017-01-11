@@ -17,9 +17,8 @@ import java.util.LinkedList;
  */
 
 public class ActionPickerFragment extends DialogFragment {
-    private LinkedList<String> actions = new LinkedList<String>();
-
-    public LinkedList<String> getActions() {
+    private LinkedList<Integer> actions = new LinkedList<Integer>();
+    public LinkedList<Integer> getActions() {
         return actions;
     }
 
@@ -63,12 +62,12 @@ public class ActionPickerFragment extends DialogFragment {
                 .setPositiveButton(R.string.tp_ok, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        TextView days = (TextView) getActivity().findViewById(R.id.es_set_action_sub);
-                        days.setText("");
+                        TextView action = (TextView) getActivity().findViewById(R.id.es_set_action_sub);
+                        action.setText("");
                         for(int i=0; i<mSelectedItems.size(); i++){
                             Resources res = getActivity().getResources();
-                            days.setText(days.getText().toString() + res.getStringArray(R.array.actions)[mSelectedItems.get(i)] + ",");
-                            actions.add(res.getStringArray(R.array.actions)[mSelectedItems.get(i)]);
+                            action.setText(action.getText().toString() + res.getStringArray(R.array.actions)[mSelectedItems.get(i)] + ",");
+                            actions.add(mSelectedItems.get(i));
                         }
                         mListener.onDialogAPFPositiveClick(ActionPickerFragment.this);
                     }

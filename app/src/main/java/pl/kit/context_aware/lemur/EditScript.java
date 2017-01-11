@@ -23,11 +23,20 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import pl.kit.context_aware.lemur.Editor.ModelCreator;
+import pl.kit.context_aware.lemur.Editor.RuleExpressions.ALSVExpression;
+import pl.kit.context_aware.lemur.Editor.RuleExpressions.ActionExpression;
+import pl.kit.context_aware.lemur.Editor.RuleExpressions.DecisionExpression;
+import pl.kit.context_aware.lemur.Editor.Xtypes.Xattr;
+import pl.kit.context_aware.lemur.Editor.Xtypes.Xrule;
+import pl.kit.context_aware.lemur.Editor.Xtypes.Xschm;
+import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
 import pl.kit.context_aware.lemur.TmpTests.ListItem;
 
 import static android.R.id.list;
@@ -38,8 +47,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     private int hour;
     private int minute;
+    private double time;
+    private Double longitude;
+    private Double latitude;
     private LinkedList<Integer> days;
-    private LinkedList<String> actions;
+    private LinkedList<Integer> actions;
 
     public void SetTimeOnClick(View v){
         DialogFragment newFragment = new TimePickerFragment();
@@ -64,6 +76,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     protected void onCreate(Bundle savedInstanceState) {
         hour = -1;
         minute = -1;
+        time = -1;
+        longitude = null;
+        latitude = null;
         actions = new LinkedList();
         days = new LinkedList();
 
@@ -87,7 +102,74 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save_script:
-                //TODO Adding Script Algorythm
+
+                //Creating basic model containing all needed types and attributes
+                ModelCreator newModel = ModelCreator.createBasicModel("model",this); //TODO name should be given by user
+
+                //Creating lists which are needed in Scheme
+                LinkedList<Xattr> attributesList = new LinkedList<>();
+                LinkedList<Xattr> attributesToSetList = new LinkedList<>();
+
+                //Creating lists which are needed in Rule
+                LinkedList<ALSVExpression> ALSVList = new LinkedList<>();
+                LinkedList<DecisionExpression> decisionList = new LinkedList<>();
+                LinkedList<ActionExpression> actionList = new LinkedList<>();
+
+                //Creating expressions which will be added to lists
+                ALSVExpression alsv = null;
+                DecisionExpression decision = null;
+                ActionExpression action = null;
+
+                if(!(time == -1)){
+                    attributesList.add(newModel.getAttribute("time"));
+
+                    alsv = new ALSVExpression(newModel.getAttribute("time"),Double.toString(time));
+                    ALSVList.add(alsv);
+                }
+                if (!days.isEmpty()){
+                    attributesList.add(newModel.getAttribute("day"));
+
+                    final String []daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+                    for(Integer day : days){
+                        alsv = new ALSVExpression(newModel.getAttribute("day"),daysOfWeekArray[day]);
+                        ALSVList.add(alsv);
+                    }
+                }
+                if((longitude != null) && (latitude != null)){
+                    attributesList.add(newModel.getAttribute("longitude"));
+                    alsv = new ALSVExpression(newModel.getAttribute("longitude"),longitude.toString());
+                    ALSVList.add(alsv);
+
+                    attributesList.add(newModel.getAttribute("latitude"));
+                    alsv = new ALSVExpression(newModel.getAttribute("latitude"),latitude.toString());
+                    ALSVList.add(alsv);
+                }
+                if(!actions.isEmpty()){
+                    attributesToSetList.add(newModel.getAttribute("sound"));
+
+                    final String [] actionsArray = {"off","on","vibration"};
+                    for(Integer actionNumber : actions){
+                        decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber]);
+                        decisionList.add(decision);
+                    }
+                    action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.SetSound"); //TODO another loop but need to check if it is possible to do few actions in one rule
+                    actionList.add(action);
+
+                }
+                // Creating and adding scheme to model
+                Xschm scheme = new Xschm("SetSounds",attributesList,attributesToSetList);
+                newModel.addScheme(scheme);
+                //Creating Rules
+                LinkedList<Xrule> rulesList = new LinkedList<>();
+                Xrule rule = new Xrule(scheme,1,ALSVList,decisionList,actionList);
+                newModel.addRule(rule);
+                newModel.saveModel();
+
+                /* //needed for debugging
+                for (Integer file : actions) {
+                        Log.i("File ", file.toString());
+                }
+                */
                 Toast.makeText(this,getResources().getString(R.string.es_Added),Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
@@ -110,7 +192,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     @Override
     public void onDialogAPFPositiveClick(DialogFragment dialog) {
-        actions = (LinkedList<String>) ((ActionPickerFragment) dialog).getActions().clone();
+        actions = (LinkedList<Integer>) ((ActionPickerFragment) dialog).getActions().clone();
     }
 
     @Override
@@ -122,6 +204,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public void onDialogTPFPositiveClick(DialogFragment dialog) {
         hour = ((TimePickerFragment)dialog).getHour();
         minute = ((TimePickerFragment)dialog).getMinute();
+        time = hour + (minute/60);
     }
 
     @Override
