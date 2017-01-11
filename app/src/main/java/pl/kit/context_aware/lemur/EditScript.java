@@ -130,10 +130,12 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     attributesList.add(newModel.getAttribute("day"));
 
                     final String []daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+                    LinkedList<String> selectedDays = new LinkedList<>();
                     for(Integer day : days){
-                        alsv = new ALSVExpression(newModel.getAttribute("day"),daysOfWeekArray[day]);
-                        ALSVList.add(alsv);
+                        selectedDays.add(daysOfWeekArray[day]);
                     }
+                    alsv = new ALSVExpression(newModel.getAttribute("day"),selectedDays);
+                    ALSVList.add(alsv);
                 }
                 if((longitude != null) && (latitude != null)){
                     attributesList.add(newModel.getAttribute("longitude"));
