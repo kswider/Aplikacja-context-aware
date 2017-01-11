@@ -1,5 +1,6 @@
 package pl.kit.context_aware.lemur;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
@@ -17,6 +18,37 @@ import android.widget.Toast;
  */
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
+    private int minute;
+    private int hour;
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public interface NoticeDialogTPFListener {
+        public void onDialogTPFPositiveClick(DialogFragment dialog);
+        public void onDialogTPFNegativeClick(DialogFragment dialog);
+    }
+
+    NoticeDialogTPFListener mListener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // Verify that the host activity implements the callback interface
+        try {
+            // Instantiate the NoticeDialogListener so we can send events to the host
+            mListener = (NoticeDialogTPFListener) activity;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(activity.toString()
+                    + " must implement NoticeDialogListener");
+        }
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -31,9 +63,13 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        Toast.makeText(view.getContext(),Integer.toString(hourOfDay) + ":" + Integer.toString(minute),Toast.LENGTH_SHORT).show();
+        this.minute = minute;
+        this.hour = hourOfDay;
+
         TextView time = (TextView) getActivity().findViewById(R.id.es_set_time_sub);
         time.setText(hourOfDay +":" + minute);
+
+        mListener.onDialogTPFPositiveClick(TimePickerFragment.this);
     }
 }
 

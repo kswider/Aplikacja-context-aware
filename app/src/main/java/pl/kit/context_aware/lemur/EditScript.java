@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,13 +25,21 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import pl.kit.context_aware.lemur.TmpTests.ListItem;
 
 import static android.R.id.list;
+import static java.security.AccessController.getContext;
 
-public class EditScript extends AppCompatActivity {
+public class EditScript extends AppCompatActivity implements DayOfWeekPickerFragment.NoticeDialogDOWPFListener
+        , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener {
+
+    private int hour;
+    private int minute;
+    private LinkedList<Integer> days;
+    private LinkedList<String> actions;
 
     public void SetTimeOnClick(View v){
         DialogFragment newFragment = new TimePickerFragment();
@@ -39,12 +48,12 @@ public class EditScript extends AppCompatActivity {
 
     public void SetDayOnClick(View v){
         DialogFragment newFragment = new DayOfWeekPickerFragment();
-        newFragment.show(getFragmentManager(),"Time Picker");
+        newFragment.show(getFragmentManager(),"DayOfWeek Picker");
     }
 
     public void SetActionOnClick(View v){
         DialogFragment newFragment = new ActionPickerFragment();
-        newFragment.show(getFragmentManager(),"Time Picker");
+        newFragment.show(getFragmentManager(),"Action Picker");
     }
 
     public void SetLocationOnClick(View v){
@@ -53,6 +62,11 @@ public class EditScript extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        hour = -1;
+        minute = -1;
+        actions = new LinkedList();
+        days = new LinkedList();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_script);
         Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
@@ -82,5 +96,36 @@ public class EditScript extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    public void onDialogDOWPFPositiveClick(DialogFragment dialog) {
+        days = (LinkedList<Integer>) ((DayOfWeekPickerFragment) dialog).getDays().clone();
+    }
+
+    @Override
+    public void onDialogDOWPFNegativeClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onDialogAPFPositiveClick(DialogFragment dialog) {
+        actions = (LinkedList<String>) ((ActionPickerFragment) dialog).getActions().clone();
+    }
+
+    @Override
+    public void onDialogAPFNegativeClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onDialogTPFPositiveClick(DialogFragment dialog) {
+        hour = ((TimePickerFragment)dialog).getHour();
+        minute = ((TimePickerFragment)dialog).getMinute();
+    }
+
+    @Override
+    public void onDialogTPFNegativeClick(DialogFragment dialog) {
+
     }
 }

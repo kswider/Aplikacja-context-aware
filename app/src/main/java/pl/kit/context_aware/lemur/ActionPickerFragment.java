@@ -1,5 +1,6 @@
 package pl.kit.context_aware.lemur;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
@@ -9,12 +10,40 @@ import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * Created by Tomek on 10.01.2017.
  */
 
 public class ActionPickerFragment extends DialogFragment {
+    private LinkedList<String> actions = new LinkedList<String>();
+
+    public LinkedList<String> getActions() {
+        return actions;
+    }
+
+    public interface NoticeDialogAPFListener {
+        public void onDialogAPFPositiveClick(DialogFragment dialog);
+        public void onDialogAPFNegativeClick(DialogFragment dialog);
+    }
+
+    NoticeDialogAPFListener mListener;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        // Verify that the host activity implements the callback interface
+        try {
+            // Instantiate the NoticeDialogListener so we can send events to the host
+            mListener = (NoticeDialogAPFListener) activity;
+        } catch (ClassCastException e) {
+            // The activity doesn't implement the interface, throw exception
+            throw new ClassCastException(activity.toString()
+                    + " must implement NoticeDialogListener");
+        }
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final ArrayList<Integer> mSelectedItems = new ArrayList();
@@ -31,7 +60,7 @@ public class ActionPickerFragment extends DialogFragment {
                         }
                     }
                 })
-                .setPositiveButton(R.string.tp_cancel, new DialogInterface.OnClickListener(){
+                .setPositiveButton(R.string.tp_ok, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         TextView days = (TextView) getActivity().findViewById(R.id.es_set_action_sub);
@@ -39,14 +68,15 @@ public class ActionPickerFragment extends DialogFragment {
                         for(int i=0; i<mSelectedItems.size(); i++){
                             Resources res = getActivity().getResources();
                             days.setText(days.getText().toString() + res.getStringArray(R.array.actions)[mSelectedItems.get(i)] + ",");
+                            actions.add(res.getStringArray(R.array.actions)[mSelectedItems.get(i)]);
                         }
-
+                        mListener.onDialogAPFPositiveClick(ActionPickerFragment.this);
                     }
                 })
                 .setNegativeButton(R.string.tp_ok, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        mListener.onDialogAPFNegativeClick(ActionPickerFragment.this);
                     }
                 });
         return builder.create();
