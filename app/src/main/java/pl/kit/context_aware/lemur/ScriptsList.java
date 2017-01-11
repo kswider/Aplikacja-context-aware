@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
 import pl.kit.context_aware.lemur.Readers.ReadTime;
 import pl.kit.context_aware.lemur.TmpTests.ListItem;
 
@@ -88,13 +89,14 @@ public class ScriptsList extends ListFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        //  TO DELETE
         String mainText[] = {"Skrypt 1", "Skrypt2", "Skrypt3", "Skrypt4"};
         String subText[] = {"---","---","---","---"};
 
         ArrayList<ListItem> ItemList = new ArrayList<ListItem>();
 
-        for (int i = 0; i < mainText.length; i++){
-            ItemList.add(new ListItem(mainText[i],subText[i]));
+        for(String scriptName : FilesOperations.getAllModelNames(this.getContext())){
+            ItemList.add(new ListItem(scriptName,"---")); // TODO any subtext is needed?
         }
 
         final EditScriptArrayAdapter adapter = new EditScriptArrayAdapter(this.getContext(), ItemList);
