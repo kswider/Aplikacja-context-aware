@@ -21,7 +21,7 @@ public class ActionExpression implements XTT2StringRepresentation, Serializable 
     @Override
     public String returnStringForModel() {
         String actionString;
-        actionString = "'actions." + actionName + "'";
+        actionString = "'" + actionName + "'";
         return actionString;
     }
 }

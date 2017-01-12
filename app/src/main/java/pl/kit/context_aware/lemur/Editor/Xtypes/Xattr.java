@@ -41,7 +41,7 @@ public class Xattr implements XTT2StringRepresentation, Serializable {
         attrString += "\t   type: " + type + ",\n";
         attrString += "\t   comm: " + comm;
         if(callback.isEmpty()) attrString += "\n\t  ].";
-        else attrString += ",\n\t   callback: 'callbacks." + callback + "'\n\t  ].";
+        else attrString += ",\n\t   callback: '" + callback + "'\n\t  ].";
         return attrString;
 
 

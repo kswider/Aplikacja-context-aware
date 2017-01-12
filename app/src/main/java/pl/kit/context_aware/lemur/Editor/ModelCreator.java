@@ -151,7 +151,7 @@ public class ModelCreator implements Serializable {
     public static ModelCreator createBasicModel(String modelName,Context mContext) {
         // We will use only these types in our model, user cant add his own types
         final Xtype hour_type = new Xtype("hour_type", "numeric", "[0 to 23]");
-        final Xtype minute_type = new Xtype("minute_type", "numeric", "[0 to 59");
+        final Xtype minute_type = new Xtype("minute_type", "numeric", "[0 to 59]");
         final Xtype time_type = new Xtype("time_type", "numeric", "[0.0000 to 23.0000]");
         final Xtype day_type = new Xtype("day_type", "symbolic", "[mon/1,tue/2,wen/3,thu/4,fri/5,sat/6,sun/7]", "yes");
         final Xtype longitude_type = new Xtype("longitude_type", "numeric", "[-180.0000000 to 180.0000000]");
