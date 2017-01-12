@@ -120,7 +120,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save_script:
-
+                
                 //Creating basic model containing all needed types and attributes
                 ModelCreator newModel = ModelCreator.createBasicModel(scriptName.getText().toString(), this); //TODO name should be given by user
 
@@ -139,9 +139,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 ActionExpression action = null;
 
                 if (!(time == -1)) {
+                    //setting values of Attributes, needed in loading models
                     attributesList.add(newModel.getAttribute("time"));
+                    newModel.getAttribute("time").addValue(String.valueOf(time));
+                    newModel.getAttribute("minute").addValue(String.valueOf(minute));
+                    newModel.getAttribute("hour").addValue(String.valueOf(hour));
 
-                    alsv = new ALSVExpression(newModel.getAttribute("time"), Double.toString(time));
+                    alsv = new ALSVExpression(newModel.getAttribute("time"), String.valueOf(time));
                     ALSVList.add(alsv);
                 }
                 if (!days.isEmpty()) {
@@ -150,6 +154,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
                     LinkedList<String> selectedDays = new LinkedList<>();
                     for (Integer day : days) {
+                        newModel.getAttribute("day").addValue(daysOfWeekArray[day]);
                         selectedDays.add(daysOfWeekArray[day]);
                     }
                     alsv = new ALSVExpression(newModel.getAttribute("day"), selectedDays);
@@ -157,10 +162,12 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
                 if ((longitude != null) && (latitude != null)) {
                     attributesList.add(newModel.getAttribute("longitude"));
+                    newModel.getAttribute("longitude").addValue(String.valueOf(longitude));
                     alsv = new ALSVExpression(newModel.getAttribute("longitude"), longitude.toString());
                     ALSVList.add(alsv);
 
                     attributesList.add(newModel.getAttribute("latitude"));
+                    newModel.getAttribute("latitude").addValue(String.valueOf(latitude));
                     alsv = new ALSVExpression(newModel.getAttribute("latitude"), latitude.toString());
                     ALSVList.add(alsv);
                 }
@@ -169,6 +176,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
                     final String[] actionsArray = {"off", "on", "vibration"};
                     for (Integer actionNumber : actions) {
+                        newModel.getAttribute("sound").addValue(actionsArray[actionNumber]);
                         decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber]);
                         decisionList.add(decision);
                     }

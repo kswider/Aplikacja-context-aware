@@ -2,6 +2,7 @@ package pl.kit.context_aware.lemur;
 
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
 import pl.kit.context_aware.lemur.Readers.ReadTime;
 import pl.kit.context_aware.lemur.TmpTests.ListItem;
-
 
 /**
  * A simple {@link Fragment} subclass.

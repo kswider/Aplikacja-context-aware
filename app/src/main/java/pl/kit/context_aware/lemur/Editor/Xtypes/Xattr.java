@@ -1,6 +1,7 @@
 package pl.kit.context_aware.lemur.Editor.Xtypes;
 
 import java.io.Serializable;
+import java.util.LinkedList;
 
 /**
  * Created by Krzysiek on 2016-12-15.
@@ -13,6 +14,9 @@ public class Xattr implements XTT2StringRepresentation, Serializable {
     private String comm; // Mandatory {in | out | inter | comm}
     private String callback; // Optional
     private String desc; // Optional
+
+    //needed in loading model isn't used in .hmr only saved in .ser
+    private LinkedList<String> values = new LinkedList<>();
 
     public Xattr(Xtype type, String name, String abbrev, String comm, String callback) {
         this.name = name;
@@ -29,6 +33,14 @@ public class Xattr implements XTT2StringRepresentation, Serializable {
      */
     public String getName() {
         return name;
+    }
+
+    public void addValue(String value){
+        this.values.add(value);
+    }
+
+    public LinkedList<String> getValues() {
+        return values;
     }
 
     /**

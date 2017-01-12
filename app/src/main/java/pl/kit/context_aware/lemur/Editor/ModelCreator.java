@@ -125,12 +125,12 @@ public class ModelCreator implements Serializable {
      * Static which loads ModelCreator from file and returns it
      * @return ModelCreator loaded from file modelName.ser
      */
-    public ModelCreator loadModel(){
+    public static ModelCreator loadModel(String modelName){
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         ModelCreator model = null;
         try{
-            fis = new FileInputStream(this.path + "/" + modelName + ".ser");
+            fis = new FileInputStream(modelName);
             ois = new ObjectInputStream(fis);
             model = (ModelCreator) ois.readObject();
 
