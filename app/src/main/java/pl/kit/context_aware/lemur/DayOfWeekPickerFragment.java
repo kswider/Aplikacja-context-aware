@@ -18,9 +18,10 @@ import java.util.LinkedList;
 
 public class DayOfWeekPickerFragment extends DialogFragment {
     private LinkedList<Integer> daysOfWeek = new LinkedList<>();
+    boolean[] checkedValues;
 
     public void setDaysOfWeek(LinkedList<Integer> daysOfWeek) {
-        this.daysOfWeek = daysOfWeek;
+        this.daysOfWeek = (LinkedList)daysOfWeek.clone();
     }
 
     public LinkedList<Integer> getDays() {
@@ -53,16 +54,29 @@ public class DayOfWeekPickerFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final ArrayList<Integer> mSelectedItems = new ArrayList();
+
+        for(int i=0; i<daysOfWeek.size();i++) {
+            mSelectedItems.add(daysOfWeek.get(i));
+        }
+
+        checkedValues = new boolean[getActivity().getResources().getStringArray(R.array.days).length];
+        for (int i=0; i< daysOfWeek.size(); i++){
+            checkedValues[daysOfWeek.get(i)] = true;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder
-                .setMultiChoiceItems(R.array.days, null, new DialogInterface.OnMultiChoiceClickListener() {
+                .setTitle(R.string.es_SetDay)
+                .setMultiChoiceItems(R.array.days, checkedValues, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if(isChecked){
                             mSelectedItems.add(which);
+                            daysOfWeek.add(which);
                         }
                         else if(mSelectedItems.contains(which)){
                             mSelectedItems.remove(Integer.valueOf(which));
+                            daysOfWeek.remove(Integer.valueOf(which));
                         }
                     }
                 })
@@ -74,7 +88,6 @@ public class DayOfWeekPickerFragment extends DialogFragment {
                         for(int i=0; i<mSelectedItems.size(); i++){
                             Resources res = getActivity().getResources();
                             days.setText(days.getText().toString() + res.getStringArray(R.array.days)[mSelectedItems.get(i)] + ",");
-                            daysOfWeek.add(mSelectedItems.get(i));
                         }
                         mListener.onDialogDOWPFPositiveClick(DayOfWeekPickerFragment.this);
 
