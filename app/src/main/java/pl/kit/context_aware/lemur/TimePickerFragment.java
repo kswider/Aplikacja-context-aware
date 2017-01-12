@@ -61,9 +61,18 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
                 DateFormat.is24HourFormat(getActivity()));
     }
 
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         this.minute = minute;
+
         this.hour = hourOfDay;
 
         TextView time = (TextView) getActivity().findViewById(R.id.es_set_time_sub);

@@ -19,6 +19,10 @@ import java.util.LinkedList;
 public class DayOfWeekPickerFragment extends DialogFragment {
     private LinkedList<Integer> daysOfWeek = new LinkedList<>();
 
+    public void setDaysOfWeek(LinkedList<Integer> daysOfWeek) {
+        this.daysOfWeek = daysOfWeek;
+    }
+
     public LinkedList<Integer> getDays() {
         return daysOfWeek;
     }

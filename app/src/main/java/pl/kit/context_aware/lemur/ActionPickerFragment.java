@@ -18,6 +18,11 @@ import java.util.LinkedList;
 
 public class ActionPickerFragment extends DialogFragment {
     private LinkedList<Integer> actions = new LinkedList<Integer>();
+
+    public void setActions(LinkedList<Integer> actions) {
+        this.actions = actions;
+    }
+
     public LinkedList<Integer> getActions() {
         return actions;
     }
