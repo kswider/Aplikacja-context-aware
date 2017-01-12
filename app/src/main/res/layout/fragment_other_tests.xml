@@ -34,20 +34,10 @@
         android:onClick="startServiceButtonOnClick"/>
 
     <Button
-        android:text="@string/ot_scheduleHEART"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/runSimModelButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:id="@+id/sheduleHeart"
-        android:onClick="sheduleHeartOnClick"/>
-
-    <Button
         android:text="@string/ot_scheduleHEART5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/sheduleHeart"
+        android:layout_below="@+id/runSimModelButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
         android:id="@+id/sheduleHeartEvery5Minutes"
