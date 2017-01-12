@@ -1,5 +1,8 @@
 package pl.kit.context_aware.lemur;
 
+        import android.app.AlarmManager;
+        import android.app.PendingIntent;
+        import android.content.Context;
         import android.content.Intent;
         import android.os.Bundle;
         import android.util.Log;
@@ -13,6 +16,7 @@ package pl.kit.context_aware.lemur;
         import android.view.MenuItem;
         import android.widget.Toast;
 
+        import pl.kit.context_aware.lemur.HeartDROID.HeartService;
         import pl.kit.context_aware.lemur.PhoneActions.RingModes;
         import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
         import pl.kit.context_aware.lemur.Readers.ReadLocation;
@@ -60,6 +64,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void runSimModelButtonOnClick(View v){
+        startService(new Intent(getBaseContext(), HeartService.class));
+        stopService(new Intent(getBaseContext(), HeartService.class));
+
+        /*Log.i("Service","Invoke");
+        Context context = getBaseContext();
+        AlarmManager am=(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        Intent i = new Intent(context, HeartService.class);
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 100, pi); // Millisec * Second * Minute*/
     }
 
     public void floatingButtonOnClick(View v){
@@ -78,13 +91,6 @@ public class MainActivity extends AppCompatActivity
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container,sl);
         fragmentTransaction.commit();
-
-        /*ActionsTests at = new ActionsTests();
-        android.support.v4.app.FragmentTransaction fragmentTransaction =
-                getSupportFragmentManager().beginTransaction();
-
-        fragmentTransaction.replace(R.id.fragment_container,at);
-        fragmentTransaction.commit();*/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

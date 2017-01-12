@@ -24,11 +24,11 @@ public class Inference  {
     }
 
     //public static void main(String args []){
-    public void runInference(){
+    public void runInference(String path){
         try {
             //Loading a file with a model
             XTTModel model = null;
-            SourceFile simpleModel = new SourceFile(mContext.getFilesDir().toString() + "/simple-model.hmr");
+            SourceFile simpleModel = new SourceFile(path);
             HMRParser parser = new HMRParser();
 
             //Parsing the file with the model

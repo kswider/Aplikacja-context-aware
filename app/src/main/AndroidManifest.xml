@@ -27,6 +27,7 @@
         </activity>
 
         <service android:name=".TmpTests.TestService" />
+        <service android:name=".HeartDROID.HeartService" />
 
         <activity
             android:name=".EditScript"

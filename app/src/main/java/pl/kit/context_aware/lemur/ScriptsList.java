@@ -40,47 +40,7 @@ public class ScriptsList extends ListFragment {
                 (FloatingActionButton) inflater.inflate(R.layout.fragment_scripts_list, container, false)
                         .findViewById(R.id.floatingButton);
 
-        /*ListView lista = (ListView) container.findViewById(R.id.ScriptsListListView);
 
-        String mainText[] = {getResources().getString(R.string.es_SetTime),getResources().getString(R.string.es_SetDate),getResources().getString(R.string.es_SetLocation),getResources().getString(R.string.es_SetAction)};
-        String subText[] = {"---","---","---","---"};
-
-        ArrayList<ListItem> ItemList = new ArrayList<ListItem>();
-
-        for (int i = 0; i < mainText.length; i++){
-            ItemList.add(new ListItem(mainText[i],subText[i]));
-        }
-
-        final EditScriptArrayAdapter adapter = new EditScriptArrayAdapter(this.getContext(), ItemList);
-        lista.setAdapter(adapter);
-
-
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                if(position == 0) {
-                    Toast.makeText(view.getContext().getApplicationContext(),
-                            "Replace Me with setting day of the week window", Toast.LENGTH_SHORT)
-                            .show();
-                }
-                else if (position == 1){
-                    Toast.makeText(view.getContext().getApplicationContext(),
-                            "Replace Me with setting day of the week window", Toast.LENGTH_SHORT)
-                            .show();
-                }
-                else if (position == 2){
-                    Toast.makeText(view.getContext().getApplicationContext(),
-                            "Replace Me with setting location window", Toast.LENGTH_SHORT)
-                            .show();
-                }
-                else if (position == 3){
-                    Toast.makeText(view.getContext().getApplicationContext(),
-                            "Replace Me with setting action window", Toast.LENGTH_SHORT)
-                            .show();
-                }
-            }
-        });*/
 
         return inflater.inflate(R.layout.fragment_scripts_list, container, false);
     }
