@@ -6,6 +6,7 @@ package pl.kit.context_aware.lemur;
         import android.content.Intent;
         import android.icu.util.GregorianCalendar;
         import android.os.Bundle;
+        import android.os.SystemClock;
         import android.util.Log;
         import android.view.View;
         import android.support.design.widget.NavigationView;
@@ -86,6 +87,19 @@ public class MainActivity extends AppCompatActivity
 
         alarmManager.set(AlarmManager.RTC_WAKEUP,time, PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
         Toast.makeText(this, "Alarm Scheduled for one minute", Toast.LENGTH_LONG).show();
+    }
+
+    public void sheduleHeartEvery5MinutesOnClick(View v){
+        AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent intent = new Intent(MainActivity.this, HeartAlarmReciever.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
+        Calendar c = Calendar.getInstance();
+        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                c.getTimeInMillis(),
+                60*100,
+                pendingIntent);
+        Toast.makeText(this, "Alarm Scheduled for every one minute", Toast.LENGTH_LONG).show();
+
     }
 
     public void floatingButtonOnClick(View v){

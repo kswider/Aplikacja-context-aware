@@ -31,6 +31,7 @@
     <string name="ot_stopService" translatable="false">Stop Service</string>
     <string name="ot_runHEART">Run models</string>
     <string name="ot_scheduleHEART">Run models in one minute</string>
+    <string name="ot_scheduleHEART5">Run models in every one minute</string>
 
 
     <!--Automaticcaly created-->
