@@ -7,6 +7,33 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:onClick="SetTimeOnClick">
+            <TextView
+                android:text="@string/es_SetName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/es_set_tiitle_main"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/es_enterScriptTitle"
+                android:ems="10"
+                android:id="@+id/es_set_tiitle_sub" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"
+            android:layout_below="@+id/es_set_tiitle_main"/>
 
         <LinearLayout
             android:layout_width="match_parent"

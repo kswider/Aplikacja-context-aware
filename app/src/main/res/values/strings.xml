@@ -52,6 +52,8 @@
     <string name="es_SetLocation">Set Location</string>
     <string name="es_SetAction">Set Action</string>
     <string name="es_notSelected">----</string>
+    <string name="es_enterScriptTitle">Enter script name</string>
+    <string name="es_SetName">Set script name</string>
 
     <!--Time Picker-->
     <string name="tp_cancel">Cancel</string>
