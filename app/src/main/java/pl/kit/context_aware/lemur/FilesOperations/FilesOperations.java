@@ -31,7 +31,7 @@ public class FilesOperations {
         for(File file : listOfFiles){
             matcher = pattern.matcher(file.toString());
             if(matcher.matches()){
-                models.add(file.toString());
+                models.add(file.getName().substring(0,file.getName().length()-4));
             }
         }
         return models;

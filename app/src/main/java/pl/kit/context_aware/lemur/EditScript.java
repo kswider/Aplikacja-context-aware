@@ -1,6 +1,7 @@
 package pl.kit.context_aware.lemur;
 
 import android.app.DialogFragment;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -59,8 +60,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private double time;
     private Double longitude;
     private Double latitude;
-    private LinkedList<Integer> days;
-    private LinkedList<Integer> actions;
+    private LinkedList<Integer> days = new LinkedList<>();
+    private LinkedList<Integer> actions = new LinkedList<>();
+
+    private String scriptNameToLoad;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -92,25 +95,85 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        hour = -1;
-        minute = -1;
-        time = -1;
-        longitude = null;
-        latitude = null;
-        actions = new LinkedList();
-        days = new LinkedList();
+        String scriptNameToEdit = "Abc"; // TODO replacing 'Abc' with script which will be edited
+        if(scriptNameToEdit.isEmpty()) {
+            hour = -1;
+            minute = -1;
+            time = -1;
+            longitude = null;
+            latitude = null;
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_script);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
-        scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
-        //toolbar.setTitle(getResources().getString(R.string.es_Script));
-        setSupportActionBar(toolbar);
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_edit_script);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
+            scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
+            //toolbar.setTitle(getResources().getString(R.string.es_Script));
+            setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            // ATTENTION: This was auto-generated to implement the App Indexing API.
+            // See https://g.co/AppIndexing/AndroidStudio for more information.
+            client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        }
+        else {
+            scriptNameToLoad = this.getFilesDir() + "/" + scriptNameToEdit +".ser";
+            ModelCreator loadedModel = ModelCreator.loadModel(scriptNameToLoad);
+
+            minute = Integer.valueOf(loadedModel.getAttribute("minute").getValues().getFirst());
+            hour = Integer.valueOf(loadedModel.getAttribute("hour").getValues().getFirst());
+            time = Double.valueOf(loadedModel.getAttribute("time").getValues().getFirst());
+            //longitude = ... TODO
+            //latitude = ... TODO
+
+            final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+            for (String day : loadedModel.getAttribute("day").getValues()){
+                for(int i = 0; i<daysOfWeekArray.length;++i){
+                    if(daysOfWeekArray[i].equals(day)){
+                        days.add(i);
+                    }
+                }
+            }
+
+            final String[] actionsArray = {"off", "on", "vibration"};
+            for (String action : loadedModel.getAttribute("sound").getValues()){
+                for(int i = 0; i<actionsArray.length;++i){
+                    if(actionsArray[i].equals(action)){
+                        actions.add(i);
+                    }
+                }
+            }
+
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_edit_script);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
+
+            //filling fields with loaded attributes
+            scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
+            scriptName.setText(scriptNameToEdit);
+            TextView timeTV = (TextView) this.findViewById(R.id.es_set_time_sub);
+            timeTV.setText(hour +":" + minute);
+            TextView daysTV = (TextView) this.findViewById(R.id.es_set_day_sub);
+            daysTV.setText("");
+            for(int i=0; i<days.size(); i++){
+                Resources res = this.getResources();
+                daysTV.setText(daysTV.getText().toString() + res.getStringArray(R.array.days)[days.get(i)] + ",");
+            }
+            TextView actionsTV = (TextView) this.findViewById(R.id.es_set_action_sub);
+            actionsTV.setText("");
+            for(int i=0; i<actions.size(); i++){
+                Resources res = this.getResources();
+                actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[days.get(i)] + ",");
+            }
+
+            //toolbar.setTitle(getResources().getString(R.string.es_Script));
+            setSupportActionBar(toolbar);
+
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            // ATTENTION: This was auto-generated to implement the App Indexing API.
+            // See https://g.co/AppIndexing/AndroidStudio for more information.
+            client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        }
     }
 
     @Override
