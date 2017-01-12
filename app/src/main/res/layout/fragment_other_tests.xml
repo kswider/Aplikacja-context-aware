@@ -33,4 +33,14 @@
         android:layout_centerHorizontal="true"
         android:onClick="startServiceButtonOnClick"/>
 
+    <Button
+        android:text="@string/ot_scheduleHEART"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/runSimModelButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:id="@+id/sheduleHeart"
+        android:onClick="sheduleHeartOnClick"/>
+
 </RelativeLayout>

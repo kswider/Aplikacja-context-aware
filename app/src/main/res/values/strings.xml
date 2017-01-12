@@ -29,7 +29,8 @@
     <!--Other Tests-->
     <string name="ot_startService" translatable="false">Start Service</string>
     <string name="ot_stopService" translatable="false">Stop Service</string>
-    <string name="ot_runHEART">Run simple-model.hmr</string>
+    <string name="ot_runHEART">Run models</string>
+    <string name="ot_scheduleHEART">Run models in one minute</string>
 
 
     <!--Automaticcaly created-->
