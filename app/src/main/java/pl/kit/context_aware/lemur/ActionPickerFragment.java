@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,10 +18,12 @@ import java.util.LinkedList;
  */
 
 public class ActionPickerFragment extends DialogFragment {
+
     private LinkedList<Integer> actions = new LinkedList<Integer>();
+    boolean[] checkedValues;
 
     public void setActions(LinkedList<Integer> actions) {
-        this.actions = actions;
+        this.actions = (LinkedList<Integer>)actions.clone();
     }
 
     public LinkedList<Integer> getActions() {
@@ -51,16 +54,28 @@ public class ActionPickerFragment extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final ArrayList<Integer> mSelectedItems = new ArrayList();
+
+        for(int i=0; i<actions.size();i++) {
+            mSelectedItems.add(actions.get(i));
+        }
+
+        checkedValues = new boolean[getActivity().getResources().getStringArray(R.array.actions).length];
+        for (int i=0; i< actions.size(); i++){
+            checkedValues[actions.get(i)] = true;
+        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("TMP")
-                .setMultiChoiceItems(R.array.actions, null, new DialogInterface.OnMultiChoiceClickListener() {
+        builder.setTitle(getString(R.string.es_SetAction))
+                .setMultiChoiceItems(R.array.actions, checkedValues, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
                         if(isChecked){
                             mSelectedItems.add(which);
+                            actions.add(which);
                         }
                         else if(mSelectedItems.contains(which)){
                             mSelectedItems.remove(Integer.valueOf(which));
+                            actions.remove(Integer.valueOf(which));
                         }
                     }
                 })
@@ -72,12 +87,11 @@ public class ActionPickerFragment extends DialogFragment {
                         for(int i=0; i<mSelectedItems.size(); i++){
                             Resources res = getActivity().getResources();
                             action.setText(action.getText().toString() + res.getStringArray(R.array.actions)[mSelectedItems.get(i)] + ",");
-                            actions.add(mSelectedItems.get(i));
                         }
                         mListener.onDialogAPFPositiveClick(ActionPickerFragment.this);
                     }
                 })
-                .setNegativeButton(R.string.tp_ok, new DialogInterface.OnClickListener(){
+                .setNegativeButton(R.string.tp_cancel, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mListener.onDialogAPFNegativeClick(ActionPickerFragment.this);

@@ -69,16 +69,20 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     public void SetTimeOnClick(View v) {
         DialogFragment newFragment = new TimePickerFragment();
+        ((TimePickerFragment) newFragment).setHour(hour);
+        ((TimePickerFragment) newFragment).setMinute(minute);
         newFragment.show(getFragmentManager(), "Time Picker");
     }
 
     public void SetDayOnClick(View v) {
         DialogFragment newFragment = new DayOfWeekPickerFragment();
+        ((DayOfWeekPickerFragment) newFragment).setDaysOfWeek(days);
         newFragment.show(getFragmentManager(), "DayOfWeek Picker");
     }
 
     public void SetActionOnClick(View v) {
         DialogFragment newFragment = new ActionPickerFragment();
+        ((ActionPickerFragment)newFragment).setActions(this.actions);
         newFragment.show(getFragmentManager(), "Action Picker");
     }
 
