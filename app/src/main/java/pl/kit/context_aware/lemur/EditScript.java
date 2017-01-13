@@ -56,6 +56,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     EditText scriptName;
 
+    String rememberedModelName; //used in deleting old models
     private int hour;
     private int minute;
     private double time;
@@ -98,6 +99,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     protected void onCreate(Bundle savedInstanceState) {
         Intent intent = getIntent();
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
+        rememberedModelName = scriptNameToEdit;
         Log.i("App",scriptNameToEdit);
         if(scriptNameToEdit.isEmpty()) {
             hour = -1;
@@ -122,13 +124,20 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             scriptNameToLoad = this.getFilesDir() + "/" + scriptNameToEdit +".ser";
             ModelCreator loadedModel = ModelCreator.loadModel(scriptNameToLoad);
 
-            minute = Integer.valueOf(loadedModel.getAttribute("minute").getValues().getFirst());
-            hour = Integer.valueOf(loadedModel.getAttribute("hour").getValues().getFirst());
-            time = Double.valueOf(loadedModel.getAttribute("time").getValues().getFirst());
+            if(!loadedModel.getAttribute("minute").getValues().isEmpty()) {
+                minute = Integer.valueOf(loadedModel.getAttribute("minute").getValues().getFirst());
+            }
+            if(!loadedModel.getAttribute("hour").getValues().isEmpty()){
+                hour = Integer.valueOf(loadedModel.getAttribute("hour").getValues().getFirst());
+            }
+            if(!loadedModel.getAttribute("time").getValues().isEmpty()){
+                time = Double.valueOf(loadedModel.getAttribute("time").getValues().getFirst());
+            }
             //longitude = ... TODO
             //latitude = ... TODO
 
             final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+
             for (String day : loadedModel.getAttribute("day").getValues()){
                 for(int i = 0; i<daysOfWeekArray.length;++i){
                     if(daysOfWeekArray[i].equals(day)){
@@ -292,6 +301,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 newModel.addRule(rule);
                 newModel.saveModel();
 
+                //deleting old models
+                if(!rememberedModelName.equals(scriptName.getText().toString())){
+                    File fileSer = new File(this.getFilesDir() + "/" + rememberedModelName +".ser");
+                    File fileHmr = new File(this.getFilesDir() + "/" + rememberedModelName +".hmr");
+                    fileSer.delete();
+                    fileHmr.delete();
+                }
                 /* //needed for debugging
                 for (Integer file : actions) {
                         Log.i("File ", file.toString());

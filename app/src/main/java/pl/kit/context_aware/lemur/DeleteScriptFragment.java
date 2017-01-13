@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +29,11 @@ public class DeleteScriptFragment extends DialogFragment {
                 .setPositiveButton(R.string.tp_ok, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //TODO Add Dedete script function
+                        File fileSer = new File(getActivity().getFilesDir() + "/" + fileName +".ser");
+                        File fileHmr = new File(getActivity().getFilesDir() + "/" + fileName +".hmr");
+                        fileSer.delete();
+                        fileHmr.delete();
+
                     }
                 })
                 .setNegativeButton(R.string.tp_cancel, new DialogInterface.OnClickListener(){
