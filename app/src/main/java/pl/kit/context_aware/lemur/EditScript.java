@@ -189,7 +189,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             case R.id.action_save_script:
                 
                 //Creating basic model containing all needed types and attributes
-                ModelCreator newModel = ModelCreator.createBasicModel(scriptName.getText().toString(), this); //TODO name should be given by user
+                ModelCreator newModel = ModelCreator.createBasicModel(scriptName.getText().toString(), this);
 
                 //Creating lists which are needed in Scheme
                 LinkedList<Xattr> attributesList = new LinkedList<>();
@@ -239,20 +239,49 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     ALSVList.add(alsv);
                 }
                 if (!actions.isEmpty()) {
-                    attributesToSetList.add(newModel.getAttribute("sound"));
+                    for(Integer actionNumber : actions){ // TODO still need some changes
+                        if(actionNumber < 3) attributesToSetList.add(newModel.getAttribute("sound"));
+                        if(actionNumber > 2 && actionNumber < 5) attributesToSetList.add(newModel.getAttribute("wifi"));
+                        if(actionNumber > 4 && actionNumber < 7) attributesToSetList.add(newModel.getAttribute("datatransmission"));
+                        if(actionNumber > 6 && actionNumber < 9) attributesToSetList.add(newModel.getAttribute("bluetooth"));
+                    }
 
                     final String[] actionsArray = {"off", "on", "vibration"};
                     for (Integer actionNumber : actions) {
-                        newModel.getAttribute("sound").addValue(actionsArray[actionNumber]);
-                        decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber]);
-                        decisionList.add(decision);
-                    }
-                    action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.SetSound"); //TODO another loop but need to check if it is possible to do few actions in one rule
-                    actionList.add(action);
+                        if(actionNumber < 3){
+                            newModel.getAttribute("sound").addValue(actionsArray[actionNumber]);
+                            decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber]);
+                            decisionList.add(decision);
+                            action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.setSound");
+                            actionList.add(action);
+                        }
+                        if(actionNumber > 2 && actionNumber < 5){
+                            newModel.getAttribute("wifi").addValue(actionsArray[actionNumber-3]);
+                            decision = new DecisionExpression(newModel.getAttribute("wifi"), actionsArray[actionNumber-3]);
+                            decisionList.add(decision);
+                            action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.setWifi");
+                            actionList.add(action);
+                        }
+                        if(actionNumber > 4 && actionNumber < 7){
+                            newModel.getAttribute("datatransmission").addValue(actionsArray[actionNumber-5]);
+                            decision = new DecisionExpression(newModel.getAttribute("datatransmission"), actionsArray[actionNumber-5]);
+                            decisionList.add(decision);
+                            action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.setDataTransmission");
+                            actionList.add(action);
+                        }
+                        if(actionNumber > 6 && actionNumber < 9){
+                            newModel.getAttribute("bluetooth").addValue(actionsArray[actionNumber-7]);
+                            decision = new DecisionExpression(newModel.getAttribute("bluetooth"), actionsArray[actionNumber-7]);
+                            decisionList.add(decision);
+                            action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.setBluetooth");
+                            actionList.add(action);
+                        }
+                    } //TODO actions for sending messages
+
 
                 }
                 // Creating and adding scheme to model
-                Xschm scheme = new Xschm("SetSounds", attributesList, attributesToSetList);
+                Xschm scheme = new Xschm("SetEverything", attributesList, attributesToSetList);
                 newModel.addScheme(scheme);
                 //Creating Rules
                 LinkedList<Xrule> rulesList = new LinkedList<>();

@@ -77,6 +77,12 @@
         <item name="action_1">Turn off sounds</item>
         <item name="action_2">Turn on sounds</item>
         <item name="action_3">Turn on vibration</item>
+        <item name="action_4">Turn off wifi</item>
+        <item name="action_5">Turn on wifi</item>
+        <item name="action_6">Turn off data transmission</item>
+        <item name="action_1">Turn on data transmission</item>
+        <item name="action_2">Turn off bluetooth</item>
+        <item name="action_3">Turn on bluetooth</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

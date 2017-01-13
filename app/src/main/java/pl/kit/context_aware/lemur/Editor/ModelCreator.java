@@ -157,6 +157,8 @@ public class ModelCreator implements Serializable {
         final Xtype longitude_type = new Xtype("longitude_type", "numeric", "[-180.0000000 to 180.0000000]");
         final Xtype latitude_type = new Xtype("latitude_type", "numeric", "[-90.0000000 to 90.0000000]");
         final Xtype sound_type = new Xtype("sound_type", "symbolic", "[on,off,vibration]");
+        final Xtype on_off_type = new Xtype ("on_off_type","symbolic", "[on,off]");
+        final Xtype message_type = new Xtype ("message_type","symbolic","[notification,sms]");
 
         //We will use only these arguments in our model, user can't add his own arguments
         final Xattr hour = new Xattr(hour_type, "hour", "hour1", "in", "");
@@ -166,6 +168,10 @@ public class ModelCreator implements Serializable {
         final Xattr longitude = new Xattr(longitude_type, "longitude", "longitude1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getLongitude");
         final Xattr latitude = new Xattr(latitude_type, "latitude", "latitude1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getLatitude");
         final Xattr sound = new Xattr(sound_type, "sound", "sound1", "inter", "");
+        final Xattr bluetooth = new Xattr(on_off_type, "bluetooth", "bluetooth1", "inter", "");
+        final Xattr wifi = new Xattr(on_off_type, "wifi", "wifi1", "inter", "");
+        final Xattr datatransmission = new Xattr(on_off_type, "datatransmission", "datatransmission1", "inter", "");
+        final Xattr message = new Xattr(message_type, "message", "message1", "inter", "");
 
         // Creating model by adding everything into ModelCreator and saving it
         ModelCreator model = new ModelCreator(modelName,mContext.getFilesDir().toString());
@@ -183,6 +189,10 @@ public class ModelCreator implements Serializable {
         model.addAttribute(longitude);
         model.addAttribute(latitude);
         model.addAttribute(sound);
+        model.addAttribute(bluetooth);
+        model.addAttribute(wifi);
+        model.addAttribute(datatransmission);
+        model.addAttribute(message);
 
         return model;
     }
