@@ -103,7 +103,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void floatingButtonOnClick(View v){
-        Intent intent = new Intent(this,EditScript.class);
+        Bundle eFileName = new Bundle();
+        eFileName.putString("eFileName","");
+
+        Intent intent = new Intent(v.getContext(),EditScript.class);
+        intent.putExtras(eFileName);
         startActivity(intent);
     }
 

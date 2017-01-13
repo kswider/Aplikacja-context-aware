@@ -40,8 +40,6 @@ public class ScriptsList extends ListFragment {
                 (FloatingActionButton) inflater.inflate(R.layout.fragment_scripts_list, container, false)
                         .findViewById(R.id.floatingButton);
 
-
-
         return inflater.inflate(R.layout.fragment_scripts_list, container, false);
     }
 
@@ -52,12 +50,22 @@ public class ScriptsList extends ListFragment {
         ItemList = new ArrayList<ListItem>();
 
         for(String scriptName : FilesOperations.getAllModelNames(this.getContext())){
-            ItemList.add(new ListItem(scriptName,"---")); // TODO any subtext is needed?
+            ItemList.add(new ListItem(scriptName,"---"));
         }
 
         final EditScriptArrayAdapter adapter = new EditScriptArrayAdapter(this.getContext(), ItemList);
 
         setListAdapter(adapter);
+
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> av, View v, int position, long id) {
+                DialogFragment newFragment = new DeleteScriptFragment();
+                ((DeleteScriptFragment) newFragment).setFileName(ItemList.get(position).mainText);
+                newFragment.show(getActivity().getFragmentManager(),"123");
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -71,4 +79,6 @@ public class ScriptsList extends ListFragment {
         intent.putExtras(eFileName);
         startActivity(intent);
     }
+
+
 }

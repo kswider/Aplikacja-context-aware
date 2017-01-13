@@ -79,6 +79,9 @@
         <item name="action_3">Turn on vibration</item>
     </string-array>
 
+    <string name="ds_delete_1">Do you want delete</string>
+    <string name="ds_delete_2">script</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="other_tests_ld">Others</string>
