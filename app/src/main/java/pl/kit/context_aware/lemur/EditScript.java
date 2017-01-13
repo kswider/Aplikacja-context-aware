@@ -1,6 +1,7 @@
 package pl.kit.context_aware.lemur;
 
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
@@ -95,7 +96,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String scriptNameToEdit = "Abc"; // TODO replacing 'Abc' with script which will be edited
+        Intent intent = getIntent();
+        String scriptNameToEdit = intent.getExtras().getString("eFileName");
+        Log.i("App",scriptNameToEdit);
         if(scriptNameToEdit.isEmpty()) {
             hour = -1;
             minute = -1;

@@ -26,7 +26,7 @@ import pl.kit.context_aware.lemur.TmpTests.ListItem;
  * A simple {@link Fragment} subclass.
  */
 public class ScriptsList extends ListFragment {
-
+    ArrayList<ListItem> ItemList;
 
     public ScriptsList() {
         // Required empty public constructor
@@ -49,11 +49,7 @@ public class ScriptsList extends ListFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //  TO DELETE
-        String mainText[] = {"Skrypt 1", "Skrypt2", "Skrypt3", "Skrypt4"};
-        String subText[] = {"---","---","---","---"};
-
-        ArrayList<ListItem> ItemList = new ArrayList<ListItem>();
+        ItemList = new ArrayList<ListItem>();
 
         for(String scriptName : FilesOperations.getAllModelNames(this.getContext())){
             ItemList.add(new ListItem(scriptName,"---")); // TODO any subtext is needed?
@@ -67,25 +63,12 @@ public class ScriptsList extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        if(position == 0) {
-            Toast.makeText(getContext().getApplicationContext(),
-                    "Replace Me with setting day of the week window", Toast.LENGTH_SHORT)
-                    .show();
-        }
-        else if (position == 1){
-            Toast.makeText(getContext().getApplicationContext(),
-                    "Replace Me with setting day of the week window", Toast.LENGTH_SHORT)
-                    .show();
-        }
-        else if (position == 2){
-            Toast.makeText(getContext().getApplicationContext(),
-                    "Replace Me with setting location window", Toast.LENGTH_SHORT)
-                    .show();
-        }
-        else if (position == 3){
-            Toast.makeText(getContext().getApplicationContext(),
-                    "Replace Me with setting action window", Toast.LENGTH_SHORT)
-                    .show();
-        }
+
+        Bundle eFileName = new Bundle();
+        eFileName.putString("eFileName",ItemList.get(position).mainText);
+
+        Intent intent = new Intent(v.getContext(),EditScript.class);
+        intent.putExtras(eFileName);
+        startActivity(intent);
     }
 }
