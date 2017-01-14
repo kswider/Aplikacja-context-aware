@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
             inference.runInference(this.getFilesDir() + "/" + scriptName + ".hmr");
         }
     }
-    
+
     public void sheduleHeartEvery5MinutesOnClick(View v){
 
         int i = 60;

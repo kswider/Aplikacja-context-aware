@@ -92,6 +92,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     }
 
     public void SetLocationOnClick(View v) {
+        Intent intent = new Intent(v.getContext(),LocationPickerActivity.class);
+        startActivity(intent);
         Toast.makeText(this, "TO DO", Toast.LENGTH_SHORT).show();
     }
 
