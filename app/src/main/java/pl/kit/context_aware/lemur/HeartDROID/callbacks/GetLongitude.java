@@ -16,7 +16,7 @@ import pl.kit.context_aware.lemur.Readers.ReadLocation;
  * Created by Krzysiek on 2017-01-07.
  */
 
-public class GetLongitude implements Callback {
+public class getLongitude implements Callback {
     @Override
     public void execute(Attribute subject, WorkingMemory wmm) {
         double longitude = ReadLocation.readLongitudeByBest(Inference.getmContext());

@@ -152,7 +152,7 @@ public class ModelCreator implements Serializable {
         // We will use only these types in our model, user cant add his own types
         final Xtype hour_type = new Xtype("hour_type", "numeric", "[0 to 23]");
         final Xtype minute_type = new Xtype("minute_type", "numeric", "[0 to 59]");
-        final Xtype time_type = new Xtype("time_type", "numeric", "[0.0000 to 23.0000]");
+        final Xtype time_type = new Xtype("time_type", "numeric", "[0.00 to 23.00]");
         final Xtype day_type = new Xtype("day_type", "symbolic", "[mon/1,tue/2,wen/3,thu/4,fri/5,sat/6,sun/7]", "yes");
         final Xtype longitude_type = new Xtype("longitude_type", "numeric", "[-180.0000000 to 180.0000000]");
         final Xtype latitude_type = new Xtype("latitude_type", "numeric", "[-90.0000000 to 90.0000000]");
@@ -163,10 +163,10 @@ public class ModelCreator implements Serializable {
         //We will use only these arguments in our model, user can't add his own arguments
         final Xattr hour = new Xattr(hour_type, "hour", "hour1", "in", "");
         final Xattr minute = new Xattr(minute_type, "minute", "minute1", "in", "");
-        final Xattr time = new Xattr(time_type, "time", "time1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getTime");
-        final Xattr day = new Xattr(day_type, "day", "day1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getDayOfAWeek");
-        final Xattr longitude = new Xattr(longitude_type, "longitude", "longitude1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getLongitude");
-        final Xattr latitude = new Xattr(latitude_type, "latitude", "latitude1", "in", "pl.kit.conext_aware.lemur.HeartDROID.callbacks.getLatitude");
+        final Xattr time = new Xattr(time_type, "time", "time1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.getTime");
+        final Xattr day = new Xattr(day_type, "day", "day1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.getDayOfAWeek");
+        final Xattr longitude = new Xattr(longitude_type, "longitude", "longitude1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.getLongitude");
+        final Xattr latitude = new Xattr(latitude_type, "latitude", "latitude1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.getLatitude");
         final Xattr sound = new Xattr(sound_type, "sound", "sound1", "inter", "");
         final Xattr bluetooth = new Xattr(on_off_type, "bluetooth", "bluetooth1", "inter", "");
         final Xattr wifi = new Xattr(on_off_type, "wifi", "wifi1", "inter", "");
@@ -175,6 +175,7 @@ public class ModelCreator implements Serializable {
 
         // Creating model by adding everything into ModelCreator and saving it
         ModelCreator model = new ModelCreator(modelName,mContext.getFilesDir().toString());
+
         model.addType(hour_type);
         model.addType(minute_type);
         model.addType(time_type);
@@ -182,6 +183,10 @@ public class ModelCreator implements Serializable {
         model.addType(longitude_type);
         model.addType(latitude_type);
         model.addType(sound_type);
+        model.addType(on_off_type);
+        model.addType(message_type);
+
+
         model.addAttribute(hour);
         model.addAttribute(minute);
         model.addAttribute(time);

@@ -49,6 +49,7 @@ public class Xattr implements XTT2StringRepresentation, Serializable {
      */
     public String returnStringForModel(){
         String attrString = "xattr [name: " + name + ",\n";
+        attrString += "\t   abbrev: " + abbrev + ",\n";
         attrString += "\t   class: " + className + ",\n";
         attrString += "\t   type: " + type + ",\n";
         attrString += "\t   comm: " + comm;

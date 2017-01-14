@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity
     public void runSimModelButtonOnClick(View v){
         Inference inference = new Inference(this);
         for(String scriptName : FilesOperations.getAllModelNames(this)) {
-            inference.runInference(scriptName);
+            inference.runInference(this.getFilesDir() + "/" + scriptName + ".hmr");
         }
     }
 

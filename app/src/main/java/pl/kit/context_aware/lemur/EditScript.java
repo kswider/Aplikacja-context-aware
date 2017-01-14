@@ -146,14 +146,19 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
             }
 
-            final String[] actionsArray = {"off", "on", "vibration"};
-            for (String action : loadedModel.getAttribute("sound").getValues()){
-                for(int i = 0; i<actionsArray.length;++i){
-                    if(actionsArray[i].equals(action)){
-                        actions.add(i);
+
+            final String[] argumentsArray = {"bluetooth","wifi","datatransmission","sound"}; //TODO message, it will be different when we implement setting action differently
+            final String[] stateArray = {"off", "on", "vibration"};
+            for(int j = 0; j < argumentsArray.length; ++j) {
+                for (String action : loadedModel.getAttribute(argumentsArray[j]).getValues()) {
+                    for (int i = 0; i < stateArray.length; ++i) {
+                        if (stateArray[i].equals(action)) {
+                            actions.add(i + j*2);
+                        }
                     }
                 }
             }
+
 
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_edit_script);
@@ -163,7 +168,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
             scriptName.setText(scriptNameToEdit);
             TextView timeTV = (TextView) this.findViewById(R.id.es_set_time_sub);
-            timeTV.setText(hour +":" + minute);
+            if(!loadedModel.getAttribute("minute").getValues().isEmpty()) {
+                timeTV.setText(hour + ":" + minute);
+            }
+            else{
+                timeTV.setText("");
+            }
+
             TextView daysTV = (TextView) this.findViewById(R.id.es_set_day_sub);
             daysTV.setText("");
             for(int i=0; i<days.size(); i++){
@@ -174,7 +185,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             actionsTV.setText("");
             for(int i=0; i<actions.size(); i++){
                 Resources res = this.getResources();
-                actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[days.get(i)] + ",");
+                actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[actions.get(i)] + ",");
             }
 
             //toolbar.setTitle(getResources().getString(R.string.es_Script));
@@ -220,11 +231,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 if (!(time == -1)) {
                     //setting values of Attributes, needed in loading models
                     attributesList.add(newModel.getAttribute("time"));
-                    newModel.getAttribute("time").addValue(String.valueOf(time));
-                    newModel.getAttribute("minute").addValue(String.valueOf(minute));
                     newModel.getAttribute("hour").addValue(String.valueOf(hour));
-
-                    alsv = new ALSVExpression(newModel.getAttribute("time"), String.valueOf(time));
+                    newModel.getAttribute("minute").addValue(String.valueOf(minute));
+                    newModel.getAttribute("time").addValue(String.valueOf(time));
+                    alsv = new ALSVExpression(newModel.getAttribute("time"), Double.toString(time));
                     ALSVList.add(alsv);
                 }
                 if (!days.isEmpty()) {
@@ -252,40 +262,40 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
                 if (!actions.isEmpty()) {
                     for(Integer actionNumber : actions){ // TODO still need some changes
-                        if(actionNumber < 3) attributesToSetList.add(newModel.getAttribute("sound"));
-                        if(actionNumber > 2 && actionNumber < 5) attributesToSetList.add(newModel.getAttribute("wifi"));
-                        if(actionNumber > 4 && actionNumber < 7) attributesToSetList.add(newModel.getAttribute("datatransmission"));
-                        if(actionNumber > 6 && actionNumber < 9) attributesToSetList.add(newModel.getAttribute("bluetooth"));
+                        if(actionNumber < 2) attributesToSetList.add(newModel.getAttribute("bluetooth"));
+                        if(actionNumber > 1 && actionNumber < 4) attributesToSetList.add(newModel.getAttribute("wifi"));
+                        if(actionNumber > 3 && actionNumber < 6) attributesToSetList.add(newModel.getAttribute("datatransmission"));
+                        if(actionNumber > 5 && actionNumber < 9) attributesToSetList.add(newModel.getAttribute("sound"));
                     }
 
                     final String[] actionsArray = {"off", "on", "vibration"};
                     for (Integer actionNumber : actions) {
-                        if(actionNumber < 3){
-                            newModel.getAttribute("sound").addValue(actionsArray[actionNumber]);
-                            decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber]);
+                        if(actionNumber < 2){
+                            newModel.getAttribute("bluetooth").addValue(actionsArray[actionNumber]);
+                            decision = new DecisionExpression(newModel.getAttribute("bluetooth"), actionsArray[actionNumber]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.setSound");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setBluetooth");
                             actionList.add(action);
                         }
-                        if(actionNumber > 2 && actionNumber < 5){
-                            newModel.getAttribute("wifi").addValue(actionsArray[actionNumber-3]);
-                            decision = new DecisionExpression(newModel.getAttribute("wifi"), actionsArray[actionNumber-3]);
+                        if(actionNumber > 1 && actionNumber < 4){
+                            newModel.getAttribute("wifi").addValue(actionsArray[actionNumber-2]);
+                            decision = new DecisionExpression(newModel.getAttribute("wifi"), actionsArray[actionNumber-2]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.setWifi");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setWifi");
                             actionList.add(action);
                         }
-                        if(actionNumber > 4 && actionNumber < 7){
-                            newModel.getAttribute("datatransmission").addValue(actionsArray[actionNumber-5]);
-                            decision = new DecisionExpression(newModel.getAttribute("datatransmission"), actionsArray[actionNumber-5]);
+                        if(actionNumber > 3 && actionNumber < 6){
+                            newModel.getAttribute("datatransmission").addValue(actionsArray[actionNumber-4]);
+                            decision = new DecisionExpression(newModel.getAttribute("datatransmission"), actionsArray[actionNumber-4]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.setDataTransmission");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setDataTransmission");
                             actionList.add(action);
                         }
-                        if(actionNumber > 6 && actionNumber < 9){
-                            newModel.getAttribute("bluetooth").addValue(actionsArray[actionNumber-7]);
-                            decision = new DecisionExpression(newModel.getAttribute("bluetooth"), actionsArray[actionNumber-7]);
+                        if(actionNumber > 5 && actionNumber < 9){
+                            newModel.getAttribute("sound").addValue(actionsArray[actionNumber-6]);
+                            decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber-6]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.conext_aware.lemur.HeartDROID.actions.setBluetooth");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
                             actionList.add(action);
                         }
                     } //TODO actions for sending messages
@@ -313,7 +323,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         Log.i("File ", file.toString());
                 }
                 */
-                Toast.makeText(this, getResources().getString(R.string.es_Added), Toast.LENGTH_SHORT).show();
+                //SimpleNumeric a = new SimpleNumeric(5.5);
+
+                Toast.makeText(this, "Script added successfullly!", Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
 
@@ -347,7 +359,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public void onDialogTPFPositiveClick(DialogFragment dialog) {
         hour = ((TimePickerFragment) dialog).getHour();
         minute = ((TimePickerFragment) dialog).getMinute();
-        time = hour + (minute / 60);
+        time = (double)hour + ((double)minute / 60);
     }
 
     @Override

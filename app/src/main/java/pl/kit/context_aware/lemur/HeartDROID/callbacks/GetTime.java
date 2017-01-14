@@ -13,14 +13,15 @@ import pl.kit.context_aware.lemur.Readers.ReadTime;
  * Created by Krzysiek on 2016-12-27.
  */
 
-public class GetTime implements Callback{
+public class getTime implements Callback{
     @Override
     public void execute(Attribute subject, WorkingMemory wmm) {
         double hour = ReadTime.ReadHour();
         double minute = ReadTime.ReadMinute();
-        double time = hour + (minute/60);
+        SimpleNumeric time = new SimpleNumeric(hour + (minute/60));
+
         try {
-            wmm.setAttributeValue(subject,new SimpleNumeric(time),false);
+            wmm.setAttributeValue(subject, time ,false);
         } catch (AttributeNotRegisteredException e) {
             Debug.debug("CALLBACK",
                     Debug.Level.WARNING,

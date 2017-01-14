@@ -37,7 +37,7 @@ public class Inference  {
 
             try{
                 Debug.debugLevel = Debug.Level.SILENT;
-                HeaRT.goalDrivenInference(model, new String[]{"SetEverything"},
+                HeaRT.fixedOrderInference(model, new String[]{"SetEverything"},
                         new Configuration.Builder().setCsr(new ConflictSetFireAll())
                                 .build());
 

@@ -13,7 +13,7 @@ public class setSound implements Action {
 
     @Override
     public void execute(State state) {
-        String argument = String.valueOf(state.getValueOfAttribute("sound_settings"));
+        String argument = String.valueOf(state.getValueOfAttribute("sound"));
         RingModes rs = new RingModes();
         switch (argument){
             case "on":
