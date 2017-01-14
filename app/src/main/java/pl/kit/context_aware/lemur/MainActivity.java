@@ -4,10 +4,7 @@ package pl.kit.context_aware.lemur;
         import android.app.PendingIntent;
         import android.content.Context;
         import android.content.Intent;
-        import android.icu.util.GregorianCalendar;
         import android.os.Bundle;
-        import android.os.SystemClock;
-        import android.util.Log;
         import android.view.View;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -21,7 +18,7 @@ package pl.kit.context_aware.lemur;
         import java.util.Calendar;
 
         import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
-        import pl.kit.context_aware.lemur.HeartDROID.HeartAlarmReciever;
+        import pl.kit.context_aware.lemur.HeartDROID.HeartAlarmReceiver;
         import pl.kit.context_aware.lemur.HeartDROID.Inference;
         import pl.kit.context_aware.lemur.PhoneActions.RingModes;
         import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
@@ -75,31 +72,18 @@ public class MainActivity extends AppCompatActivity
             inference.runInference(this.getFilesDir() + "/" + scriptName + ".hmr");
         }
     }
-
-    public void sheduleHeartOnClick(View v){
-        Calendar c = Calendar.getInstance();
-        Long time = c.getTimeInMillis()+60*1000;
-
-        Intent intentAlarm = new Intent(this, HeartAlarmReciever.class);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-
-        alarmManager.set(AlarmManager.RTC_WAKEUP,time, PendingIntent.getBroadcast(this,1,  intentAlarm, PendingIntent.FLAG_UPDATE_CURRENT));
-        Toast.makeText(this, "Alarm Scheduled for one minute", Toast.LENGTH_LONG).show();
-    }
-
+    
     public void sheduleHeartEvery5MinutesOnClick(View v){
-        AlarmManager alarmManager=(AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent intent = new Intent(MainActivity.this, HeartAlarmReciever.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(MainActivity.this, 0, intent, 0);
-        Calendar c = Calendar.getInstance();
-        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                c.getTimeInMillis(),
-                60*100,
-                pendingIntent);
-        Toast.makeText(this, "Alarm Scheduled for every one minute", Toast.LENGTH_LONG).show();
 
+        int i = 60;
+        Intent intent = new Intent(this, HeartAlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this.getApplicationContext(), 234324243, intent, 0);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
+                + (i * 1000), (i * 1000), pendingIntent);
+        Toast.makeText(this, "Starting alarm in " + i + " seconds",
+                Toast.LENGTH_LONG).show();
     }
 
     public void floatingButtonOnClick(View v){
