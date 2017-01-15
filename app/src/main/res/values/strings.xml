@@ -95,4 +95,5 @@
     <string name="actions_tests_ld">Actions</string>
     <string name="tests_ld">Tests</string>
     <string name="title_activity_edit_script">Script</string>
+    <string name="title_activity_location_picker">Map</string>
 </resources>

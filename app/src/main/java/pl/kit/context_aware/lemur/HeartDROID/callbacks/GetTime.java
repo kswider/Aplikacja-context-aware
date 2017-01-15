@@ -13,7 +13,7 @@ import pl.kit.context_aware.lemur.Readers.ReadTime;
  * Created by Krzysiek on 2016-12-27.
  */
 
-public class getTime implements Callback{
+public class GetTime implements Callback{
     @Override
     public void execute(Attribute subject, WorkingMemory wmm) {
         double hour = ReadTime.ReadHour();
