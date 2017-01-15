@@ -318,13 +318,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     fileSer.delete();
                     fileHmr.delete();
                 }
-                /* //needed for debugging
-                for (Integer file : actions) {
-                        Log.i("File ", file.toString());
-                }
-                */
-                //SimpleNumeric a = new SimpleNumeric(5.5);
-
                 Toast.makeText(this, "Script added successfullly!", Toast.LENGTH_SHORT).show();
                 finish();
                 return true;
