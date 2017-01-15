@@ -28,7 +28,7 @@ public class HeartAlarmReceiver extends BroadcastReceiver {
 
         Inference inference = new Inference(context);
         for(String scriptName : FilesOperations.getAllModelNames(context)) {
-            inference.runInference(scriptName);
+            inference.runInference(context.getFilesDir() + "/" + scriptName + ".hmr");
         }
     }
 }

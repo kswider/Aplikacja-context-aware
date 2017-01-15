@@ -310,10 +310,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             actionList.add(action);
                         }
                     } //TODO actions for sending messages
-                for(ActionExpression a : actionList){
-                    Log.i("",a.returnStringForModel());
-                }
-
                 }
                 // Creating and adding scheme to model
                 Xschm scheme = new Xschm("SetEverything", attributesList, attributesToSetList);
