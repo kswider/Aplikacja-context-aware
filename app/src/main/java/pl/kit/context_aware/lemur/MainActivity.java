@@ -30,23 +30,19 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     public void SilentButtonOnClick(View v){
-        RingModes rm = new RingModes();
-        rm.silentMode(this);
+        RingModes.silentMode(this);
     }
 
     public void VibrationButtonOnClick(View v){
-        RingModes rm = new RingModes();
-        rm.vibrationsMode(this);
+        RingModes.vibrationsMode(this);
     }
 
     public void NormalRingButtonOnClick(View v){
-        RingModes rm = new RingModes();
-        rm.normalMode(this);
+        RingModes.normalMode(this);
     }
 
     public void NotificationButtonOnClick(View v){
-        SendNotification sn = new SendNotification();
-        sn.sendNotification(this,5,"Wiadomość od Krzysia","Gdzie masz krzesło !?");
+        SendNotification.sendNotification(this,5,"Wiadomość od Krzysia","Gdzie masz krzesło !?");
     }
 
     public void ReadTimeButtonOnClick(View v){

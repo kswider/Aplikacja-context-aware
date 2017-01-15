@@ -18,7 +18,7 @@ public class RingModes {
      * Method sets phone into silent mode
      * @param mContext Context of the activity which calls the method.
      */
-    public void silentMode(Context mContext){
+    public static void silentMode(Context mContext){
         AudioManager audio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         audio.setRingerMode(AudioManager.RINGER_MODE_SILENT);
     }
@@ -27,7 +27,7 @@ public class RingModes {
      * Method sets phone into vibrations only mode
      * @param mContext Context of the activity which calls the method.
      */
-    public void vibrationsMode(Context mContext){
+    public static void vibrationsMode(Context mContext){
         AudioManager audio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         audio.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
     }
@@ -36,7 +36,7 @@ public class RingModes {
      * Method returns phone to previous, unmuted mode.
      * @param mContext Context of the activity which calls the method.
      */
-    public void normalMode(Context mContext){
+    public static void normalMode(Context mContext){
         AudioManager audio = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
         audio.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
     }

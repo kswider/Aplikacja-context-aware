@@ -83,6 +83,7 @@
         <item name="action_7">Turn off sounds</item>
         <item name="action_8">Turn on sounds</item>
         <item name="action_9">Turn on vibration</item>
+        <item name="action_10">Send notification</item>
     </string-array>
 
     <string name="ds_delete_1">Do you want delete</string>

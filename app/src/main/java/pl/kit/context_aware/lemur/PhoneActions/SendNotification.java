@@ -21,7 +21,7 @@ public class SendNotification {
      * @param title String containing title of Notification
      * @param text String containing longer text of Notification
      */
-    public void sendNotification(Context mContext, int id, String title, String text){
+    public static void sendNotification(Context mContext, int id, String title, String text){
         android.support.v4.app.NotificationCompat.Builder mBuilder =
                 new android.support.v4.app.NotificationCompat.Builder(mContext)
                         .setSmallIcon(R.mipmap.ic_launcher)

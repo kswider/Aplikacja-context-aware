@@ -149,7 +149,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             }
 
 
-            final String[] argumentsArray = {"bluetooth","wifi","datatransmission","sound"}; //TODO message, it will be different when we implement setting action differently
+            final String[] argumentsArray = {"bluetooth","wifi","datatransmission","sound","message"}; //TODO message, it will be different when we implement setting action differently
             final String[] stateArray = {"off", "on", "vibration"};
             for(int j = 0; j < argumentsArray.length; ++j) {
                 for (String action : loadedModel.getAttribute(argumentsArray[j]).getValues()) {
@@ -158,6 +158,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             actions.add(i + j*2);
                         }
                     }
+                    if (action.equals("notification") ) actions.add(9);
                 }
             }
 
@@ -268,6 +269,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         if(actionNumber > 1 && actionNumber < 4) attributesToSetList.add(newModel.getAttribute("wifi"));
                         if(actionNumber > 3 && actionNumber < 6) attributesToSetList.add(newModel.getAttribute("datatransmission"));
                         if(actionNumber > 5 && actionNumber < 9) attributesToSetList.add(newModel.getAttribute("sound"));
+                        if(actionNumber==9) attributesToSetList.add(newModel.getAttribute("message"));
                     }
 
                     final String[] actionsArray = {"off", "on", "vibration"};
@@ -300,8 +302,17 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetSound");
                             actionList.add(action);
                         }
+                        if(actionNumber == 9){
+                            newModel.getAttribute("message").addValue("notification");
+                            decision = new DecisionExpression(newModel.getAttribute("message"), "notification");
+                            decisionList.add(decision);
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SendMessage");
+                            actionList.add(action);
+                        }
                     } //TODO actions for sending messages
-
+                for(ActionExpression a : actionList){
+                    Log.i("",a.returnStringForModel());
+                }
 
                 }
                 // Creating and adding scheme to model

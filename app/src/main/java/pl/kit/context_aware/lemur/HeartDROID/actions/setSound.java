@@ -14,16 +14,15 @@ public class SetSound implements Action {
     @Override
     public void execute(State state) {
         String argument = String.valueOf(state.getValueOfAttribute("sound"));
-        RingModes rs = new RingModes();
         switch (argument){
             case "on":
-                rs.normalMode(Inference.getmContext());
+                RingModes.normalMode(Inference.getmContext());
                 break;
             case "off":
-                rs.silentMode(Inference.getmContext());
+                RingModes.silentMode(Inference.getmContext());
                 break;
             case "vibration":
-                rs.vibrationsMode(Inference.getmContext());
+                RingModes.vibrationsMode(Inference.getmContext());
                 break;
         }
 
