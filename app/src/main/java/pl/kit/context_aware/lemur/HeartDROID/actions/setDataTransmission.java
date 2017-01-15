@@ -8,7 +8,7 @@ import pl.kit.context_aware.lemur.HeartDROID.Inference;
  * Created by Krzysiek on 2017-01-13.
  */
 
-public class setDataTransmission implements Action {
+public class SetDataTransmission implements Action {
     @Override
     public void execute(State state) {
         String argument = String.valueOf(state.getValueOfAttribute("datatransmission"));

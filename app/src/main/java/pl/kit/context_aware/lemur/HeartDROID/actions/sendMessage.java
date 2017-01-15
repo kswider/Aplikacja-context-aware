@@ -9,7 +9,7 @@ import pl.kit.context_aware.lemur.HeartDROID.Inference;
  * Created by Krzysiek on 2017-01-13.
  */
 
-public class sendMessage implements Action {
+public class SendMessage implements Action {
     @Override
     public void execute(State state) {
         String argument = String.valueOf(state.getValueOfAttribute("message"));

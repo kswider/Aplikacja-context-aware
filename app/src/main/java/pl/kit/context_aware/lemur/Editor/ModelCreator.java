@@ -163,10 +163,10 @@ public class ModelCreator implements Serializable {
         //We will use only these arguments in our model, user can't add his own arguments
         final Xattr hour = new Xattr(hour_type, "hour", "hour1", "in", "");
         final Xattr minute = new Xattr(minute_type, "minute", "minute1", "in", "");
-        final Xattr time = new Xattr(time_type, "time", "time1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.getTime");
-        final Xattr day = new Xattr(day_type, "day", "day1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.getDayOfAWeek");
-        final Xattr longitude = new Xattr(longitude_type, "longitude", "longitude1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.getLongitude");
-        final Xattr latitude = new Xattr(latitude_type, "latitude", "latitude1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.getLatitude");
+        final Xattr time = new Xattr(time_type, "time", "time1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.GetTime");
+        final Xattr day = new Xattr(day_type, "day", "day1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.GetDayOfAWeek");
+        final Xattr longitude = new Xattr(longitude_type, "longitude", "longitude1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.GetLongitude");
+        final Xattr latitude = new Xattr(latitude_type, "latitude", "latitude1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.GetLatitude");
         final Xattr sound = new Xattr(sound_type, "sound", "sound1", "inter", "");
         final Xattr bluetooth = new Xattr(on_off_type, "bluetooth", "bluetooth1", "inter", "");
         final Xattr wifi = new Xattr(on_off_type, "wifi", "wifi1", "inter", "");

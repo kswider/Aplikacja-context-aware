@@ -276,28 +276,28 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             newModel.getAttribute("bluetooth").addValue(actionsArray[actionNumber]);
                             decision = new DecisionExpression(newModel.getAttribute("bluetooth"), actionsArray[actionNumber]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setBluetooth");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetBluetooth");
                             actionList.add(action);
                         }
                         if(actionNumber > 1 && actionNumber < 4){
                             newModel.getAttribute("wifi").addValue(actionsArray[actionNumber-2]);
                             decision = new DecisionExpression(newModel.getAttribute("wifi"), actionsArray[actionNumber-2]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setWifi");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetWifi");
                             actionList.add(action);
                         }
                         if(actionNumber > 3 && actionNumber < 6){
                             newModel.getAttribute("datatransmission").addValue(actionsArray[actionNumber-4]);
                             decision = new DecisionExpression(newModel.getAttribute("datatransmission"), actionsArray[actionNumber-4]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setDataTransmission");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetDataTransmission");
                             actionList.add(action);
                         }
                         if(actionNumber > 5 && actionNumber < 9){
                             newModel.getAttribute("sound").addValue(actionsArray[actionNumber-6]);
                             decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber-6]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetSound");
                             actionList.add(action);
                         }
                     } //TODO actions for sending messages
