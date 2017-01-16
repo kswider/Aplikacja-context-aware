@@ -1,6 +1,7 @@
 package pl.kit.context_aware.lemur;
 
         import android.app.AlarmManager;
+        import android.app.DialogFragment;
         import android.app.PendingIntent;
         import android.content.Context;
         import android.content.Intent;
@@ -16,6 +17,7 @@ package pl.kit.context_aware.lemur;
         import android.widget.Toast;
 
         import java.util.Calendar;
+        import java.util.LinkedList;
 
         import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
         import pl.kit.context_aware.lemur.HeartDROID.HeartAlarmReceiver;
@@ -27,7 +29,9 @@ package pl.kit.context_aware.lemur;
         import pl.kit.context_aware.lemur.TmpTests.TestService;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ScriptsToExportPickerFragment.NoticeDialogSTEFListener, ScriptsToImportPickerFragment.NoticeDialogSTIFListener {
+    LinkedList<String> ScriptsToExport = null;
+    LinkedList<String> ScriptsToImport = null;
 
     public void SilentButtonOnClick(View v){
         RingModes.silentMode(this);
@@ -83,12 +87,16 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void ImportScriptButtonOnClick(View v){
-        Toast.makeText(this, "Replace me with Import Script Action",
+        DialogFragment newFragment = new ScriptsToImportPickerFragment();
+        newFragment.show(getFragmentManager(), "Import Scripts List Fragment");
+        Toast.makeText(this, "Scripts Imported",
                 Toast.LENGTH_LONG).show();
     }
 
     public void ExportScriptButtonOnClick(View v){
-        Toast.makeText(this, "Replace me wuith Export Script Action",
+        DialogFragment newFragment = new ScriptsToExportPickerFragment();
+        newFragment.show(getFragmentManager(), "Export Scripts List Fragment");
+        Toast.makeText(this, "Scripts exported",
                 Toast.LENGTH_LONG).show();
     }
 
@@ -196,5 +204,25 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onDialogSTEFPositiveClick(DialogFragment dialog) {
+        ScriptsToExport = (LinkedList<String>)((ScriptsToExportPickerFragment) dialog).getSelectedScripts().clone();
+    }
+
+    @Override
+    public void onDialogSTEFNegativeClick(DialogFragment dialog) {
+        ScriptsToExport = null;
+    }
+
+    @Override
+    public void onDialogSTIFPositiveClick(DialogFragment dialog) {
+        ScriptsToImport = (LinkedList<String>)((ScriptsToImportPickerFragment)dialog).getSelectedScripts().clone();
+    }
+
+    @Override
+    public void onDialogSTIFNegativeClick(DialogFragment dialog) {
+        ScriptsToImport = null;
     }
 }
