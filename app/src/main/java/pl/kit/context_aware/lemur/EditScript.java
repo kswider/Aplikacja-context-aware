@@ -133,19 +133,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_script);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //Reads parameter (script file name) passed from previous activity
         Intent intent = getIntent();
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
-
-        //Depending if file name was given or not loads private values
+        Log.i("App",scriptNameToEdit);
         if(scriptNameToEdit.isEmpty()) {
             hour = -1;
             minute = -1;
@@ -153,7 +144,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             longitude = null;
             latitude = null;
 
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_edit_script);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
             scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
+            //toolbar.setTitle(getResources().getString(R.string.es_Script));
+            setSupportActionBar(toolbar);
+
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             // ATTENTION: This was auto-generated to implement the App Indexing API.
             // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -199,6 +196,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
             }
 
+
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_edit_script);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
+
             //filling fields with loaded attributes
             scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
             scriptName.setText(scriptNameToEdit);
@@ -223,7 +225,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[actions.get(i)] + ",");
             }
 
+            //toolbar.setTitle(getResources().getString(R.string.es_Script));
+            setSupportActionBar(toolbar);
 
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             // ATTENTION: This was auto-generated to implement the App Indexing API.
             // See https://g.co/AppIndexing/AndroidStudio for more information.
             client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -487,6 +492,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 Place place = PlacePicker.getPlace(data, this);
                 longitude = place.getLatLng().longitude;
                 latitude = place.getLatLng().latitude;
+                TextView LocSubTV = (TextView) findViewById(R.id.es_set_location_sub);
+                LocSubTV.setText(Double.toString(longitude) + "  " + Double.toString(latitude));
             }
         }
 

@@ -82,6 +82,16 @@ public class MainActivity extends AppCompatActivity
                 Toast.LENGTH_LONG).show();
     }
 
+    public void ImportScriptButtonOnClick(View v){
+        Toast.makeText(this, "Replace me with Import Script Action",
+                Toast.LENGTH_LONG).show();
+    }
+
+    public void ExportScriptButtonOnClick(View v){
+        Toast.makeText(this, "Replace me wuith Export Script Action",
+                Toast.LENGTH_LONG).show();
+    }
+
     public void floatingButtonOnClick(View v){
         Bundle eFileName = new Bundle();
         eFileName.putString("eFileName","");
@@ -140,10 +150,10 @@ public class MainActivity extends AppCompatActivity
              fragmentTransaction.replace(R.id.fragment_container,sl);
              fragmentTransaction.commit();
         } else if (id == R.id.IEScripts){
-             ToDoFragment tdf = new ToDoFragment();
+             ImportExportFragment ief = new ImportExportFragment();
              android.support.v4.app.FragmentTransaction fragmentTransaction =
                      getSupportFragmentManager().beginTransaction();
-             fragmentTransaction.replace(R.id.fragment_container,tdf);
+             fragmentTransaction.replace(R.id.fragment_container,ief);
              fragmentTransaction.commit();
          } else if (id == R.id.Settings){
              ToDoFragment tdf = new ToDoFragment();

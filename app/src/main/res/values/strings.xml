@@ -73,6 +73,11 @@
         <item name="day_7">Sunday</item>
     </string-array>
 
+    <!--ImportExportFragment-->
+    <string name="ie_instruction">Replace this text with short instruction of how it works</string>
+    <string name="ie_import">Import</string>
+    <string name="ie_export">Export</string>
+
     <string-array name="actions">
         <item name="action_1">Turn off bluetooth</item>
         <item name="action_2">Turn on bluetooth</item>
