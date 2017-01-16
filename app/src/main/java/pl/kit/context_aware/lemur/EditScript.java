@@ -30,7 +30,11 @@ import android.widget.Toast;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -54,24 +58,28 @@ import static java.security.AccessController.getContext;
 public class EditScript extends AppCompatActivity implements DayOfWeekPickerFragment.NoticeDialogDOWPFListener
         , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener {
 
-    EditText scriptName;
-
     String rememberedModelName; //used in deleting old models
-    private int hour;
-    private int minute;
-    private double time;
-    private Double longitude;
-    private Double latitude;
-    private LinkedList<Integer> days = new LinkedList<>();
-    private LinkedList<Integer> actions = new LinkedList<>();
-
-    private String scriptNameToLoad;
+    private int hour; //hour selected or loaded from file
+    private int minute; //minute selected or loaded from file
+    private double time; //time calculated with hour and minute
+    private Double longitude; //longitude selected or loaded from file
+    private Double latitude; //latitude selected or loaded from file
+    private LinkedList<Integer> days = new LinkedList<>(); //list of days selected or loaded from file
+    private LinkedList<Integer> actions = new LinkedList<>(); //list of actions selected or loaded from file
+    private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
+    private String scriptNameToLoad; // ??
+    EditText scriptName; //Edit text field with script name
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
 
+    /**
+     * Action for the Set Time Clicked
+     * Opens TimePickerFragment with previously selected items checked
+     * @param v current View
+     */
     public void SetTimeOnClick(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         ((TimePickerFragment) newFragment).setHour(hour);
@@ -79,30 +87,65 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         newFragment.show(getFragmentManager(), "Time Picker");
     }
 
+    /**
+     * Action for the Set Day Clicked
+     * Opens DayOfWeekPickerFragment with previously selected items checked
+     * @param v current View
+     */
     public void SetDayOnClick(View v) {
         DialogFragment newFragment = new DayOfWeekPickerFragment();
         ((DayOfWeekPickerFragment) newFragment).setDaysOfWeek(days);
         newFragment.show(getFragmentManager(), "DayOfWeek Picker");
     }
 
+    /**
+     * Action for the Set Action Clicked
+     * Opens SetActionPickerFragment with previously selected items checked
+     * @param v current View
+     */
     public void SetActionOnClick(View v) {
         DialogFragment newFragment = new ActionPickerFragment();
         ((ActionPickerFragment)newFragment).setActions(this.actions);
         newFragment.show(getFragmentManager(), "Action Picker");
     }
 
+    /**
+     * Action for the Set Action Clicked
+     * Opens PlacePicker with current location in center
+     * @param v current View
+     */
     public void SetLocationOnClick(View v) {
-        Intent intent = new Intent(v.getContext(),LocationPickerActivity.class);
-        startActivity(intent);
-        Toast.makeText(this, "TO DO", Toast.LENGTH_SHORT).show();
+        int PLACE_PICKER_REQUEST = 1;
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+
+        try {
+            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     * Method running at Activity start
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_script);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Reads parameter (script file name) passed from previous activity
         Intent intent = getIntent();
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
-        Log.i("App",scriptNameToEdit);
+
+        //Depending if file name was given or not loads private values
         if(scriptNameToEdit.isEmpty()) {
             hour = -1;
             minute = -1;
@@ -110,13 +153,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             longitude = null;
             latitude = null;
 
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_edit_script);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
             scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
-            //toolbar.setTitle(getResources().getString(R.string.es_Script));
-            setSupportActionBar(toolbar);
-
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             // ATTENTION: This was auto-generated to implement the App Indexing API.
             // See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -162,11 +199,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
             }
 
-
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_edit_script);
-            Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
-
             //filling fields with loaded attributes
             scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
             scriptName.setText(scriptNameToEdit);
@@ -191,10 +223,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[actions.get(i)] + ",");
             }
 
-            //toolbar.setTitle(getResources().getString(R.string.es_Script));
-            setSupportActionBar(toolbar);
 
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             // ATTENTION: This was auto-generated to implement the App Indexing API.
             // See https://g.co/AppIndexing/AndroidStudio for more information.
             client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -202,6 +231,12 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         }
     }
 
+
+    /**
+     * Method creating toolbar
+     * @param menu
+     * @return true if created
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -209,6 +244,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         return true;
     }
 
+    /**
+     * Method operating toolbar buttons clicked actions
+     * @param item selected(clicked) item
+     * @return true if button clicked
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -337,26 +377,52 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         }
     }
 
+
+    /**
+     * DayOfWeekPickerFragment listener for positive button clicked
+     * Saves selected items to private linked list.
+     * @param dialog DayOfWeekPickerFragment dialog object
+     */
     @Override
     public void onDialogDOWPFPositiveClick(DialogFragment dialog) {
         days = (LinkedList<Integer>) ((DayOfWeekPickerFragment) dialog).getDays().clone();
     }
 
+    /**
+     * DayOfWeekPickerFragment listener for negative button clicked
+     * Saves selected items to private linked list.
+     * @param dialog DayOfWeekPickerFragment dialog object
+     */
     @Override
     public void onDialogDOWPFNegativeClick(DialogFragment dialog) {
 
     }
 
+    /**
+     * ActionPickerFragment listener for positive button clicked
+     * Saves selected items to private linked list.
+     * @param dialog ActionPickerFragment dialog object
+     */
     @Override
     public void onDialogAPFPositiveClick(DialogFragment dialog) {
         actions = (LinkedList<Integer>) ((ActionPickerFragment) dialog).getActions().clone();
     }
 
+    /**
+     * ActionPickerFragment listener for negative button clicked
+     * Saves selected items to private linked list.
+     * @param dialog ActionPickerFragment dialog object
+     */
     @Override
     public void onDialogAPFNegativeClick(DialogFragment dialog) {
 
     }
 
+    /**
+     * TimePickerFragment listener for positive button clicked
+     * Saves selected items to private linked list.
+     * @param dialog TimePickerFragment dialog object
+     */
     @Override
     public void onDialogTPFPositiveClick(DialogFragment dialog) {
         hour = ((TimePickerFragment) dialog).getHour();
@@ -364,6 +430,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         time = (double)hour + ((double)minute / 60);
     }
 
+    /**
+     * TimePickerFragment listener for nefative button clicked
+     * Saves selected items to private linked list.
+     * @param dialog TimePickerFragment dialog object
+     */
     @Override
     public void onDialogTPFNegativeClick(DialogFragment dialog) {
 
@@ -403,5 +474,21 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         AppIndex.AppIndexApi.end(client, getIndexApiAction());
         client.disconnect();
+    }
+
+    /**
+     * PlacePicker listener for result of the activity
+     * Saves selected items to private double pools;
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                longitude = place.getLatLng().longitude;
+                latitude = place.getLatLng().latitude;
+            }
+        }
+
     }
 }
