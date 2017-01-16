@@ -5,6 +5,7 @@ package pl.kit.context_aware.lemur;
         import android.app.PendingIntent;
         import android.content.Context;
         import android.content.Intent;
+        import android.net.Uri;
         import android.os.Bundle;
         import android.view.View;
         import android.support.design.widget.NavigationView;
@@ -176,11 +177,15 @@ public class MainActivity extends AppCompatActivity
              fragmentTransaction.replace(R.id.fragment_container,aa);
              fragmentTransaction.commit();
          } else if (id == R.id.RateApp){
-             ToDoFragment tdf = new ToDoFragment();
-             android.support.v4.app.FragmentTransaction fragmentTransaction =
-                     getSupportFragmentManager().beginTransaction();
-             fragmentTransaction.replace(R.id.fragment_container,tdf);
-             fragmentTransaction.commit();
+             Intent intent = new Intent(Intent.ACTION_VIEW);
+             intent.setData(Uri.parse("market://details?id=com.android.app"));
+             try{
+                 startActivity(intent);
+             }
+             catch(Exception e){
+                 Toast.makeText(this, "!!!Error occurred!!! \nYou don't have Play Store",
+                         Toast.LENGTH_LONG).show();
+             }
          } else if (id == R.id.Readers){
              ReadersTests rt = new ReadersTests();
              android.support.v4.app.FragmentTransaction fragmentTransaction =
