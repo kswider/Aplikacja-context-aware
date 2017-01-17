@@ -188,7 +188,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             }
 
 
-            final String[] argumentsArray = {"bluetooth","wifi","datatransmission","sound","message"}; //TODO message, it will be different when we implement setting action differently
+            final String[] argumentsArray = {"bluetooth","wifi","sound","message"}; //TODO message, it will be different when we implement setting action differently
             final String[] stateArray = {"off", "on", "vibration"};
             for(int j = 0; j < argumentsArray.length; ++j) {
                 for (String action : loadedModel.getAttribute(argumentsArray[j]).getValues()) {
@@ -197,7 +197,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             actions.add(i + j*2);
                         }
                     }
-                    if (action.equals("notification") ) actions.add(9);
+                    if (action.equals("notification") ) actions.add(7);
                 }
             }
 
@@ -214,20 +214,30 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 timeTV.setText(hour + ":" + minute);
             }
             else{
-                timeTV.setText("");
+                timeTV.setText("---");
             }
 
             TextView daysTV = (TextView) this.findViewById(R.id.es_set_day_sub);
             daysTV.setText("");
-            for(int i=0; i<days.size(); i++){
-                Resources res = this.getResources();
-                daysTV.setText(daysTV.getText().toString() + res.getStringArray(R.array.days)[days.get(i)] + ",");
+            if(days.isEmpty()){
+                daysTV.setText("---");
+            }
+            else {
+                for (int i = 0; i < days.size(); i++) {
+                    Resources res = this.getResources();
+                    daysTV.setText(daysTV.getText().toString() + res.getStringArray(R.array.days)[days.get(i)] + ",");
+                }
             }
             TextView actionsTV = (TextView) this.findViewById(R.id.es_set_action_sub);
             actionsTV.setText("");
-            for(int i=0; i<actions.size(); i++){
-                Resources res = this.getResources();
-                actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[actions.get(i)] + ",");
+            if(actions.isEmpty()){
+                actionsTV.setText("---");
+            }
+            else {
+                for (int i = 0; i < actions.size(); i++) {
+                    Resources res = this.getResources();
+                    actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[actions.get(i)] + ",");
+                }
             }
 
             //toolbar.setTitle(getResources().getString(R.string.es_Script));
@@ -317,9 +327,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     for(Integer actionNumber : actions){ // TODO still need some changes
                         if(actionNumber < 2) attributesToSetList.add(newModel.getAttribute("bluetooth"));
                         if(actionNumber > 1 && actionNumber < 4) attributesToSetList.add(newModel.getAttribute("wifi"));
-                        if(actionNumber > 3 && actionNumber < 6) attributesToSetList.add(newModel.getAttribute("datatransmission"));
-                        if(actionNumber > 5 && actionNumber < 9) attributesToSetList.add(newModel.getAttribute("sound"));
-                        if(actionNumber==9) attributesToSetList.add(newModel.getAttribute("message"));
+                        if(actionNumber > 3 && actionNumber < 7) attributesToSetList.add(newModel.getAttribute("sound"));
+                        if(actionNumber==7) attributesToSetList.add(newModel.getAttribute("message"));
                     }
 
                     final String[] actionsArray = {"off", "on", "vibration"};
@@ -338,21 +347,14 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetWifi");
                             actionList.add(action);
                         }
-                        if(actionNumber > 3 && actionNumber < 6){
-                            newModel.getAttribute("datatransmission").addValue(actionsArray[actionNumber-4]);
-                            decision = new DecisionExpression(newModel.getAttribute("datatransmission"), actionsArray[actionNumber-4]);
-                            decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetDataTransmission");
-                            actionList.add(action);
-                        }
-                        if(actionNumber > 5 && actionNumber < 9){
-                            newModel.getAttribute("sound").addValue(actionsArray[actionNumber-6]);
-                            decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber-6]);
+                        if(actionNumber > 3 && actionNumber < 7){
+                            newModel.getAttribute("sound").addValue(actionsArray[actionNumber-4]);
+                            decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber-4]);
                             decisionList.add(decision);
                             action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetSound");
                             actionList.add(action);
                         }
-                        if(actionNumber == 9){
+                        if(actionNumber == 7){
                             newModel.getAttribute("message").addValue("notification");
                             decision = new DecisionExpression(newModel.getAttribute("message"), "notification");
                             decisionList.add(decision);

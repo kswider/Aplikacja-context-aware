@@ -181,7 +181,6 @@ public class ModelCreator implements Serializable {
         final Xattr sound = new Xattr(sound_type, "sound", "sound1", "inter", "");
         final Xattr bluetooth = new Xattr(on_off_type, "bluetooth", "bluetooth1", "inter", "");
         final Xattr wifi = new Xattr(on_off_type, "wifi", "wifi1", "inter", "");
-        final Xattr datatransmission = new Xattr(on_off_type, "datatransmission", "datatransmission1", "inter", "");
         final Xattr message = new Xattr(message_type, "message", "message1", "inter", "");
 
         // Creating model by adding everything into ModelCreator and saving it
@@ -207,7 +206,6 @@ public class ModelCreator implements Serializable {
         model.addAttribute(sound);
         model.addAttribute(bluetooth);
         model.addAttribute(wifi);
-        model.addAttribute(datatransmission);
         model.addAttribute(message);
 
         return model;

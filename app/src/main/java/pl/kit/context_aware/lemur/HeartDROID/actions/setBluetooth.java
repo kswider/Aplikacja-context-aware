@@ -3,6 +3,7 @@ package pl.kit.context_aware.lemur.HeartDROID.actions;
 import heart.Action;
 import heart.State;
 import pl.kit.context_aware.lemur.HeartDROID.Inference;
+import pl.kit.context_aware.lemur.PhoneActions.BluetoothManager;
 
 /**
  * Created by Krzysiek on 2017-01-13.
@@ -14,9 +15,11 @@ public class SetBluetooth implements Action {
         String argument = String.valueOf(state.getValueOfAttribute("bluetooth"));
         switch (argument){
             case "on":
-                //TODO on Android
+                BluetoothManager.turnOnBluetooth();
+                break;
             case "off":
-                //TODO on Android
+                BluetoothManager.turnOffBluetooth();
+                break;
         }
 
     }
