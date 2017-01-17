@@ -12,7 +12,7 @@
     <string name="ld_myScripts">My Scripts</string>
     <string name="ld_IEScripts">Import/Export Scripts</string>\
     <string name="ld_others">Others</string>
-    <string name="ld_Settings">Settings</string>
+    <string name="ld_Settings">Set App Permissions</string>
     <string name="ld_AboutApp">About App</string>
     <string name="ld_RateApp">Rate App</string>
 
@@ -83,6 +83,11 @@
     <string name="ie_instruction">Replace this text with short instruction of how it works</string>
     <string name="ie_import">Import</string>
     <string name="ie_export">Export</string>
+
+    <!--Permission Lack-->
+    <string name="pl_err">Error</string>
+    <string name="pl_fine_location">App doesnt have permission to use your location</string>
+    <string name="pl_write_external">App doesnt have permission to write in external storage</string>
 
     <string-array name="actions">
         <item name="action_1">Turn off bluetooth</item>

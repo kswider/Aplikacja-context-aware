@@ -1,13 +1,17 @@
 package pl.kit.context_aware.lemur;
 
+import android.*;
+import android.Manifest;
 import android.app.DialogFragment;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -115,15 +119,22 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      * @param v current View
      */
     public void SetLocationOnClick(View v) {
-        int PLACE_PICKER_REQUEST = 1;
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            int PLACE_PICKER_REQUEST = 1;
+            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
-        try {
-            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
+            try {
+                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+            } catch (GooglePlayServicesRepairableException e) {
+                e.printStackTrace();
+            } catch (GooglePlayServicesNotAvailableException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            Toast.makeText(this,this.getResources().getString(R.string.pl_fine_location),Toast.LENGTH_SHORT).show();
         }
     }
 

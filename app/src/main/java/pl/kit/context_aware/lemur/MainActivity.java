@@ -1,12 +1,19 @@
 package pl.kit.context_aware.lemur;
 
+        import android.*;
+        import android.Manifest;
         import android.app.AlarmManager;
         import android.app.DialogFragment;
         import android.app.PendingIntent;
         import android.content.Context;
         import android.content.Intent;
+        import android.content.pm.PackageManager;
         import android.net.Uri;
         import android.os.Bundle;
+        import android.provider.Settings;
+        import android.support.v4.app.ActivityCompat;
+        import android.support.v4.content.ContextCompat;
+        import android.util.Log;
         import android.view.View;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -73,8 +80,15 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void ReadLocationButtonOnClick(View v){
-        ReadLocation rl = new ReadLocation();
-        Toast.makeText(this,rl.readLocationByBest(this),Toast.LENGTH_SHORT).show();
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            ReadLocation rl = new ReadLocation();
+            Toast.makeText(this, rl.readLocationByBest(this), Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(this,this.getResources().getString(R.string.pl_fine_location),Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void startServiceButtonOnClick(View v){
@@ -106,17 +120,27 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void ImportScriptButtonOnClick(View v){
-        DialogFragment newFragment = new ScriptsToImportPickerFragment();
-        newFragment.show(getFragmentManager(), "Import Scripts List Fragment");
-        Toast.makeText(this, "Scripts Imported",
-                Toast.LENGTH_LONG).show();
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            DialogFragment newFragment = new ScriptsToImportPickerFragment();
+            newFragment.show(getFragmentManager(), "Import Scripts List Fragment");
+        }
+        else{
+            Toast.makeText(this,this.getResources().getString(R.string.pl_write_external),Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void ExportScriptButtonOnClick(View v){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
         DialogFragment newFragment = new ScriptsToExportPickerFragment();
         newFragment.show(getFragmentManager(), "Export Scripts List Fragment");
-        Toast.makeText(this, "Scripts exported",
-                Toast.LENGTH_LONG).show();
+        }
+        else{
+            Toast.makeText(this,this.getResources().getString(R.string.pl_write_external),Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -153,6 +177,8 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override
@@ -184,11 +210,7 @@ public class MainActivity extends AppCompatActivity
              fragmentTransaction.replace(R.id.fragment_container,ief);
              fragmentTransaction.commit();
          } else if (id == R.id.Settings){
-             ToDoFragment tdf = new ToDoFragment();
-             android.support.v4.app.FragmentTransaction fragmentTransaction =
-                     getSupportFragmentManager().beginTransaction();
-             fragmentTransaction.replace(R.id.fragment_container,tdf);
-             fragmentTransaction.commit();
+             startActivity(new Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS));
          } else if (id == R.id.AboutApp){
              AboutApp aa = new AboutApp();
              android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -236,6 +258,8 @@ public class MainActivity extends AppCompatActivity
         for(String script : ScriptsToExport){
             FilesOperations.exportModel(this,script);
         }
+        Toast.makeText(this, "Scripts exported",
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -249,6 +273,8 @@ public class MainActivity extends AppCompatActivity
         for(String script : ScriptsToImport){
             FilesOperations.importModel(this,script);
         }
+        Toast.makeText(this, "Scripts Imported",
+                Toast.LENGTH_LONG).show();
     }
 
     @Override
