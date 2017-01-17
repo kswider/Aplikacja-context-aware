@@ -30,7 +30,7 @@ package pl.kit.context_aware.lemur;
         import pl.kit.context_aware.lemur.TmpTests.TestService;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ScriptsToExportPickerFragment.NoticeDialogSTEFListener, ScriptsToImportPickerFragment.NoticeDialogSTIFListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ScriptsToExportPickerFragment.NoticeDialogSTEFListener, ScriptsToImportPickerFragment.NoticeDialogSTIFListener, DeleteScriptFragment.NoticeDialogDSFListener {
     LinkedList<String> ScriptsToExport = null;
     LinkedList<String> ScriptsToImport = null;
 
@@ -229,5 +229,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDialogSTIFNegativeClick(DialogFragment dialog) {
         ScriptsToImport = null;
+    }
+
+    @Override
+    public void onDialogDSFPositiveClick(DialogFragment dialog) {
+        ScriptsList sl = new ScriptsList();
+        android.support.v4.app.FragmentTransaction fragmentTransaction =
+                getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container,sl);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onDialogDSFNegativeClick(DialogFragment dialog) {
+
     }
 }

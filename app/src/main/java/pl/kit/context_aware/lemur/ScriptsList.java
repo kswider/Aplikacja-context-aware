@@ -44,9 +44,7 @@ public class ScriptsList extends ListFragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
+    public void onResume() {
         ItemList = new ArrayList<ListItem>();
 
         for(String scriptName : FilesOperations.getAllModelNames(this.getContext())){
@@ -65,8 +63,35 @@ public class ScriptsList extends ListFragment {
                 return true;
             }
         });
+        super.onResume();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        ItemList = new ArrayList<ListItem>();
+
+        for(String scriptName : FilesOperations.getAllModelNames(this.getContext())){
+            ItemList.add(new ListItem(scriptName,"---"));
+        }
+
+        final EditScriptArrayAdapter adapter = new EditScriptArrayAdapter(this.getContext(), ItemList);
+
+        setListAdapter(adapter);
+
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(AdapterView<?> av, View v, int position, long id) {
+                DialogFragment newFragment = new DeleteScriptFragment();
+                ((DeleteScriptFragment) newFragment).setFileName(ItemList.get(position).mainText);
+                newFragment.show(getActivity().getFragmentManager(),"Delete Script");
+                return true;
+            }
+        });
 
     }
+
+
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
