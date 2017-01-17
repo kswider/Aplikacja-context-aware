@@ -62,8 +62,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private int hour; //hour selected or loaded from file
     private int minute; //minute selected or loaded from file
     private double time; //time calculated with hour and minute
-    private Double longitude; //longitude selected or loaded from file
     private Double latitude; //latitude selected or loaded from file
+    private Double longitude; //longitude selected or loaded from file
     private LinkedList<Integer> days = new LinkedList<>(); //list of days selected or loaded from file
     private LinkedList<Integer> actions = new LinkedList<>(); //list of actions selected or loaded from file
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
@@ -137,13 +137,14 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
         Log.i("App",scriptNameToEdit);
-        if(scriptNameToEdit.isEmpty()) {
-            hour = -1;
-            minute = -1;
-            time = -1;
-            longitude = null;
-            latitude = null;
 
+        hour = -1;
+        minute = -1;
+        time = -1;
+        latitude = null;
+        longitude = null;
+
+        if(scriptNameToEdit.isEmpty()) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_edit_script);
             Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
@@ -169,8 +170,12 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             if(!loadedModel.getAttribute("time").getValues().isEmpty()){
                 time = Double.valueOf(loadedModel.getAttribute("time").getValues().getFirst());
             }
-            //longitude = ... TODO
-            //latitude = ... TODO
+            if(!loadedModel.getAttribute("latitude").getValues().isEmpty()){
+                latitude = Double.valueOf(loadedModel.getAttribute("latitude").getValues().getFirst());
+            }
+            if(!loadedModel.getAttribute("longitude").getValues().isEmpty()){
+                longitude = Double.valueOf(loadedModel.getAttribute("longitude").getValues().getFirst());
+            }
 
             final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
 
@@ -205,7 +210,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
             scriptName.setText(scriptNameToEdit);
             TextView timeTV = (TextView) this.findViewById(R.id.es_set_time_sub);
-            if(!loadedModel.getAttribute("minute").getValues().isEmpty()) {
+            if(!loadedModel.getAttribute("time").getValues().isEmpty()) {
                 timeTV.setText(hour + ":" + minute);
             }
             else{
@@ -297,15 +302,15 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     alsv = new ALSVExpression(newModel.getAttribute("day"), selectedDays);
                     ALSVList.add(alsv);
                 }
-                if ((longitude != null) && (latitude != null)) {
-                    attributesList.add(newModel.getAttribute("longitude"));
-                    newModel.getAttribute("longitude").addValue(String.valueOf(longitude));
-                    alsv = new ALSVExpression(newModel.getAttribute("longitude"), longitude.toString());
-                    ALSVList.add(alsv);
-
+                if ((latitude != null) && (longitude != null)) {
                     attributesList.add(newModel.getAttribute("latitude"));
                     newModel.getAttribute("latitude").addValue(String.valueOf(latitude));
                     alsv = new ALSVExpression(newModel.getAttribute("latitude"), latitude.toString());
+                    ALSVList.add(alsv);
+
+                    attributesList.add(newModel.getAttribute("longitude"));
+                    newModel.getAttribute("longitude").addValue(String.valueOf(longitude));
+                    alsv = new ALSVExpression(newModel.getAttribute("longitude"), longitude.toString());
                     ALSVList.add(alsv);
                 }
                 if (!actions.isEmpty()) {
@@ -490,10 +495,12 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
-                longitude = place.getLatLng().longitude;
                 latitude = place.getLatLng().latitude;
+                latitude = ((double)Math.round(latitude*10000)) / 10000;
+                longitude = place.getLatLng().longitude;
+                longitude = ((double)Math.round(longitude*10000)) / 10000;
                 TextView LocSubTV = (TextView) findViewById(R.id.es_set_location_sub);
-                LocSubTV.setText(Double.toString(longitude) + "  " + Double.toString(latitude));
+                LocSubTV.setText( Double.toString(latitude) + "  " + Double.toString(longitude));
             }
         }
 

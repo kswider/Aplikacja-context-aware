@@ -18,6 +18,7 @@ public class GetLatitude implements Callback {
     @Override
     public void execute(Attribute subject, WorkingMemory wmm) {
         double latitude = ReadLocation.readLatitudeByBest(Inference.getmContext());
+        latitude = ((double)Math.round(latitude*10000)) / 10000;
         try {
             wmm.setAttributeValue(subject,new SimpleNumeric(latitude),false);
         } catch (AttributeNotRegisteredException e) {

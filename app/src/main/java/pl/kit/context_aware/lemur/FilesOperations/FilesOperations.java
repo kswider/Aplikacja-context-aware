@@ -58,10 +58,15 @@ public class FilesOperations {
     public static LinkedList<String> getAllModelNamesFromExternalStorage(Context mContext){
         LinkedList<String> models = new LinkedList<String>();
         File folder ;
+        Pattern pattern = Pattern.compile("^.+\\.model$");
+        Matcher matcher;
         if ( (folder = new File(mContext.getExternalFilesDir(null),"models")).exists()) {
             File[] listOfFiles = folder.listFiles();
             for (File file : listOfFiles) {
-                models.add(file.getName().substring(0, file.getName().length() - 6));
+                matcher = pattern.matcher(file.toString());
+                if(matcher.matches()) {
+                    models.add(file.getName().substring(0, file.getName().length() - 6));
+                }
             }
         }
         return models;
