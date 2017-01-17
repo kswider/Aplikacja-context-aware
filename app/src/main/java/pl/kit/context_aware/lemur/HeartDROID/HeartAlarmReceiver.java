@@ -20,12 +20,6 @@ import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
 public class HeartAlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, new Date().toString(),
-                Toast.LENGTH_SHORT).show();
-        String tmp = new Date().toString();
-
-        Log.i("App",tmp); //TODO Delete when not necessary
-
         Inference inference = new Inference(context);
         for(String scriptName : FilesOperations.getAllModelNames(context)) {
             inference.runInference(context.getFilesDir() + "/" + scriptName + ".hmr");

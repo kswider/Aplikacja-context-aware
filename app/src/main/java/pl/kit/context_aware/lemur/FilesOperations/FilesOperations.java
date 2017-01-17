@@ -57,10 +57,12 @@ public class FilesOperations {
      */
     public static LinkedList<String> getAllModelNamesFromExternalStorage(Context mContext){
         LinkedList<String> models = new LinkedList<String>();
-        File folder = new File(mContext.getExternalFilesDir(null),"models");
-        File[] listOfFiles = folder.listFiles();
-        for(File file : listOfFiles){
-            models.add(file.getName().substring(0,file.getName().length()-6));
+        File folder ;
+        if ( (folder = new File(mContext.getExternalFilesDir(null),"models")).exists()) {
+            File[] listOfFiles = folder.listFiles();
+            for (File file : listOfFiles) {
+                models.add(file.getName().substring(0, file.getName().length() - 6));
+            }
         }
         return models;
     }
@@ -106,7 +108,6 @@ public class FilesOperations {
         final int BUFFER_SIZE = 2048;
         byte[] buffer = new byte[BUFFER_SIZE];
         try{
-            modelName = "test";
             File path = new File (getExternalDirectory(mContext), modelName + ".model");
             FileOutputStream fos = new FileOutputStream(path);
             ZipOutputStream zos = new ZipOutputStream(fos);

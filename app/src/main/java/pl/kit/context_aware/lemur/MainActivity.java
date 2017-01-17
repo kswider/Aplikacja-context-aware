@@ -214,6 +214,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDialogSTEFPositiveClick(DialogFragment dialog) {
         ScriptsToExport = (LinkedList<String>)((ScriptsToExportPickerFragment) dialog).getSelectedScripts().clone();
+        for(String script : ScriptsToExport){
+            FilesOperations.exportModel(this,script);
+        }
     }
 
     @Override
@@ -224,6 +227,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onDialogSTIFPositiveClick(DialogFragment dialog) {
         ScriptsToImport = (LinkedList<String>)((ScriptsToImportPickerFragment)dialog).getSelectedScripts().clone();
+        for(String script : ScriptsToImport){
+            FilesOperations.importModel(this,script);
+        }
     }
 
     @Override
