@@ -55,6 +55,7 @@ public class ScriptsToImportPickerFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder
+                .setTitle(getString(R.string.choose_scripts))
                 .setMultiChoiceItems(listItems, null, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {

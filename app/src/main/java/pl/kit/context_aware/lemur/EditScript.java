@@ -453,7 +453,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     }
 
     /**
-     * TimePickerFragment listener for nefative button clicked
+     * TimePickerFragment listener for negative button clicked
      * Saves selected items to private linked list.
      * @param dialog TimePickerFragment dialog object
      */

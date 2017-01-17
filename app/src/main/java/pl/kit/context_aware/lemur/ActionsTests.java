@@ -17,33 +17,33 @@ import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Fragment contains buttons used to chech if Result Actions are working properly
  */
 public class ActionsTests extends Fragment {
-    Button button1;
-    Button button2;
-    Button button3;
-    Button button4;
-    Button button5;
-    Button button6;
+
     public ActionsTests() {
         // Required empty public constructor
     }
 
+    /**
+     * method called always when fragment is being drawn
+     * creates objects which this fragment contains (buttons, textviews etc.)
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        button1 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
+        Button button1 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
                 .findViewById(R.id.SilentButton);
-        button2 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
+        Button button2 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
                 .findViewById(R.id.VibrationButton);
-        button3 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
+        Button button3 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
                 .findViewById(R.id.NormalRingButton);
-        button4 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
+        Button button4 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
                 .findViewById(R.id.NotificationButton);
-        button5= (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
+        Button button5= (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
                 .findViewById(R.id.TurnOnWiFiButton);
-        button6 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
+        Button button6 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
                 .findViewById(R.id.TurnOffWiFiButton);
 
         return inflater.inflate(R.layout.fragment_actions_tests, container, false);

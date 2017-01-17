@@ -65,11 +65,11 @@
     <string name="tp_cancel">Anuluj</string>
     <string name="tp_ok"></string>
     <string name="tp_setTime">Ustaw Czas</string>
-    <string name="action_1">WYłącz bluetooth</string>
+    <string name="action_1">Wyłącz bluetooth</string>
     <string name="action_2">Wyłącz bluetooth</string>
     <string name="action_3">Wyłącz bluetooth</string>
     <string name="action_4">Włącz WiFi</string>
-    <string name="action_5">Wyłącz Dźwięk</string>
+    <string name="action_5">Wyłącz dźwięk</string>
     <string name="action_6">Włącz dźwięk</string>
     <string name="action_7">Włącz wibracje</string>
     <string name="action_8">Wyślij powiadomienie</string>
@@ -82,4 +82,5 @@
     <string name="wed">Sroda</string>
     <string name="default_message_main">Lemur wysłał Ci powiadomienie</string>
     <string name="default_message_sub">Masz coś do zrobienia!</string>
+    <string name="choose_scripts">Wybierz skrypty</string>
 </resources>

@@ -126,6 +126,7 @@
     <string name="schedulde_2">seconds</string>
     <string name="default_message_main">Lemur sends you notification</string>
     <string name="default_message_sub">You have something to do!</string>
+    <string name="choose_scripts">Choose Scripts</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>

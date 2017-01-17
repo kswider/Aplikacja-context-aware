@@ -8,31 +8,33 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
-import pl.kit.context_aware.lemur.Readers.ReadTime;
 import pl.kit.context_aware.lemur.TmpTests.ListItem;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Fragment containing list o scripts in internal storage
  */
 public class ScriptsList extends ListFragment {
-    ArrayList<ListItem> ItemList;
+    ArrayList<ListItem> ItemList; //list of scripts in internal storage
 
     public ScriptsList() {
         // Required empty public constructor
     }
 
 
+    /**
+     * method called always when fragment is being drawn
+     * creates objects which this fragment contains (buttons, textviews etc.)
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,6 +45,10 @@ public class ScriptsList extends ListFragment {
         return inflater.inflate(R.layout.fragment_scripts_list, container, false);
     }
 
+    /**
+     * method called when this fragment is resumed
+     * here we are loading scripts into list and we add listner for long click on list element
+     */
     @Override
     public void onResume() {
         ItemList = new ArrayList<ListItem>();
@@ -51,7 +57,7 @@ public class ScriptsList extends ListFragment {
             ItemList.add(new ListItem(scriptName,"---"));
         }
 
-        final EditScriptArrayAdapter adapter = new EditScriptArrayAdapter(this.getContext(), ItemList);
+        final ScriptsListArrayAdapter adapter = new ScriptsListArrayAdapter(this.getContext(), ItemList);
 
         setListAdapter(adapter);
 
@@ -66,6 +72,10 @@ public class ScriptsList extends ListFragment {
         super.onResume();
     }
 
+    /**
+     * method called when activity is created
+     * here we are loading scripts into list and we add listner for long click on list element
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -76,7 +86,7 @@ public class ScriptsList extends ListFragment {
             ItemList.add(new ListItem(scriptName,"---"));
         }
 
-        final EditScriptArrayAdapter adapter = new EditScriptArrayAdapter(this.getContext(), ItemList);
+        final ScriptsListArrayAdapter adapter = new ScriptsListArrayAdapter(this.getContext(), ItemList);
 
         setListAdapter(adapter);
 
@@ -92,7 +102,10 @@ public class ScriptsList extends ListFragment {
     }
 
 
-
+    /**
+     *Method opereting actions after one of list items is clicke
+     * Starts Activity EditScript and passes script name there
+     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);

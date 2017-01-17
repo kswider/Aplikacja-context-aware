@@ -39,46 +39,98 @@ package pl.kit.context_aware.lemur;
         import pl.kit.context_aware.lemur.TmpTests.TestService;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ScriptsToExportPickerFragment.NoticeDialogSTEFListener, ScriptsToImportPickerFragment.NoticeDialogSTIFListener, DeleteScriptFragment.NoticeDialogDSFListener {
-    LinkedList<String> ScriptsToExport = null;
-    LinkedList<String> ScriptsToImport = null;
+        implements NavigationView.OnNavigationItemSelectedListener, ScriptsToExportPickerFragment.NoticeDialogSTEFListener,
+        ScriptsToImportPickerFragment.NoticeDialogSTIFListener, DeleteScriptFragment.NoticeDialogDSFListener {
 
+    LinkedList<String> ScriptsToExport = null; //List of scripts to export after appropriate buuton clicked
+    LinkedList<String> ScriptsToImport = null; //List of scripts to import after appropriate buuton clicked
+
+    /**
+     * Action for Silent Button Clicked (part of ActionsTests Fragment)
+     * Turns phone into silent mode
+     * @param v current view.
+     */
     public void SilentButtonOnClick(View v){
         RingModes.silentMode(this);
     }
 
+    /**
+     * Action for Vibration Button Clicked (part of ActionsTests Fragment)
+     * Turns phone into vibration mode
+     * @param v current view.
+     */
     public void VibrationButtonOnClick(View v){
         RingModes.vibrationsMode(this);
     }
 
+    /**
+     * Action for Normal Ring Mode Button Clicked (part of ActionsTests Fragment)
+     * Turns phone into normal ring mode
+     * @param v current view.
+     */
     public void NormalRingButtonOnClick(View v){
         RingModes.normalMode(this);
     }
 
+    /**
+     * Action for Send Notifocation Button Clicked (part of ActionsTests Fragment)
+     * Sends Notification to user
+     * @param v current view.
+     */
     public void NotificationButtonOnClick(View v){
         SendNotification.sendNotification(this,5,getResources().getString(R.string.tmp_message_main),getResources().getString(R.string.tmp_message_sub));
     }
 
+    /**
+     * Action for Send Turn On WiFi Button Clicked (part of ActionsTests Fragment)
+     * Turns WiFi On
+     * @param v current view.
+     */
     public void TurnOnWiFiButtonOnClick(View v){
         ConnectionManager.turnOnWiFi(this);
     }
 
+    /**
+     * Action for Turn Off WiFi Button Clicked (part of ActionsTests Fragment)
+     * Turns WiFi Off
+     * @param v current view.
+     */
     public void TurnOffWiFiButtonOnClick(View v){
         ConnectionManager.turnOffWiFi(this);
     }
 
+    /**
+     * Action for Turn On Bluetooth Button Clicked (part of ActionsTests Fragment)
+     * Turns On Bluetooth
+     * @param v current view.
+     */
     public void TurnOnBluetoothButtonOnClick(View v){
         BluetoothManager.turnOnBluetooth();
     }
 
+    /**
+     * Action for Turn Off Bluetooth Button Clicked (part of ActionsTests Fragment)
+     * Turns Off Bluetooth
+     * @param v current view.
+     */
     public void TurnOffBluetoothButtonOnClick(View v){
         BluetoothManager.turnOffBluetooth();
     }
 
+    /**
+     * Action for Read Time Button Clicked (part of ReadersTests Fragment)
+     * Shows Toast with current time
+     * @param v current view.
+     */
     public void ReadTimeButtonOnClick(View v){
         Toast.makeText(this,ReadTime.ReadFullTime(),Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Action for Read Location Button Clicked (part of ReadersTests Fragment)
+     * Shows Toast with current location
+     * @param v current view.
+     */
     public void ReadLocationButtonOnClick(View v){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -91,14 +143,29 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Action for Start Service Button Clicked (part of OtherTests Fragment)
+     * starts background service which counts to 10 on Toasts
+     * @param v current view.
+     */
     public void startServiceButtonOnClick(View v){
         startService(new Intent(getBaseContext(), TestService.class));
     }
 
+    /**
+     * Action for Stop Service Button Clicked (part of OtherTests Fragment)
+     * stops service if is going in background
+     * @param v current view.
+     */
     public void stopServiceButtonOnClick(View v){
         stopService(new Intent(getBaseContext(), TestService.class));
     }
 
+    /**
+     * Action for runSimModel Button Clicked (part of OtherTests Fragment)
+     * Runs all models
+     * @param v current view.
+     */
     public void runSimModelButtonOnClick(View v){
         Inference inference = new Inference(this);
         for(String scriptName : FilesOperations.getAllModelNames(this)) {
@@ -106,6 +173,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Action for sheduleHeartEvery5 Button Clicked (part of OtherTests Fragment)
+     * Runs all models every 1 minute
+     * @param v current view.
+     */
     public void sheduleHeartEvery5MinutesOnClick(View v){
 
         int i = 60;
@@ -119,6 +191,12 @@ public class MainActivity extends AppCompatActivity
                 Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Action for Import Scripts Button Clicked (part of ImportExportScripts Fragment)
+     * Checks for permissions to external storage, then opens dialog with list of scripts to import.
+     * Importing action is implemented in method called after PositiveButton Clicked (onDialogSTIFPositiveClick)
+     * @param v current view.
+     */
     public void ImportScriptButtonOnClick(View v){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -131,6 +209,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Action for Export Scripts Button Clicked (part of ImportExportScripts Fragment)
+     * Checks for permissions to external storage, then opens dialog with list of scripts to export.
+     * Importing action is implemented in method called after PositiveButton Clicked (onDialogSTEFPositiveClick)
+     * @param v current view.
+     */
     public void ExportScriptButtonOnClick(View v){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -143,7 +227,11 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
+    /**
+     * Action for floating button clicked (part of ScriptsList Fragment)
+     * Starts new Activity which can be used to create scripts
+     * @param v current view.
+     */
     public void floatingButtonOnClick(View v){
         Bundle eFileName = new Bundle();
         eFileName.putString("eFileName","");
@@ -154,6 +242,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    /**
+     * Method called always when this Activity is created (= when app start)
+     * Loads default fragment to the main container (ScriptsLists)
+     * Loads toolbar
+     * Loads NavigationView
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,10 +272,12 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
     }
 
+    /**
+     * method called after back is pressed.
+     * closes NavigationView
+     */
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -191,6 +288,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * method called after one of items from navigation view is selected
+     * handle different action depending which item was selected
+     * @param item selected item
+     * @return true after success
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -249,6 +352,11 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * method called after positive button is clicked in ScriptsToExportFragment
+     * Exports selected scripts to external storage.
+     * @param dialog dialog in which button was clicked
+     */
     @Override
     public void onDialogSTEFPositiveClick(DialogFragment dialog) {
         ScriptsToExport = (LinkedList<String>)((ScriptsToExportPickerFragment) dialog).getSelectedScripts().clone();
@@ -259,11 +367,21 @@ public class MainActivity extends AppCompatActivity
                 Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * method called after negative button is clicked in ScriptsToExportFragment
+     * Implemented because required
+     * @param dialog dialog in which button was clicked
+     */
     @Override
     public void onDialogSTEFNegativeClick(DialogFragment dialog) {
         ScriptsToExport = null;
     }
 
+    /**
+     * method called after positive button is clicked in ScriptsToImportFragment
+     * Imports selected scripts to internal storage.
+     * @param dialog dialog in which button was clicked
+     */
     @Override
     public void onDialogSTIFPositiveClick(DialogFragment dialog) {
         ScriptsToImport = (LinkedList<String>)((ScriptsToImportPickerFragment)dialog).getSelectedScripts().clone();
@@ -274,11 +392,21 @@ public class MainActivity extends AppCompatActivity
                 Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * method called after negative button is clicked in ScriptsToImportFragment
+     * Implemented because required
+     * @param dialog dialog in which button was clicked
+     */
     @Override
     public void onDialogSTIFNegativeClick(DialogFragment dialog) {
         ScriptsToImport = null;
     }
 
+    /**
+     * method called after negative button is clicked in DeleteScriptFragment
+     * Delets selected script
+     * @param dialog dialog in which button was clicked
+     */
     @Override
     public void onDialogDSFPositiveClick(DialogFragment dialog) {
         ScriptsList sl = new ScriptsList();
@@ -288,6 +416,11 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
+    /**
+     * method called after negative button is clicked in DeleteScriptFragment
+     * Implemented because required
+     * @param dialog dialog in which button was clicked
+     */
     @Override
     public void onDialogDSFNegativeClick(DialogFragment dialog) {
 
