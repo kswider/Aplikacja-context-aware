@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void NotificationButtonOnClick(View v){
-        SendNotification.sendNotification(this,5,"Wiadomość od Krzysia","Gdzie masz krzesło !?");
+        SendNotification.sendNotification(this,5,getResources().getString(R.string.tmp_message_main),getResources().getString(R.string.tmp_message_sub));
     }
 
     public void TurnOnWiFiButtonOnClick(View v){
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                 + (i * 1000), (i * 1000), pendingIntent);
-        Toast.makeText(this, "Starting alarm in " + i + " seconds",
+        Toast.makeText(this, getResources().getString(R.string.schedulde_1) + i + getResources().getString(R.string.schedulde_2),
                 Toast.LENGTH_LONG).show();
     }
 
@@ -223,10 +223,7 @@ public class MainActivity extends AppCompatActivity
              try{
                  startActivity(intent);
              }
-             catch(Exception e){
-                 Toast.makeText(this, "!!!Error occurred!!! \nYou don't have Play Store",
-                         Toast.LENGTH_LONG).show();
-             }
+             catch(Exception e){}
          } else if (id == R.id.Readers){
              ReadersTests rt = new ReadersTests();
              android.support.v4.app.FragmentTransaction fragmentTransaction =
@@ -258,7 +255,7 @@ public class MainActivity extends AppCompatActivity
         for(String script : ScriptsToExport){
             FilesOperations.exportModel(this,script);
         }
-        Toast.makeText(this, "Scripts exported",
+        Toast.makeText(this, getResources().getString(R.string.exported),
                 Toast.LENGTH_LONG).show();
     }
 
@@ -273,7 +270,7 @@ public class MainActivity extends AppCompatActivity
         for(String script : ScriptsToImport){
             FilesOperations.importModel(this,script);
         }
-        Toast.makeText(this, "Scripts Imported",
+        Toast.makeText(this, getResources().getString(R.string.imported),
                 Toast.LENGTH_LONG).show();
     }
 

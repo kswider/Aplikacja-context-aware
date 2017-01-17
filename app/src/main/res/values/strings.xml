@@ -46,7 +46,7 @@
     <string name="action_settings">Settings</string>
 
     <!--About App-->
-    <string name="AppVersion" translatable="false">Lemur v0.1</string>
+    <string name="AppVersion" translatable="false">Lemur v1.0</string>
     <string name="AppWarning">This is the dev version of the App. Release version is still in progress.</string>
     <string name="AppInfos">This App was created by Tomasz Borowicz and Krzysztof Swider as the final project for objective programming.</string>
 
@@ -65,43 +65,67 @@
 
     <!--Time Picker-->
     <string name="tp_cancel">Cancel</string>
-    <string name="tp_ok">OK</string>
+    <string name="tp_ok" translatable="false">OK</string>
     <string name="tp_setTime">Set Time</string>
 
     <!--DayOfWeekPicker-->
+    <string name="mon">Monday</string>
+    <string name="tue">Tuesday</string>
+    <string name="wed">Wednesday</string>
+    <string name="thu">Thursday</string>
+    <string name="fri">Friday</string>
+    <string name="sat">Saturday</string>
+    <string name="sun">Sunday</string>
     <string-array name="days">
-        <item name="day_1">Monday</item>
-        <item name="day_2">Tuesday</item>
-        <item name="day_3">Wednesday</item>
-        <item name="day_4">Thursday</item>
-        <item name="day_5">Friday</item>
-        <item name="day_6">Saturday</item>
-        <item name="day_7">Sunday</item>
+        <item>@string/mon</item>
+        <item>@string/tue</item>
+        <item>@string/wed</item>
+        <item>@string/thu</item>
+        <item>@string/fri</item>
+        <item>@string/sat</item>
+        <item>@string/sun</item>
     </string-array>
 
     <!--ImportExportFragment-->
     <string name="ie_instruction">Replace this text with short instruction of how it works</string>
-    <string name="ie_import">Import</string>
-    <string name="ie_export">Export</string>
+    <string name="ie_import" translatable="false">Import</string>
+    <string name="ie_export" translatable="false">Export</string>
 
     <!--Permission Lack-->
     <string name="pl_err">Error</string>
     <string name="pl_fine_location">App doesnt have permission to use your location</string>
     <string name="pl_write_external">App doesnt have permission to write in external storage</string>
 
+    <!--ActionPickerFragment-->
+    <string name="action_1">Turn off bluetooth</string>
+    <string name="action_2">Turn on bluetooth</string>
+    <string name="action_3">Turn off wifi</string>
+    <string name="action_4">Turn on wifi</string>
+    <string name="action_5">Turn off sounds</string>
+    <string name="action_6">Turn on sounds</string>
+    <string name="action_7">Turn on vibration</string>
+    <string name="action_8">Send notification</string>
     <string-array name="actions">
-        <item name="action_1">Turn off bluetooth</item>
-        <item name="action_2">Turn on bluetooth</item>
-        <item name="action_3">Turn off wifi</item>
-        <item name="action_4">Turn on wifi</item>
-        <item name="action_5">Turn off sounds</item>
-        <item name="action_6">Turn on sounds</item>
-        <item name="action_7">Turn on vibration</item>
-        <item name="action_8">Send notification</item>
+        <item>@string/action_1</item>
+        <item>@string/action_2</item>
+        <item>@string/action_3</item>
+        <item>@string/action_4</item>
+        <item>@string/action_5</item>
+        <item>@string/action_6</item>
+        <item>@string/action_7</item>
+        <item>@string/action_8</item>
     </string-array>
 
     <string name="ds_delete_1">Do you want delete</string>
     <string name="ds_delete_2">script</string>
+    <string name="exported">Scripts Exported</string>
+    <string name="imported">Scripts Imported</string>
+    <string name="tmp_message_sub">Where is your chair?!</string>
+    <string name="tmp_message_main">Message from Chriss</string>
+    <string name="schedulde_1">Start alarm in</string>
+    <string name="schedulde_2">seconds</string>
+    <string name="default_message_main">Lemur sends you notification</string>
+    <string name="default_message_sub">You have something to do!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>

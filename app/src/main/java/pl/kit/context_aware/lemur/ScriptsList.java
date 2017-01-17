@@ -59,7 +59,7 @@ public class ScriptsList extends ListFragment {
             public boolean onItemLongClick(AdapterView<?> av, View v, int position, long id) {
                 DialogFragment newFragment = new DeleteScriptFragment();
                 ((DeleteScriptFragment) newFragment).setFileName(ItemList.get(position).mainText);
-                newFragment.show(getActivity().getFragmentManager(),"123");
+                newFragment.show(getActivity().getFragmentManager(),"Delete Script");
                 return true;
             }
         });

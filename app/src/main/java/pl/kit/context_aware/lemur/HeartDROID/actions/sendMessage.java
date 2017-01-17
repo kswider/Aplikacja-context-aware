@@ -1,9 +1,12 @@
 package pl.kit.context_aware.lemur.HeartDROID.actions;
 
+import java.util.Random;
+
 import heart.Action;
 import heart.State;
 import pl.kit.context_aware.lemur.HeartDROID.Inference;
 import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
+import pl.kit.context_aware.lemur.R;
 
 
 /**
@@ -16,7 +19,8 @@ public class SendMessage implements Action {
         String argument = String.valueOf(state.getValueOfAttribute("message"));
         switch (argument){
             case "notification":
-                SendNotification.sendNotification(Inference.getmContext(),5,"You've got new notification!","Notification message");
+                Random generator = new Random();
+                SendNotification.sendNotification(Inference.getmContext(),generator.nextInt(1000),Inference.getmContext().getResources().getString(R.string.default_message_main),Inference.getmContext().getResources().getString(R.string.default_message_sub));
                 break;
             case "sms":
                 //TODO on Android
