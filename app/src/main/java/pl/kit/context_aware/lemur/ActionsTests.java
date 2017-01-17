@@ -23,6 +23,8 @@ public class ActionsTests extends Fragment {
     Button button2;
     Button button3;
     Button button4;
+    Button button5;
+    Button button6;
     public ActionsTests() {
         // Required empty public constructor
     }
@@ -39,6 +41,10 @@ public class ActionsTests extends Fragment {
                 .findViewById(R.id.NormalRingButton);
         button4 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
                 .findViewById(R.id.NotificationButton);
+        button5= (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
+                .findViewById(R.id.TurnOnWiFiButton);
+        button6 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
+                .findViewById(R.id.TurnOffWiFiButton);
 
         return inflater.inflate(R.layout.fragment_actions_tests, container, false);
     }

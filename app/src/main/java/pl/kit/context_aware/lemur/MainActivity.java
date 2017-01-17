@@ -23,6 +23,8 @@ package pl.kit.context_aware.lemur;
         import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
         import pl.kit.context_aware.lemur.HeartDROID.HeartAlarmReceiver;
         import pl.kit.context_aware.lemur.HeartDROID.Inference;
+        import pl.kit.context_aware.lemur.PhoneActions.BluetoothManager;
+        import pl.kit.context_aware.lemur.PhoneActions.ConnectionManager;
         import pl.kit.context_aware.lemur.PhoneActions.RingModes;
         import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
         import pl.kit.context_aware.lemur.Readers.ReadLocation;
@@ -48,6 +50,22 @@ public class MainActivity extends AppCompatActivity
 
     public void NotificationButtonOnClick(View v){
         SendNotification.sendNotification(this,5,"Wiadomość od Krzysia","Gdzie masz krzesło !?");
+    }
+
+    public void TurnOnWiFiButtonOnClick(View v){
+        ConnectionManager.turnOnWiFi(this);
+    }
+
+    public void TurnOffWiFiButtonOnClick(View v){
+        ConnectionManager.turnOffWiFi(this);
+    }
+
+    public void TurnOnBluetoothButtonOnClick(View v){
+        BluetoothManager.turnOnBluetooth();
+    }
+
+    public void TurnOffBluetoothButtonOnClick(View v){
+        BluetoothManager.turnOffBluetooth();
     }
 
     public void ReadTimeButtonOnClick(View v){
@@ -100,6 +118,7 @@ public class MainActivity extends AppCompatActivity
         Toast.makeText(this, "Scripts exported",
                 Toast.LENGTH_LONG).show();
     }
+
 
     public void floatingButtonOnClick(View v){
         Bundle eFileName = new Bundle();

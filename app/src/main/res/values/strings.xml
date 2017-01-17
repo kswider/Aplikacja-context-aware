@@ -21,6 +21,12 @@
     <string name="at_vibration">Vibration Mode</string>
     <string name="at_normal">Normal Mode</string>
     <string name="at_SendNotify">Send Notify</string>
+    <string name="at_turnOnWiFi">Turn On WiFi</string>
+    <string name="at_turnOffWiFi">Turn Off WiFi</string>
+    <string name="at_turnOnMobileData">Turn On Mobile Data</string>
+    <string name="at_turnOffMobileData">Turn Off Mobile Data</string>
+    <string name="at_turnOnBluetooth">Turn On Bluetooth</string>
+    <string name="at_turnOffBluetooth">Turn Off BlueTooth</string>
 
     <!-- Readers Tests-->
     <string name="rt_time">Read Time</string>
