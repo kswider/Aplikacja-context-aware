@@ -35,10 +35,18 @@ public class Xattr implements XTT2StringRepresentation, Serializable {
         return name;
     }
 
+    /**
+     * Method adds value into attribute. This value is later used in editting models.
+     * @param value
+     */
     public void addValue(String value){
         this.values.add(value);
     }
 
+    /**
+     * Method returns all values from this attribute
+     * @return LinkedList with all values
+     */
     public LinkedList<String> getValues() {
         return values;
     }

@@ -11,6 +11,9 @@ import pl.kit.context_aware.lemur.PhoneActions.ConnectionManager;
 
 public class SetWifi implements Action {
     @Override
+    /**
+     * Action connected with setting wifi
+     */
     public void execute(State state) {
         String argument = String.valueOf(state.getValueOfAttribute("wifi"));
         switch (argument){

@@ -54,6 +54,11 @@ public class ModelCreator implements Serializable {
         rules.add(xrule);
     }
 
+    /**
+     * Method used in getting attribute from ModelCreator
+     * @param attrName name of attribute we want to get
+     * @return Xattr named attrName
+     */
     public Xattr getAttribute(String attrName){
         for(Xattr attribute : attributes){
             if(attrName.equals(attribute.getName())){
@@ -159,6 +164,13 @@ public class ModelCreator implements Serializable {
         }
         return model;
     }
+
+    /**
+     * Method used in creating basics moodel, without any schemes or rules
+     * @param modelName
+     * @param mContext
+     * @return ModelCreator which have all needed types and attributes
+     */
     public static ModelCreator createBasicModel(String modelName,Context mContext) {
         // We will use only these types in our model, user cant add his own types
         final Xtype hour_type = new Xtype("hour_type", "numeric", "[0 to 23]");

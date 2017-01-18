@@ -11,6 +11,9 @@ import pl.kit.context_aware.lemur.PhoneActions.BluetoothManager;
 
 public class SetBluetooth implements Action {
     @Override
+    /**
+     * Action connected with setting bluetooth
+     */
     public void execute(State state) {
         String argument = String.valueOf(state.getValueOfAttribute("bluetooth"));
         switch (argument){

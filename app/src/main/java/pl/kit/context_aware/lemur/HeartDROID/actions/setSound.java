@@ -12,6 +12,9 @@ import pl.kit.context_aware.lemur.PhoneActions.RingModes;
 public class SetSound implements Action {
 
     @Override
+    /**
+     * Action connected with setting sounds
+     */
     public void execute(State state) {
         String argument = String.valueOf(state.getValueOfAttribute("sound"));
         switch (argument){

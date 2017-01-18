@@ -15,6 +15,9 @@ import pl.kit.context_aware.lemur.Readers.ReadTime;
 
 public class GetDayOfAWeek implements Callback{
     @Override
+    /**
+     * Callback which puts current number of a day of a week into argument day
+     */
     public void execute(Attribute subject, WorkingMemory wmm) {
         int day = ReadTime.ReadDay() - 1;
         day = (day == 0 ? 7 : day);

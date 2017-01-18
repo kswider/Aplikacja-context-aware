@@ -172,12 +172,15 @@ public class FilesOperations {
         }
     }
 
+    /**
+     * Method which is used in moving models from assets to the phone memory
+     * @param mContext
+     */
     public static void createBasicModelFiles(Context mContext) {
         BufferedReader reader = null;
         try {
             reader = new BufferedReader(
                     new InputStreamReader((mContext.getAssets().open("simple-model.hmr"))));
-
 
             PrintWriter zapis = new PrintWriter(mContext.getFilesDir().toString() + "/simple-model.hmr");
 

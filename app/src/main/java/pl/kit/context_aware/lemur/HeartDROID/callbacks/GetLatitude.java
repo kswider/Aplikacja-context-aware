@@ -16,6 +16,9 @@ import pl.kit.context_aware.lemur.Readers.ReadLocation;
 
 public class GetLatitude implements Callback {
     @Override
+    /**
+     * Callback which puts current latitude into argument latitude
+     */
     public void execute(Attribute subject, WorkingMemory wmm) {
         double latitude = ReadLocation.readLatitudeByBest(Inference.getmContext());
         latitude = ((double)Math.round(latitude*10000)) / 10000;

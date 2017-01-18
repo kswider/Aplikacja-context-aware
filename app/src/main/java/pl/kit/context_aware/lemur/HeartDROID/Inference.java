@@ -23,7 +23,10 @@ public class Inference  {
         return mContext;
     }
 
-    //public static void main(String args []){
+    /**
+     * Method runs inference using HeartDROID using model from given path
+     * @param path String representation of path to the model, which we want to use in inference
+     */
     public void runInference(String path){
         try {
             //Loading a file with a model
@@ -34,6 +37,7 @@ public class Inference  {
             //Parsing the file with the model
             parser.parse(simpleModel);
             model = parser.getModel();
+
 
             try{
                 Debug.debugLevel = Debug.Level.SILENT;

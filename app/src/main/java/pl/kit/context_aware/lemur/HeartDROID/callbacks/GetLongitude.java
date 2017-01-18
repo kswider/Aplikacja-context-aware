@@ -18,6 +18,9 @@ import pl.kit.context_aware.lemur.Readers.ReadLocation;
 
 public class GetLongitude implements Callback {
     @Override
+    /**
+     * Callback which puts current longitude into argument longitude
+     */
     public void execute(Attribute subject, WorkingMemory wmm) {
         double longitude = ReadLocation.readLongitudeByBest(Inference.getmContext());
         longitude = ((double)Math.round(longitude*10000)) / 10000;

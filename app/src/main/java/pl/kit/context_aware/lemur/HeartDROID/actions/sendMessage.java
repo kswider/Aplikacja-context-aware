@@ -12,6 +12,9 @@ import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
 
 public class SendMessage implements Action {
     @Override
+    /**
+     * Action connected with sending messages
+     */
     public void execute(State state) {
         String argument = String.valueOf(state.getValueOfAttribute("message"));
         switch (argument){

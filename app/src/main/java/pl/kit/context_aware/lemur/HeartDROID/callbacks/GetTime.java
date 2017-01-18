@@ -15,6 +15,9 @@ import pl.kit.context_aware.lemur.Readers.ReadTime;
 
 public class GetTime implements Callback{
     @Override
+    /**
+     * Callback which puts current time into argument time
+     */
     public void execute(Attribute subject, WorkingMemory wmm) {
         double hour = ReadTime.ReadHour();
         double minute = ReadTime.ReadMinute();
