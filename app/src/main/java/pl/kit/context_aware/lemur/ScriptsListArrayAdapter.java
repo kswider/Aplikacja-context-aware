@@ -16,9 +16,9 @@ import pl.kit.context_aware.lemur.TmpTests.ListItem;
  * Created by Tomek on 09.01.2017.
  */
 
-public class EditScriptArrayAdapter extends ArrayAdapter<ListItem> {
+public class ScriptsListArrayAdapter extends ArrayAdapter<ListItem> {
 
-    public EditScriptArrayAdapter(Context context, ArrayList<ListItem> Texts) {
+    public ScriptsListArrayAdapter(Context context, ArrayList<ListItem> Texts) {
         super(context,0, Texts);
     }
 

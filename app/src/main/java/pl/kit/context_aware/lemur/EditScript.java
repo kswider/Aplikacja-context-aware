@@ -147,7 +147,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         Intent intent = getIntent();
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
-        Log.i("App",scriptNameToEdit);
 
         hour = -1;
         minute = -1;
@@ -469,7 +468,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     }
 
     /**
-     * TimePickerFragment listener for nefative button clicked
+     * TimePickerFragment listener for negative button clicked
      * Saves selected items to private linked list.
      * @param dialog TimePickerFragment dialog object
      */

@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass
+ * Fragment Shows basic info about app
  */
 public class AboutApp extends Fragment {
 
@@ -18,7 +19,10 @@ public class AboutApp extends Fragment {
         // Required empty public constructor
     }
 
-
+    /**
+     * method called always when fragment is being drawn
+     * creates objects which this fragment contains (buttons, textviews etc.)
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

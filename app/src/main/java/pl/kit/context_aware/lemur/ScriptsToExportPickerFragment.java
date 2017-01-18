@@ -43,7 +43,7 @@ public class ScriptsToExportPickerFragment extends DialogFragment {
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(activity.toString()
-                    + " must implement NoticeDialogDOWPFListener");
+                    + " must implement NoticeDialogSTEFListener");
         }
     }
 
@@ -57,6 +57,7 @@ public class ScriptsToExportPickerFragment extends DialogFragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder
+                .setTitle(getString(R.string.choose_scripts))
                 .setMultiChoiceItems(listItems, null, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
