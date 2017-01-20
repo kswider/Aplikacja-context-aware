@@ -17,22 +17,32 @@ import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
 
 /**
  * Created by Tomek on 2017-01-16.
+ * Dialog fragment used to pick scripts to export in ImportExportFragment
  */
 
 public class ScriptsToExportPickerFragment extends DialogFragment {
-    private LinkedList<String> selectedScripts = new LinkedList<>();
+    private LinkedList<String> selectedScripts = new LinkedList<>();//List containing int numbers of picked scripts
+    NoticeDialogSTEFListener mListener; //Object of inner inference used to communicate between dialog and activity
 
+    /**
+     * Getter returning list of picked scripts
+     * @return Linked list with picked scripts
+     */
     public LinkedList<String> getSelectedScripts() {
         return selectedScripts;
     }
 
+    /**
+     * Inference used to communication between this dialog and activity in which it was called
+     */
     public interface NoticeDialogSTEFListener {
         public void onDialogSTEFPositiveClick(DialogFragment dialog);
         public void onDialogSTEFNegativeClick(DialogFragment dialog);
     }
 
-    NoticeDialogSTEFListener mListener;
-
+    /**
+     * Method needed for communication between activity and dialog
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -48,7 +58,9 @@ public class ScriptsToExportPickerFragment extends DialogFragment {
     }
 
 
-
+    /**
+     * Method building dialog window
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final ArrayList<String> mSelectedItems = new ArrayList();

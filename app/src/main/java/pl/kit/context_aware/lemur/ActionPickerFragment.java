@@ -15,28 +15,41 @@ import java.util.LinkedList;
 
 /**
  * Created by Tomek on 10.01.2017.
+ * Dialog fragment used to pick actions in script editor;
  */
 
 public class ActionPickerFragment extends DialogFragment {
+    private LinkedList<Integer> actions = new LinkedList<Integer>(); //List containing int numbers of picked actions
+    boolean[] checkedValues; //List containing list of all actions. If true action which number is array number is checked
+    NoticeDialogAPFListener mListener; //Object of inner inference used to communicate between dialog and activity
 
-    private LinkedList<Integer> actions = new LinkedList<Integer>();
-    boolean[] checkedValues;
-
+    /**
+     * Setter used to setting values checked on dialog window opened
+     */
     public void setActions(LinkedList<Integer> actions) {
         this.actions = (LinkedList<Integer>)actions.clone();
     }
 
+    /**
+     * Getter returning list of picked actions
+     * @return Linked list with picked actions
+     */
     public LinkedList<Integer> getActions() {
         return actions;
     }
 
+    /**
+     * Inference used to communication between this dialog and activity in which it was called
+     */
     public interface NoticeDialogAPFListener {
         public void onDialogAPFPositiveClick(DialogFragment dialog);
         public void onDialogAPFNegativeClick(DialogFragment dialog);
     }
 
-    NoticeDialogAPFListener mListener;
-
+    /**
+     * Method needed for communication between activity and dialog
+     * @param activity
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -51,6 +64,10 @@ public class ActionPickerFragment extends DialogFragment {
         }
     }
 
+
+    /**
+     * Method building dialog window
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final ArrayList<Integer> mSelectedItems = new ArrayList();

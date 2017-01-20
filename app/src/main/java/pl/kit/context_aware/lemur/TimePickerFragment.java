@@ -15,27 +15,58 @@ import android.widget.Toast;
 
 /**
  * Created by Tomek on 09.01.2017.
+ * Dialog fragment used to pick time in EditScript Activity
  */
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
-    private int minute;
-    private int hour;
+    private int minute; //picked minute
+    private int hour; //picked hour
+    NoticeDialogTPFListener mListener; //Object of inner inference used to communicate between dialog and activity
 
+    /**
+     * Getter returning picked minutes
+     * @return picked minutes
+     */
     public int getMinute() {
         return minute;
     }
 
+    /**
+     * Getter returning picked hours
+     * @return picked mhours
+     */
     public int getHour() {
         return hour;
     }
 
+    /**
+     *
+     * @param minute
+     */
+    public void setMinute(int minute) {
+        if (minute >=0) this.minute = minute;
+    }
+
+    /**
+     *
+     * @param hour
+     */
+    public void setHour(int hour) {
+
+        if(hour>=0) this.hour = hour;
+    }
+
+    /**
+     * Inference used to communication between this dialog and activity in which it was called
+     */
     public interface NoticeDialogTPFListener {
         public void onDialogTPFPositiveClick(DialogFragment dialog);
         public void onDialogTPFNegativeClick(DialogFragment dialog);
     }
 
-    NoticeDialogTPFListener mListener;
-
+    /**
+     * Method needed for communication between activity and dialog
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -50,19 +81,13 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         }
     }
 
+    /**
+     * Method building dialog window
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         return new TimePickerDialog(getActivity(), this, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
-    }
-
-    public void setMinute(int minute) {
-        if (minute >=0) this.minute = minute;
-    }
-
-    public void setHour(int hour) {
-
-        if(hour>=0) this.hour = hour;
     }
 
     @Override
