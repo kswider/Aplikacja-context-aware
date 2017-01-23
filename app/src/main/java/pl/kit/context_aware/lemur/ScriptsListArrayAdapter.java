@@ -14,14 +14,21 @@ import pl.kit.context_aware.lemur.TmpTests.ListItem;
 
 /**
  * Created by Tomek on 09.01.2017.
+ * Adapter class used to drawing single elements of list in ScriptsList Fragment
  */
 
 public class ScriptsListArrayAdapter extends ArrayAdapter<ListItem> {
 
+    /**
+     * Needed constructor
+     */
     public ScriptsListArrayAdapter(Context context, ArrayList<ListItem> Texts) {
         super(context,0, Texts);
     }
 
+    /**
+     * Method creating view of single list element
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
