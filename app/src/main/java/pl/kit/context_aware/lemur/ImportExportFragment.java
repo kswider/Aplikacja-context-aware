@@ -11,6 +11,7 @@ import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
+ * Fragment containing everything needed to import or export scripts
  */
 public class ImportExportFragment extends Fragment {
     Button button1;
@@ -21,7 +22,10 @@ public class ImportExportFragment extends Fragment {
         // Required empty public constructor
     }
 
-
+    /**
+     * method called always when fragment is being drawn
+     * creates objects which this fragment contains (buttons, textviews etc.)
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -14,22 +14,31 @@ import java.util.ArrayList;
 
 /**
  * Created by Tomek on 2017-01-13.
+ * Dialog fragment used to deleting scripts in ScriptsList Fragment;
  */
 
 public class DeleteScriptFragment extends DialogFragment {
-    private String fileName;
+    private String fileName; //name of selected item
+    NoticeDialogDSFListener mListener;  //Object of inner inference used to communicate between dialog and activity
 
+    /**
+     * Setter used to setting values checked on dialog window opened
+     */
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
 
+    /**
+     * Inference used to communication between this dialog and activity in which it was called
+     */
     public interface NoticeDialogDSFListener {
         public void onDialogDSFPositiveClick(DialogFragment dialog);
         public void onDialogDSFNegativeClick(DialogFragment dialog);
     }
 
-    NoticeDialogDSFListener mListener;
-
+    /**
+     * Method needed for communication between activity and dialog
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -44,6 +53,9 @@ public class DeleteScriptFragment extends DialogFragment {
         }
     }
 
+    /**
+     * Method building dialog window
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());

@@ -1,19 +1,15 @@
 package pl.kit.context_aware.lemur;
 
-        import android.*;
         import android.Manifest;
         import android.app.AlarmManager;
         import android.app.DialogFragment;
         import android.app.PendingIntent;
-        import android.content.Context;
         import android.content.Intent;
         import android.content.pm.PackageManager;
         import android.net.Uri;
         import android.os.Bundle;
         import android.provider.Settings;
-        import android.support.v4.app.ActivityCompat;
         import android.support.v4.content.ContextCompat;
-        import android.util.Log;
         import android.view.View;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -24,7 +20,6 @@ package pl.kit.context_aware.lemur;
         import android.view.MenuItem;
         import android.widget.Toast;
 
-        import java.util.Calendar;
         import java.util.LinkedList;
 
         import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
@@ -252,7 +247,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scriptst_list);
+        setContentView(R.layout.activity_main);
 
         ScriptsList sl = new ScriptsList();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
