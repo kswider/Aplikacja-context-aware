@@ -87,7 +87,7 @@
     </string-array>
 
     <!--ImportExportFragment-->
-    <string name="ie_instruction">Export/Import models to the memory available for user</string>
+    <string name="ie_instruction">Export/Import models to the memory available for user in directory Android/data/pl/kit/context_aware/lemur/files/models. These models are deleted when you uninstall application.</string>
     <string name="ie_import" translatable="false">Import</string>
     <string name="ie_export" translatable="false">Export</string>
 
