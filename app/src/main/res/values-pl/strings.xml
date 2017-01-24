@@ -49,7 +49,7 @@
     <string name="es_enterScriptTitle">Edytuj nazwę skryptu</string>
     <string name="es_notSelected">===</string>
     <string name="exported">Skrypty Wyeksportowane</string>
-    <string name="ie_export">EKSPORT</string>
+    <string name="ie_export">Eksport</string>
     <string name="ie_instruction">Eksport/Import modelów do pamięci dostępnej dla użytkownika w folderze Android/data/pl/kit/context_aware/lemur/files/models. Modele te są usuwane przy odinstalowaniu aplikacji.</string>
     <string name="imported">Skrypty Zaimportowano</string>
     <string name="ot_scheduleHEART">Uruchom modele za minutę</string>
@@ -63,7 +63,6 @@
     <string name="tmp_message_main">Wiadomość od Krzysia</string>
     <string name="tmp_message_sub">Gdzie maszz krzesło ?!</string>
     <string name="tp_cancel">Anuluj</string>
-    <string name="tp_ok"></string>
     <string name="tp_setTime">Ustaw Czas</string>
     <string name="action_1">Wyłącz bluetooth</string>
     <string name="action_2">Wyłącz bluetooth</string>
