@@ -523,10 +523,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(data, this);
                 latitude = place.getLatLng().latitude;
-                latitude = ((double)Math.round(latitude*10000)) / 10000;
+                latitude = ((double)Math.round(latitude*1000)) / 1000;
                 //latitude = Math.round(latitude);
                 longitude = place.getLatLng().longitude;
-                longitude = ((double)Math.round(longitude*10000)) / 10000;
+                longitude = ((double)Math.round(longitude*1000)) / 1000;
                 TextView LocSubTV = (TextView) findViewById(R.id.es_set_location_sub);
                 LocSubTV.setText( Double.toString(latitude) + "  " + Double.toString(longitude));
             }

@@ -87,7 +87,7 @@
     </string-array>
 
     <!--ImportExportFragment-->
-    <string name="ie_instruction">Replace this text with short instruction of how it works</string>
+    <string name="ie_instruction">Export/Import models to the memory available for user</string>
     <string name="ie_import" translatable="false">Import</string>
     <string name="ie_export" translatable="false">Export</string>
 

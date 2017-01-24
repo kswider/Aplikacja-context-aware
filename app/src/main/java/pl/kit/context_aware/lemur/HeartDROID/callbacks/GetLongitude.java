@@ -23,7 +23,7 @@ public class GetLongitude implements Callback {
      */
     public void execute(Attribute subject, WorkingMemory wmm) {
         double longitude = ReadLocation.readLongitudeByBest(Inference.getmContext());
-        longitude = ((double)Math.round(longitude*10000)) / 10000;
+        longitude = ((double)Math.round(longitude*1000)) / 1000;
         try {
             wmm.setAttributeValue(subject,new SimpleNumeric(longitude),false);
         } catch (AttributeNotRegisteredException e) {
