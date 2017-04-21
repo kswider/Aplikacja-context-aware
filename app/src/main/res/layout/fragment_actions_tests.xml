@@ -93,6 +93,16 @@
                 android:id="@+id/TurnOffBluetoothButton"
                 android:onClick="TurnOffBluetoothButtonOnClick"/>
 
+            <Button
+                android:text="@string/at_sendSMS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/TurnOffBluetoothButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:id="@+id/SendSMS"
+                android:onClick="SendSMSOnClick" />
+
         </RelativeLayout>
     </ScrollView>
 

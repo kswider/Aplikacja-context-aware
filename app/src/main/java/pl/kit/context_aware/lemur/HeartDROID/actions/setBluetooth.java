@@ -9,7 +9,7 @@ import pl.kit.context_aware.lemur.PhoneActions.BluetoothManager;
  * Created by Krzysiek on 2017-01-13.
  */
 
-public class SetBluetooth implements Action {
+public class setBluetooth implements Action {
     @Override
     /**
      * Action connected with setting bluetooth

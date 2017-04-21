@@ -29,6 +29,7 @@ package pl.kit.context_aware.lemur;
         import pl.kit.context_aware.lemur.PhoneActions.ConnectionManager;
         import pl.kit.context_aware.lemur.PhoneActions.RingModes;
         import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
+        import pl.kit.context_aware.lemur.PhoneActions.SendSMS;
         import pl.kit.context_aware.lemur.Readers.ReadLocation;
         import pl.kit.context_aware.lemur.Readers.ReadTime;
         import pl.kit.context_aware.lemur.TmpTests.TestService;
@@ -110,6 +111,15 @@ public class MainActivity extends AppCompatActivity
      */
     public void TurnOffBluetoothButtonOnClick(View v){
         BluetoothManager.turnOffBluetooth();
+    }
+
+    /**
+     * Action for SendSMS button Clicked (part of ActionsTests Fragment)
+     * Sends test sms
+     * @param v current view.
+     */
+    public void SendSMSOnClick(View v){
+        SendSMS.sendMessage(this,"889871414","siemka :)");
     }
 
     /**

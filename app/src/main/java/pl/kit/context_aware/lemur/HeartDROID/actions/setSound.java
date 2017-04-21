@@ -9,7 +9,7 @@ import pl.kit.context_aware.lemur.PhoneActions.RingModes;
  * Created by Krzysiek on 2016-12-27.
  */
 
-public class SetSound implements Action {
+public class setSound implements Action {
 
     @Override
     /**

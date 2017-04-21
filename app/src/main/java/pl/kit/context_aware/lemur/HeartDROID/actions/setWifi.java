@@ -9,7 +9,7 @@ import pl.kit.context_aware.lemur.PhoneActions.ConnectionManager;
  * Created by Krzysiek on 2017-01-13.
  */
 
-public class SetWifi implements Action {
+public class setWifi implements Action {
     @Override
     /**
      * Action connected with setting wifi

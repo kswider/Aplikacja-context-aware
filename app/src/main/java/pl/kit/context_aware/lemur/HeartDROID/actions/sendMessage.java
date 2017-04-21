@@ -13,7 +13,7 @@ import pl.kit.context_aware.lemur.R;
  * Created by Krzysiek on 2017-01-13.
  */
 
-public class SendMessage implements Action {
+public class sendMessage implements Action {
     @Override
     /**
      * Action connected with sending messages

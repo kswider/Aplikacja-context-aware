@@ -26,8 +26,8 @@
     <string name="at_turnOnMobileData">Turn On Mobile Data</string>
     <string name="at_turnOffMobileData">Turn Off Mobile Data</string>
     <string name="at_turnOnBluetooth">Turn On Bluetooth</string>
+    <string name="at_sendSMS">Send SMS</string>
     <string name="at_turnOffBluetooth">Turn Off BlueTooth</string>
-
     <!-- Readers Tests-->
     <string name="rt_time">Read Time</string>
     <string name="rt_location">Read Location</string>
