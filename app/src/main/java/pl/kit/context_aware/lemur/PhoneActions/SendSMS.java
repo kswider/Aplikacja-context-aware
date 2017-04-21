@@ -22,7 +22,7 @@ public class SendSMS {
             smsManager.sendTextMessage(phoneNo, null, sms, null, null);
         } catch (Exception e) {
             Toast.makeText(mContext.getApplicationContext(),
-                    "SMS faild, please try again later!",
+                    "Cant send SMS to: "+phoneNo,
                     Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }

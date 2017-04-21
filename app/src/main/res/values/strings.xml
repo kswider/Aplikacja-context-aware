@@ -26,7 +26,8 @@
     <string name="at_turnOnMobileData">Turn On Mobile Data</string>
     <string name="at_turnOffMobileData">Turn Off Mobile Data</string>
     <string name="at_turnOnBluetooth">Turn On Bluetooth</string>
-    <string name="at_sendSMS">Send SMS</string>
+    <string name="at_sendSMS">Send test SMS</string>
+    <string name="at_sendSMSExtended">Send SMS</string>
     <string name="at_turnOffBluetooth">Turn Off BlueTooth</string>
     <!-- Readers Tests-->
     <string name="rt_time">Read Time</string>
@@ -105,6 +106,7 @@
     <string name="action_6">Turn on sounds</string>
     <string name="action_7">Turn on vibration</string>
     <string name="action_8">Send notification</string>
+    <string name="action_9">Send SMS</string>
     <string-array name="actions">
         <item>@string/action_1</item>
         <item>@string/action_2</item>
@@ -114,7 +116,13 @@
         <item>@string/action_6</item>
         <item>@string/action_7</item>
         <item>@string/action_8</item>
+        <item>@string/action_9</item>
     </string-array>
+
+    <!-- SMS Details Fragment -->
+    <string name="sms_phoneNo">Phone Number:</string>
+    <string name="sms_message">Message:</string>
+    <string name="sms_fragmentTitle">SMS Details</string>
 
     <string name="ds_delete_1">Do you want delete</string>
     <string name="ds_delete_2">script</string>

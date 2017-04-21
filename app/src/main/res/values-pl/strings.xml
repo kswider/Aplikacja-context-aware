@@ -66,12 +66,13 @@
     <string name="tp_setTime">Ustaw Czas</string>
     <string name="action_1">Wyłącz bluetooth</string>
     <string name="action_2">Wyłącz bluetooth</string>
-    <string name="action_3">Wyłącz bluetooth</string>
+    <string name="action_3">Wyłącz WiFi</string>
     <string name="action_4">Włącz WiFi</string>
     <string name="action_5">Wyłącz dźwięk</string>
     <string name="action_6">Włącz dźwięk</string>
     <string name="action_7">Włącz wibracje</string>
     <string name="action_8">Wyślij powiadomienie</string>
+    <string name="action_9">Wyślij SMS</string>
     <string name="fri">Piątek</string>
     <string name="mon">Poniedziałek</string>
     <string name="sat">Sobota</string>

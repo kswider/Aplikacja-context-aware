@@ -103,6 +103,16 @@
                 android:id="@+id/SendSMS"
                 android:onClick="SendSMSOnClick" />
 
+            <Button
+                android:text="@string/at_sendSMSExtended"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/SendSMS"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:id="@+id/SendSMSExtended"
+                android:onClick="SendSMSExtendedOnClick" />
+
         </RelativeLayout>
     </ScrollView>
 

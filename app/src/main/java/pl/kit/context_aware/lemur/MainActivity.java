@@ -10,6 +10,7 @@ package pl.kit.context_aware.lemur;
         import android.os.Bundle;
         import android.provider.Settings;
         import android.support.v4.content.ContextCompat;
+        import android.util.Log;
         import android.view.View;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -18,6 +19,7 @@ package pl.kit.context_aware.lemur;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
         import android.view.MenuItem;
+        import android.widget.EditText;
         import android.widget.Toast;
 
         import java.util.LinkedList;
@@ -36,7 +38,7 @@ package pl.kit.context_aware.lemur;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ScriptsToExportPickerFragment.NoticeDialogSTEFListener,
-        ScriptsToImportPickerFragment.NoticeDialogSTIFListener, DeleteScriptFragment.NoticeDialogDSFListener {
+        ScriptsToImportPickerFragment.NoticeDialogSTIFListener, DeleteScriptFragment.NoticeDialogDSFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener  {
 
     LinkedList<String> ScriptsToExport = null; //List of scripts to export after appropriate buuton clicked
     LinkedList<String> ScriptsToImport = null; //List of scripts to import after appropriate buuton clicked
@@ -121,6 +123,21 @@ public class MainActivity extends AppCompatActivity
     public void SendSMSOnClick(View v){
         SendSMS.sendMessage(this,"889871414","siemka :)");
     }
+
+
+
+    /**
+     * Action for SendSMS button Clicked (part of ActionsTests Fragment)
+     * Sends test sms
+     * @param v current view.
+     */
+    public void SendSMSExtendedOnClick(View v){
+        DialogFragment newFragment = new SMSMessageDetailsFragment();
+
+        newFragment.show(getFragmentManager(), "SendSMSExtended");
+
+    }
+
 
     /**
      * Action for Read Time Button Clicked (part of ReadersTests Fragment)
@@ -430,4 +447,15 @@ public class MainActivity extends AppCompatActivity
     public void onDialogDSFNegativeClick(DialogFragment dialog) {
 
     }
+
+    @Override
+    public void onSMSMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
+        SendSMS.sendMessage(this,((SMSMessageDetailsFragment)dialog).getPhoneNo(),((SMSMessageDetailsFragment)dialog).getMessage());
+    }
+
+    @Override
+    public void onSMSMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
+
+    }
+
 }
