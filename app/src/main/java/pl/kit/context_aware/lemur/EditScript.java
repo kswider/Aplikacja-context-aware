@@ -226,8 +226,14 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             actions.add(i + j*2);
                         }
                     }
-                    if (j == 3) actions.add(7); //TODO
-                    else if (j == 4) actions.add(8); //TODO
+                    if (j == 3) {
+                        actions.add(7); //TODO
+                        break;
+                    }
+                    else if (j == 4){
+                        actions.add(8); //TODO
+                        break;
+                    }
                 }
             }
 
@@ -398,8 +404,14 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         if(actionNumber < 2) attributesToSetList.add(newModel.getAttribute("bluetooth"));
                         else if(actionNumber > 1 && actionNumber < 4) attributesToSetList.add(newModel.getAttribute("wifi"));
                         else if(actionNumber > 3 && actionNumber < 7) attributesToSetList.add(newModel.getAttribute("sound"));
-                        else if(actionNumber==7) attributesToSetList.add(newModel.getAttribute("notification"));
-                        else if(actionNumber==8) attributesToSetList.add(newModel.getAttribute("sms"));
+                        else if(actionNumber==7) {
+                            attributesToSetList.add(newModel.getAttribute("notification"));
+                            attributesToSetList.add(newModel.getAttribute("notificationNumber"));
+                        }
+                        else if(actionNumber==8){
+                            attributesToSetList.add(newModel.getAttribute("sms"));
+                            attributesToSetList.add(newModel.getAttribute("smsNumber"));
+                        }
                     }
 
                     //Filling decisionList and actionList with appropriate content
@@ -433,7 +445,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendNotification");
                             actionList.add(action);
 
-                            FilesOperations.createNotification(this,Double.toString(time),notificationTitle,notificationMessage);
+                            String fileNumber = FilesOperations.createNotification(this,notificationTitle,notificationMessage);
+                            decision = new DecisionExpression(newModel.getAttribute("notificationNumber"), fileNumber);
+                            decisionList.add(decision);
+
                         }
                         if(actionNumber == 8){
                             newModel.getAttribute("sms").addValue(smsMessage);
@@ -442,7 +457,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendSMS");
                             actionList.add(action);
 
-                            FilesOperations.createSMS(this,Double.toString(time),smsNumber,smsMessage);
+                            String fileNumber = FilesOperations.createSMS(this,smsNumber,smsMessage);
+                            decision = new DecisionExpression(newModel.getAttribute("smsNumber"), fileNumber);
+                            decisionList.add(decision);
                         }
                     } //TODO actions for sending messages
                 }

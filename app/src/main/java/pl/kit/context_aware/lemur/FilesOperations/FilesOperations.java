@@ -200,13 +200,18 @@ public class FilesOperations {
     /**
      * Method creates file containing sms to send, filename is specified time
      * @param mContext
-     * @param filename
      * @param phoneNumber
      * @param message
      */
-    public static void createSMS(Context mContext,String filename,String phoneNumber,String message) {
+    public static String createSMS(Context mContext,String phoneNumber,String message) {
         PrintWriter out = null;
-        File sms = new File(mContext.getFilesDir().toString() + "/" + filename + ".sms");
+        LinkedList<String> smsList = new LinkedList<String>();
+        File sms = null;
+        int i;
+        for(i=0;i<1000;++i) {
+            sms = new File(mContext.getFilesDir().toString() + "/" + i + ".sms");
+            if(!sms.isFile()) break;
+        }
         try {
             out = new PrintWriter(sms);
             out.println(phoneNumber);
@@ -216,6 +221,7 @@ public class FilesOperations {
         } finally {
             out.close();
         }
+        return Integer.toString(i);
     }
 
     /**
@@ -243,13 +249,17 @@ public class FilesOperations {
     /**
      * Method creates file containing notification to show, filename is specified time
      * @param mContext
-     * @param filename
      * @param title
      * @param message
      */
-    public static void createNotification(Context mContext,String filename,String title,String message) {
+    public static String createNotification(Context mContext,String title,String message) {
         PrintWriter out = null;
-        File notification = new File(mContext.getFilesDir().toString() + "/" + filename + ".notification");
+        File notification = null;
+        int i;
+        for(i=0;i<1000;++i) {
+            notification = new File(mContext.getFilesDir().toString() + "/" + i + ".notification");
+            if(!notification.isFile()) break;
+        }
         try {
             out = new PrintWriter(notification);
             out.println(title);
@@ -259,6 +269,7 @@ public class FilesOperations {
         } finally {
             out.close();
         }
+        return Integer.toString(i);
     }
 
     /**
