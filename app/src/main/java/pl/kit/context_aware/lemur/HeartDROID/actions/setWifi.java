@@ -15,7 +15,7 @@ public class setWifi implements Action {
      * Action connected with setting wifi
      */
     public void execute(State state) {
-        String argument = String.valueOf(state.getValueOfAttribute("wifi"));
+        String argument = state.getValueOfAttribute("wifi").toString();
         switch (argument){
             case "on":
                 ConnectionManager.turnOnWiFi(Inference.getmContext());

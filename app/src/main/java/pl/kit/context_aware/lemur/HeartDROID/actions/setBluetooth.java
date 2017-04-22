@@ -15,7 +15,7 @@ public class setBluetooth implements Action {
      * Action connected with setting bluetooth
      */
     public void execute(State state) {
-        String argument = String.valueOf(state.getValueOfAttribute("bluetooth"));
+        String argument = state.getValueOfAttribute("bluetooth").toString();
         switch (argument){
             case "on":
                 BluetoothManager.turnOnBluetooth();

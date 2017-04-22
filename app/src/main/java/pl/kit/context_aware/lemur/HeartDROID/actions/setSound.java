@@ -16,7 +16,7 @@ public class setSound implements Action {
      * Action connected with setting sounds
      */
     public void execute(State state) {
-        String argument = String.valueOf(state.getValueOfAttribute("sound"));
+        String argument = state.getValueOfAttribute("sound").toString();
         switch (argument){
             case "on":
                 RingModes.normalMode(Inference.getmContext());

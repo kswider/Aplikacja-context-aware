@@ -19,10 +19,9 @@ public class sendSMS implements Action {
      * Action connected with sending messages
      */
     public void execute(State state) {
-        double hour = ReadTime.ReadHour();
-        double minute = ReadTime.ReadMinute();
-        double time = hour + (minute/60);
-        LinkedList<String> sms = FilesOperations.loadSMS(Inference.getmContext(),Double.toString(time));
+        String name = state.getValueOfAttribute("smsNumber").toString();
+        name = name.substring(0,name.length()-2);
+        LinkedList<String> sms = FilesOperations.loadSMS(Inference.getmContext(),name);
         String number = sms.pop();
         String message = sms.pop();
         SendSMS.sendMessage(Inference.getmContext(),number,message);
