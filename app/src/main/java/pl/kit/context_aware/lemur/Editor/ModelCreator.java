@@ -181,7 +181,7 @@ public class ModelCreator implements Serializable {
         final Xtype longitude_type = new Xtype("longitude_type", "numeric", "[-180.0000000 to 180.0000000]");
         final Xtype sound_type = new Xtype("sound_type", "symbolic", "[on,off,vibration]");
         final Xtype on_off_type = new Xtype ("on_off_type","symbolic", "[on,off]");
-        final Xtype message_type = new Xtype ("message_type","symbolic","[notification,sms]");
+        final Xtype message_type = new Xtype ("message_type","symbolic","[toSend,sent]");
 
         //We will use only these arguments in our model, user can't add his own arguments
         final Xattr hour = new Xattr(hour_type, "hour", "hour1", "in", "");
@@ -193,7 +193,8 @@ public class ModelCreator implements Serializable {
         final Xattr sound = new Xattr(sound_type, "sound", "sound1", "inter", "");
         final Xattr bluetooth = new Xattr(on_off_type, "bluetooth", "bluetooth1", "inter", "");
         final Xattr wifi = new Xattr(on_off_type, "wifi", "wifi1", "inter", "");
-        final Xattr message = new Xattr(message_type, "message", "message1", "inter", "");
+        final Xattr notification = new Xattr(message_type, "notification", "notification1", "inter", "");
+        final Xattr sms = new Xattr(message_type, "sms", "sms1", "inter", "");
 
         // Creating model by adding everything into ModelCreator and saving it
         ModelCreator model = new ModelCreator(modelName,mContext.getFilesDir().toString());
@@ -218,7 +219,8 @@ public class ModelCreator implements Serializable {
         model.addAttribute(sound);
         model.addAttribute(bluetooth);
         model.addAttribute(wifi);
-        model.addAttribute(message);
+        model.addAttribute(notification);
+        model.addAttribute(sms);
 
         return model;
     }
