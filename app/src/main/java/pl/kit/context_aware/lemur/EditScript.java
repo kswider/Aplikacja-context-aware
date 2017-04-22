@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupWindow;
@@ -73,6 +74,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
     private String scriptNameToLoad; // ??
     EditText scriptName; //Edit text field with script name
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -111,6 +113,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         DialogFragment newFragment = new ActionPickerFragment();
         ((ActionPickerFragment)newFragment).setActions(this.actions);
         newFragment.show(getFragmentManager(), "Action Picker");
+    }
+
+    public void SetDateOnClick(View v) {
+        Toast.makeText(this,"TO DO",Toast.LENGTH_SHORT).show();
     }
 
     /**

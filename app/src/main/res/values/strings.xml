@@ -64,6 +64,11 @@
     <string name="es_notSelected">----</string>
     <string name="es_enterScriptTitle">Enter script name</string>
     <string name="es_SetName">Set script name</string>
+    <string name="es_AddCycle">Add repeating</string>
+    <string name="es_AddSingleDate">Add single</string>
+    <string name="es_AddTime">Add time</string>
+    <string name="es_AddLocation">Add location</string>
+    <string name="es_AddAction">Add action</string>
 
     <!--Time Picker-->
     <string name="tp_cancel">Cancel</string>
