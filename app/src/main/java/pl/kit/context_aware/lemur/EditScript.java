@@ -68,6 +68,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private double time; //time calculated with hour and minute
     private Double latitude; //latitude selected or loaded from file
     private Double longitude; //longitude selected or loaded from file
+    private String notificationTitle;
+    private String notificationMessage; //TODO
+    private String smsNumber;
+    private String smsMessage; //TODO
     private LinkedList<Integer> days = new LinkedList<>(); //list of days selected or loaded from file
     private LinkedList<Integer> actions = new LinkedList<>(); //list of actions selected or loaded from file
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
@@ -153,7 +157,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         time = -1;
         latitude = null;
         longitude = null;
-
+        notificationTitle = "tytul test";
+        notificationMessage = "zobaczymy czy dziala"; //TODO
+        smsNumber = "";
+        smsMessage = ""; // TODO
         //if we are creating new model
         if(scriptNameToEdit.isEmpty()) {
             super.onCreate(savedInstanceState);
@@ -190,6 +197,15 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 longitude = Double.valueOf(loadedModel.getAttribute("longitude").getValues().getFirst());
             }
 
+            if(!loadedModel.getAttribute("notification").getValues().isEmpty()){ // TODO
+                notificationTitle = loadedModel.getAttribute("notification").getValues().getFirst();
+                notificationMessage = loadedModel.getAttribute("notification").getValues().getLast();
+            }
+            if(!loadedModel.getAttribute("sms").getValues().isEmpty()){ // TODO
+                smsNumber = loadedModel.getAttribute("sms").getValues().getFirst();
+                smsMessage = loadedModel.getAttribute("sms").getValues().getLast();
+            }
+
             final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
 
             for (String day : loadedModel.getAttribute("day").getValues()){
@@ -201,7 +217,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             }
 
 
-            final String[] argumentsArray = {"bluetooth","wifi","sound","message"}; //TODO message, it will be different when we implement setting action differently
+            final String[] argumentsArray = {"bluetooth","wifi","sound","notification","sms"}; //TODO message, it will be different when we implement setting action differently
             final String[] stateArray = {"off", "on", "vibration"};
             for(int j = 0; j < argumentsArray.length; ++j) {
                 for (String action : loadedModel.getAttribute(argumentsArray[j]).getValues()) {
@@ -210,7 +226,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             actions.add(i + j*2);
                         }
                     }
-                    if (action.equals("notification") ) actions.add(7);
+                    if (j == 3) actions.add(7); //TODO
+                    else if (j == 4) actions.add(8); //TODO
                 }
             }
 
@@ -261,6 +278,24 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[actions.get(i)] + ",");
                 }
             }
+            //TODO!!!
+            if(notificationMessage.equals("")){
+                //notificationTitleTV.setText("");
+                //notificationMessageTV.setText("");
+            }
+            else {
+                //notificationTitleTV.setText(notificationTitle);
+                //notificationMessageTV.setText(notificationMessage);
+            }
+            if(smsMessage.equals("")){
+                //smsNumberTV.setText("");
+                //smsMessageTV.setText("");
+            }
+            else {
+                //smsNumberTV.setText(smsNumber);
+                //smsNumberTV.setText(smsMessage);
+            }
+
 
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -346,13 +381,25 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     ALSVList.add(alsv);
                 }
 
+                if (!notificationMessage.equals("")){ //TODO
+                    newModel.getAttribute("notification").addValue(notificationTitle);
+                    newModel.getAttribute("notification").addValue(notificationMessage);
+
+                }
+            /*
+                if (!smsMessage.equals("")){
+                    newModel.getAttribute("sms").addValue(smsNumber);
+                    newModel.getAttribute("sms").addValue(smsMessage);
+                }
+                */
                 //Adding appropriate arguments to attributesToSetList which is used in creating Xschm
                 if (!actions.isEmpty()) {
                     for(Integer actionNumber : actions){ // TODO still need some changes
                         if(actionNumber < 2) attributesToSetList.add(newModel.getAttribute("bluetooth"));
-                        if(actionNumber > 1 && actionNumber < 4) attributesToSetList.add(newModel.getAttribute("wifi"));
-                        if(actionNumber > 3 && actionNumber < 7) attributesToSetList.add(newModel.getAttribute("sound"));
-                        if(actionNumber==7) attributesToSetList.add(newModel.getAttribute("message"));
+                        else if(actionNumber > 1 && actionNumber < 4) attributesToSetList.add(newModel.getAttribute("wifi"));
+                        else if(actionNumber > 3 && actionNumber < 7) attributesToSetList.add(newModel.getAttribute("sound"));
+                        else if(actionNumber==7) attributesToSetList.add(newModel.getAttribute("notification"));
+                        else if(actionNumber==8) attributesToSetList.add(newModel.getAttribute("sms"));
                     }
 
                     //Filling decisionList and actionList with appropriate content
@@ -362,29 +409,40 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             newModel.getAttribute("bluetooth").addValue(actionsArray[actionNumber]);
                             decision = new DecisionExpression(newModel.getAttribute("bluetooth"), actionsArray[actionNumber]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetBluetooth");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setBluetooth");
                             actionList.add(action);
                         }
                         if(actionNumber > 1 && actionNumber < 4){
                             newModel.getAttribute("wifi").addValue(actionsArray[actionNumber-2]);
                             decision = new DecisionExpression(newModel.getAttribute("wifi"), actionsArray[actionNumber-2]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetWifi");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setWifi");
                             actionList.add(action);
                         }
                         if(actionNumber > 3 && actionNumber < 7){
                             newModel.getAttribute("sound").addValue(actionsArray[actionNumber-4]);
                             decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber-4]);
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SetSound");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
                             actionList.add(action);
                         }
                         if(actionNumber == 7){
-                            newModel.getAttribute("message").addValue("notification");
-                            decision = new DecisionExpression(newModel.getAttribute("message"), "notification");
+                            newModel.getAttribute("notification").addValue(notificationMessage);
+                            decision = new DecisionExpression(newModel.getAttribute("notification"), "sent");
                             decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.SendMessage");
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendNotification");
                             actionList.add(action);
+
+                            FilesOperations.createNotification(this,Double.toString(time),notificationTitle,notificationMessage);
+                        }
+                        if(actionNumber == 8){
+                            newModel.getAttribute("sms").addValue(smsMessage);
+                            decision = new DecisionExpression(newModel.getAttribute("sms"), "sent");
+                            decisionList.add(decision);
+                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendSMS");
+                            actionList.add(action);
+
+                            FilesOperations.createSMS(this,Double.toString(time),smsNumber,smsMessage);
                         }
                     } //TODO actions for sending messages
                 }

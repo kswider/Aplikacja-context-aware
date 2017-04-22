@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.LinkedList;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
@@ -193,5 +194,92 @@ public class FilesOperations {
             reader.close();
         }catch (FileNotFoundException e){}
         catch (IOException e){}
+    }
+
+
+    /**
+     * Method creates file containing sms to send, filename is specified time
+     * @param mContext
+     * @param filename
+     * @param phoneNumber
+     * @param message
+     */
+    public static void createSMS(Context mContext,String filename,String phoneNumber,String message) {
+        PrintWriter out = null;
+        File sms = new File(mContext.getFilesDir().toString() + "/" + filename + ".sms");
+        try {
+            out = new PrintWriter(sms);
+            out.println(phoneNumber);
+            out.println(message);
+        } catch (IOException e) {
+
+        } finally {
+            out.close();
+        }
+    }
+
+    /**
+     * Method loads sms to send from file
+     * @param mContext
+     * @param filename
+     * @return LinkedList with phone number and message
+     */
+    public static LinkedList<String> loadSMS(Context mContext,String filename){
+        LinkedList<String> sms = new LinkedList<>();
+        Scanner in = null;
+        File file = new File(mContext.getFilesDir().toString() + "/" + filename + ".sms");
+        try {
+            in = new Scanner(file);
+            sms.add(in.nextLine());
+            sms.add(in.nextLine());
+        } catch (IOException e) {
+
+        } finally {
+            in.close();
+        }
+        return sms;
+    }
+
+    /**
+     * Method creates file containing notification to show, filename is specified time
+     * @param mContext
+     * @param filename
+     * @param title
+     * @param message
+     */
+    public static void createNotification(Context mContext,String filename,String title,String message) {
+        PrintWriter out = null;
+        File notification = new File(mContext.getFilesDir().toString() + "/" + filename + ".notification");
+        try {
+            out = new PrintWriter(notification);
+            out.println(title);
+            out.println(message);
+        } catch (IOException e) {
+
+        } finally {
+            out.close();
+        }
+    }
+
+    /**
+     * Metgod loads notification from file
+     * @param mContext
+     * @param filename
+     * @return LinkedList with titles and message
+     */
+    public static LinkedList<String> loadNotification(Context mContext,String filename){
+        LinkedList<String> notification = new LinkedList<>();
+        Scanner in = null;
+        File file = new File(mContext.getFilesDir().toString() + "/" + filename + ".notification");
+        try {
+            in = new Scanner(file);
+            notification.add(in.nextLine());
+            notification.add(in.nextLine());
+        } catch (IOException e) {
+
+        } finally {
+            in.close();
+        }
+        return notification;
     }
 }
