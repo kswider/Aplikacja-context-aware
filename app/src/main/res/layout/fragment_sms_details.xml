@@ -9,12 +9,25 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_sms_phoneNo" />
 
-    <EditText
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/et_sms_phoneNo" />
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/et_sms_phoneNo"
+            android:layout_weight="1" />
+
+        <Button
+            android:text="@string/sms_phone_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sms_pb_button" />
+    </LinearLayout>
 
     <TextView
         android:text="@string/sms_message"

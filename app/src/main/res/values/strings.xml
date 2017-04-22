@@ -96,6 +96,8 @@
     <string name="pl_err">Error</string>
     <string name="pl_fine_location">App doesnt have permission to use your location</string>
     <string name="pl_write_external">App doesnt have permission to write in external storage</string>
+    <string name="pl_read_contacts">App doesnt have permission to read contacts from your phone book</string>
+    <string name="pl_send_sms">App doesnt have permission to send SMS</string>
 
     <!--ActionPickerFragment-->
     <string name="action_1">Turn off bluetooth</string>
@@ -123,6 +125,7 @@
     <string name="sms_phoneNo">Phone Number:</string>
     <string name="sms_message">Message:</string>
     <string name="sms_fragmentTitle">SMS Details</string>
+    <string name="sms_phone_book">Phone Book</string>
 
     <string name="ds_delete_1">Do you want delete</string>
     <string name="ds_delete_2">script</string>

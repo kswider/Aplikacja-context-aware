@@ -121,7 +121,13 @@ public class MainActivity extends AppCompatActivity
      * @param v current view.
      */
     public void SendSMSOnClick(View v){
-        SendSMS.sendMessage(this,"889871414","siemka :)");
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS)
+                == PackageManager.PERMISSION_GRANTED) {
+            SendSMS.sendMessage(this, "889871414", "siemka :)");
+        }else{
+            Toast.makeText(this,this.getResources().getString(R.string.pl_send_sms),Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -131,10 +137,15 @@ public class MainActivity extends AppCompatActivity
      * Sends test sms
      * @param v current view.
      */
-    public void SendSMSExtendedOnClick(View v){
-        DialogFragment newFragment = new SMSMessageDetailsFragment();
-
-        newFragment.show(getFragmentManager(), "SendSMSExtended");
+    public void SendSMSExtendedOnClick(View v) {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.SEND_SMS)
+                == PackageManager.PERMISSION_GRANTED) {
+            DialogFragment newFragment = new SMSMessageDetailsFragment();
+            newFragment.show(getFragmentManager(), "SendSMSExtended");
+        } else {
+            Toast.makeText(this, this.getResources().getString(R.string.pl_send_sms), Toast.LENGTH_SHORT).show();
+        }
 
     }
 

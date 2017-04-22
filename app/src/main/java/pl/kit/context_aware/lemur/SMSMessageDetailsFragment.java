@@ -1,17 +1,30 @@
 package pl.kit.context_aware.lemur;
 
+import android.*;
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import pl.kit.context_aware.lemur.R;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by Tomek on 2017-04-21.
@@ -21,6 +34,11 @@ public class SMSMessageDetailsFragment extends DialogFragment {
 
     private String phoneNo;
     private String message;
+    private static final int REQUEST_CONTACT_NUMBER = 1;
+
+    private EditText et_phoneNo;
+    private EditText et_message;
+    private Button clickButton;
 
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
@@ -73,8 +91,24 @@ public class SMSMessageDetailsFragment extends DialogFragment {
         View dialogView = inflater.inflate(R.layout.fragment_sms_details, null);
         builder.setView(dialogView);
 
-        final EditText et_phoneNo = (EditText) dialogView.findViewById(R.id.et_sms_phoneNo);
-        final EditText et_message = (EditText) dialogView.findViewById(R.id.et_sms_message);
+        et_phoneNo = (EditText) dialogView.findViewById(R.id.et_sms_phoneNo);
+        et_message = (EditText) dialogView.findViewById(R.id.et_sms_message);
+
+        clickButton = (Button) dialogView.findViewById(R.id.sms_pb_button);
+        clickButton.setOnClickListener( new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(getActivity().getBaseContext(),
+                        Manifest.permission.READ_CONTACTS)
+                        == PackageManager.PERMISSION_GRANTED) {
+                    Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                    startActivityForResult(contactPickerIntent, REQUEST_CONTACT_NUMBER);
+                }else{
+                    Toast.makeText(getActivity().getBaseContext(),getActivity().getBaseContext().getResources().getString(R.string.pl_read_contacts),Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
         // Inflate and set the layout for the dialog
@@ -96,6 +130,29 @@ public class SMSMessageDetailsFragment extends DialogFragment {
                             }
                         });
         return builder.create();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == REQUEST_CONTACT_NUMBER ) {
+            // Make sure the request was successful
+            if (resultCode == RESULT_OK) {
+                Uri uriOfPhoneNumberRecord = data.getData();
+                String idOfPhoneRecord = uriOfPhoneNumberRecord.getLastPathSegment();
+                Cursor cursor = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER}, ContactsContract.CommonDataKinds.Phone._ID + "=?", new String[]{idOfPhoneRecord}, null);
+                if(cursor != null) {
+                    if(cursor.getCount() > 0) {
+                        cursor.moveToFirst();
+                        phoneNo = cursor.getString( cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER) );
+                        Log.d("TestActivity", String.format("The selected phone number is: %s", phoneNo));
+                        et_phoneNo.setText(phoneNo);
+                    }
+                    cursor.close();
+                }
+
+            }
+        }
     }
 
 }
