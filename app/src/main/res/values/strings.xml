@@ -20,7 +20,8 @@
     <string name="at_silent">Silend Mode</string>
     <string name="at_vibration">Vibration Mode</string>
     <string name="at_normal">Normal Mode</string>
-    <string name="at_SendNotify">Send Notify</string>
+    <string name="at_SendNotify">Send test Notify</string>
+    <string name="at_SendNotifyExtended">Send Notify</string>
     <string name="at_turnOnWiFi">Turn On WiFi</string>
     <string name="at_turnOffWiFi">Turn Off WiFi</string>
     <string name="at_turnOnMobileData">Turn On Mobile Data</string>
@@ -126,6 +127,11 @@
     <string name="sms_message">Message:</string>
     <string name="sms_fragmentTitle">SMS Details</string>
     <string name="sms_phone_book">Phone Book</string>
+
+    <!-- Notification Details Fragment -->
+    <string name="noti_title">Title</string>
+    <string name="noti_message">Message</string>
+    <string name="noti_fragmentTitle">Notification Details</string>
 
     <string name="ds_delete_1">Do you want delete</string>
     <string name="ds_delete_2">script</string>

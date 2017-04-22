@@ -44,6 +44,16 @@
                 android:onClick="NotificationButtonOnClick"/>
 
             <Button
+                android:text="@string/at_SendNotifyExtended"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/NotificationButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:id="@+id/NotificationExtendedButton"
+                android:onClick="NotificationExtendedButtonOnClick"/>
+
+            <Button
                 android:text="@string/at_silent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -57,7 +67,7 @@
                 android:text="@string/at_turnOnWiFi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/NotificationButton"
+                android:layout_below="@+id/NotificationExtendedButton"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:id="@+id/TurnOnWiFiButton"

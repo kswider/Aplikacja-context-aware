@@ -38,7 +38,7 @@ package pl.kit.context_aware.lemur;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ScriptsToExportPickerFragment.NoticeDialogSTEFListener,
-        ScriptsToImportPickerFragment.NoticeDialogSTIFListener, DeleteScriptFragment.NoticeDialogDSFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener  {
+        ScriptsToImportPickerFragment.NoticeDialogSTIFListener, DeleteScriptFragment.NoticeDialogDSFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener,NotificationMessageDetailsFragment.NoticeNotificationMessageDetailsFragmentListener  {
 
     LinkedList<String> ScriptsToExport = null; //List of scripts to export after appropriate buuton clicked
     LinkedList<String> ScriptsToImport = null; //List of scripts to import after appropriate buuton clicked
@@ -77,6 +77,11 @@ public class MainActivity extends AppCompatActivity
      */
     public void NotificationButtonOnClick(View v){
         SendNotification.sendNotification(this,5,getResources().getString(R.string.tmp_message_main),getResources().getString(R.string.tmp_message_sub));
+    }
+
+    public void NotificationExtendedButtonOnClick(View v){
+        DialogFragment newFragment = new NotificationMessageDetailsFragment();
+        newFragment.show(getFragmentManager(), "NotificationExtended");
     }
 
     /**
@@ -466,6 +471,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSMSMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onNotificationMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
+        SendNotification.sendNotification(this,7,((NotificationMessageDetailsFragment)dialog).getnotiTitle(),((NotificationMessageDetailsFragment)dialog).getMessage());
+    }
+
+    @Override
+    public void onNotificationMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
 
     }
 
