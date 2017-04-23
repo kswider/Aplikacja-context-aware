@@ -4,24 +4,38 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_weight="1" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/le_es_main"
+            android:layout_weight="1" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/le_es_sub"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <ImageButton
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_menu_edit"
-        android:id="@+id/imageButton"
+        android:id="@+id/le_es_edit"
         android:layout_weight="1" />
 
     <ImageButton
-        android:layout_width="wrap_content"
+        android:layout_width="125dp"
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_delete"
-        android:id="@+id/imageButton2"
+        android:id="@+id/le_es_delete"
         android:layout_weight="1" />
 </LinearLayout>

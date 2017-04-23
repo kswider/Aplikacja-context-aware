@@ -21,10 +21,12 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -56,6 +58,7 @@ import pl.kit.context_aware.lemur.Editor.Xtypes.Xrule;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xschm;
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
 import pl.kit.context_aware.lemur.TmpTests.ListItem;
+import pl.kit.context_aware.lemur.TmpTests.ListItem2;
 
 import static android.R.id.list;
 import static java.security.AccessController.getContext;
@@ -80,6 +83,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
     private String scriptNameToLoad; // ??
     EditText scriptName; //Edit text field with script name
+
+    private ListView listDays;
+    private ListView listTime;
+    private ListView listLocation;
+    private ListView listAction;
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -156,7 +164,38 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_script);
         Intent intent = getIntent();
+
+        listDays = (ListView)findViewById(R.id.es_lv_days);
+        listTime = (ListView)findViewById(R.id.es_lv_time);
+        listLocation = (ListView)findViewById(R.id.es_lv_location);
+        listAction = (ListView)findViewById(R.id.es_lv_actions);
+
+
+        ArrayList<ListItem2> ItemList1 = new ArrayList<ListItem2>();
+        for(int i=0;i<3;i++){
+            ItemList1.add(new ListItem2(Integer.toString(i),"---"));
+        }
+
+        if(listDays == null){
+                Toast.makeText(this,"HA!",Toast.LENGTH_SHORT).show();;
+        }
+        final EditScriptsArrayAdapter adapter = new EditScriptsArrayAdapter(this, ItemList1);
+
+        listDays.setAdapter(adapter);
+        ListUtils.setDynamicHeight(listDays);
+
+        listTime.setAdapter(adapter);
+        ListUtils.setDynamicHeight(listTime);
+
+        listLocation.setAdapter(adapter);
+        ListUtils.setDynamicHeight(listLocation);
+
+        listAction.setAdapter(adapter);
+        ListUtils.setDynamicHeight(listAction);
+
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
 
@@ -173,8 +212,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         smsMessage = ""; // TODO
         //if we are creating new model
         if(scriptNameToEdit.isEmpty()) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_edit_script);
             Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
             scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
             //toolbar.setTitle(getResources().getString(R.string.es_Script));
@@ -249,10 +286,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
             }
 
-
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_edit_script);
             Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
+
+
 
             //filling fields with loaded attributes
             scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
@@ -626,5 +662,26 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             }
         }
 
+    }
+
+    public static class ListUtils {
+        public static void setDynamicHeight(ListView mListView) {
+            ListAdapter mListAdapter = mListView.getAdapter();
+            if (mListAdapter == null) {
+                // when adapter is null
+                return;
+            }
+            int height = 0;
+            int desiredWidth = View.MeasureSpec.makeMeasureSpec(mListView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+            for (int i = 0; i < mListAdapter.getCount(); i++) {
+                View listItem = mListAdapter.getView(i, null, mListView);
+                listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                height += listItem.getMeasuredHeight();
+            }
+            ViewGroup.LayoutParams params = mListView.getLayoutParams();
+            params.height = height + (mListView.getDividerHeight() * (mListAdapter.getCount() - 1));
+            mListView.setLayoutParams(params);
+            mListView.requestLayout();
+        }
     }
 }
