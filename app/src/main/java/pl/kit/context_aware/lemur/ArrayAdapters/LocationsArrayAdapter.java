@@ -2,7 +2,6 @@ package pl.kit.context_aware.lemur.ArrayAdapters;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.content.ContextCompat;
@@ -10,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +20,6 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import java.util.ArrayList;
 
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.TimePickerFragment;
 import pl.kit.context_aware.lemur.TmpTests.ListItem2;
 
 /**

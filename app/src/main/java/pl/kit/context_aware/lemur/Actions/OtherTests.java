@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur;
+package pl.kit.context_aware.lemur.Actions;
 
 
 import android.os.Bundle;
@@ -8,16 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import pl.kit.context_aware.lemur.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
- * Fragment contains buttons used to test if readers are working properly
+ * Fragment contains buttons used to test other actions like running services or scheduling alarms
  */
-public class ReadersTests extends Fragment {
-    public ReadersTests() {
+public class OtherTests extends Fragment {
+
+    public OtherTests() {
         // Required empty public constructor
     }
-
 
     /**
      * method called always when fragment is being drawn
@@ -27,10 +29,13 @@ public class ReadersTests extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Button button1 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
-                .findViewById(R.id.ReadTimeButton);
+                .findViewById(R.id.startServiceButton);
         Button button2 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
-                .findViewById(R.id.ReadLocationButton);
-        return inflater.inflate(R.layout.fragment_readers_tests, container, false);
+                .findViewById(R.id.stopServiceButton);
+        Button button3 = (Button) inflater.inflate(R.layout.fragment_actions_tests, container, false)
+                .findViewById(R.id.runSimModelButton);
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_other_tests, container, false);
     }
 
 }

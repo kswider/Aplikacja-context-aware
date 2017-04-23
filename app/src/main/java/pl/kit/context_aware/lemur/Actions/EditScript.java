@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur;
+package pl.kit.context_aware.lemur.Actions;
 
 import android.Manifest;
 import android.app.DialogFragment;
@@ -37,6 +37,9 @@ import pl.kit.context_aware.lemur.ArrayAdapters.ActionsArrayAdapter;
 import pl.kit.context_aware.lemur.ArrayAdapters.DaysArrayAdapter;
 import pl.kit.context_aware.lemur.ArrayAdapters.LocationsArrayAdapter;
 import pl.kit.context_aware.lemur.ArrayAdapters.TimesArrayAdapter;
+import pl.kit.context_aware.lemur.DialogFragments.ActionPickerFragment;
+import pl.kit.context_aware.lemur.DialogFragments.DayOfWeekPickerFragment;
+import pl.kit.context_aware.lemur.DialogFragments.TimePickerFragment;
 import pl.kit.context_aware.lemur.Editor.ModelCreator;
 import pl.kit.context_aware.lemur.Editor.RuleExpressions.ALSVExpression;
 import pl.kit.context_aware.lemur.Editor.RuleExpressions.ActionExpression;
@@ -45,6 +48,7 @@ import pl.kit.context_aware.lemur.Editor.Xtypes.Xattr;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xrule;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xschm;
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
+import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.TmpTests.ListItem2;
 
 public class EditScript extends AppCompatActivity implements DayOfWeekPickerFragment.NoticeDialogDOWPFListener
@@ -101,10 +105,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         times.add(new ListItem2("NEW","---"));
         timeAdapter.notifyDataSetChanged();
 
-
-        v.invalidate();
-
-
     }
 
     /**
@@ -116,6 +116,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         DialogFragment newFragment = new DayOfWeekPickerFragment();
         ((DayOfWeekPickerFragment) newFragment).setDaysOfWeek(days);
         newFragment.show(getFragmentManager(), "DayOfWeek Picker");
+
+        dayss.add(new ListItem2("NEW","---"));
+        daysAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -127,6 +130,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         DialogFragment newFragment = new ActionPickerFragment();
         ((ActionPickerFragment)newFragment).setActions(this.actions);
         newFragment.show(getFragmentManager(), "Action Picker");
+
+        actionss.add(new ListItem2("NEW","---"));
+        actionsAdapter.notifyDataSetChanged();
     }
 
     public void SetDateOnClick(View v) {
@@ -156,6 +162,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         else{
             Toast.makeText(this,this.getResources().getString(R.string.pl_fine_location),Toast.LENGTH_SHORT).show();
         }
+
+        locations.add(new ListItem2("NEW","---"));
+        locationsAdapter.notifyDataSetChanged();
     }
 
     /**

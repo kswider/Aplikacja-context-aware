@@ -1,6 +1,5 @@
-package pl.kit.context_aware.lemur;
+package pl.kit.context_aware.lemur.DialogFragments;
 
-import android.*;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -23,7 +22,6 @@ import android.widget.Toast;
 
 import pl.kit.context_aware.lemur.R;
 
-import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 /**

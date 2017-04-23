@@ -1,17 +1,15 @@
-package pl.kit.context_aware.lemur;
+package pl.kit.context_aware.lemur.DialogFragments;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
-import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
+
+import pl.kit.context_aware.lemur.R;
 
 /**
  * Created by Tomek on 09.01.2017.

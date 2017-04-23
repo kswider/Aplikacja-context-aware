@@ -34,7 +34,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Actions.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -49,13 +49,13 @@
             android:exported="false"></service>
 
         <activity
-            android:name=".EditScript"
+            android:name=".Actions.EditScript"
             android:label="@string/title_activity_edit_script"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".Actions.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pl.kit.context_aware.lemur.MainActivity" />
+                android:value="pl.kit.context_aware.lemur.Actions.MainActivity" />
         </activity>
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
@@ -83,7 +83,7 @@
             android:label="@string/title_activity_location_picker">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pl.kit.context_aware.lemur.EditScript" />
+                android:value="pl.kit.context_aware.lemur.Actions.EditScript" />
         </activity>
     </application>
 

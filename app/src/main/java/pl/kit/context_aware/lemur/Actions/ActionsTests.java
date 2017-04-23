@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur;
+package pl.kit.context_aware.lemur.Actions;
 
 
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
+import pl.kit.context_aware.lemur.R;
 
 
 /**

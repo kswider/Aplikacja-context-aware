@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur;
+package pl.kit.context_aware.lemur.Actions;
 
         import android.Manifest;
         import android.app.AlarmManager;
@@ -10,7 +10,6 @@ package pl.kit.context_aware.lemur;
         import android.os.Bundle;
         import android.provider.Settings;
         import android.support.v4.content.ContextCompat;
-        import android.util.Log;
         import android.view.View;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -19,11 +18,16 @@ package pl.kit.context_aware.lemur;
         import android.support.v7.app.AppCompatActivity;
         import android.support.v7.widget.Toolbar;
         import android.view.MenuItem;
-        import android.widget.EditText;
         import android.widget.Toast;
 
         import java.util.LinkedList;
 
+        import pl.kit.context_aware.lemur.DialogFragments.DeleteScriptFragment;
+        import pl.kit.context_aware.lemur.DialogFragments.ImportExportFragment;
+        import pl.kit.context_aware.lemur.DialogFragments.NotificationMessageDetailsFragment;
+        import pl.kit.context_aware.lemur.DialogFragments.SMSMessageDetailsFragment;
+        import pl.kit.context_aware.lemur.DialogFragments.ScriptsToExportPickerFragment;
+        import pl.kit.context_aware.lemur.DialogFragments.ScriptsToImportPickerFragment;
         import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
         import pl.kit.context_aware.lemur.HeartDROID.HeartAlarmReceiver;
         import pl.kit.context_aware.lemur.HeartDROID.Inference;
@@ -32,6 +36,7 @@ package pl.kit.context_aware.lemur;
         import pl.kit.context_aware.lemur.PhoneActions.RingModes;
         import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
         import pl.kit.context_aware.lemur.PhoneActions.SendSMS;
+        import pl.kit.context_aware.lemur.R;
         import pl.kit.context_aware.lemur.Readers.ReadLocation;
         import pl.kit.context_aware.lemur.Readers.ReadTime;
         import pl.kit.context_aware.lemur.TmpTests.TestService;

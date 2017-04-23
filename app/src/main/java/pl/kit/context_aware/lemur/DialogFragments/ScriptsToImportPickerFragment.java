@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur;
+package pl.kit.context_aware.lemur.DialogFragments;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
+import pl.kit.context_aware.lemur.R;
 
 /**
  * Created by Tomek on 2017-01-17.
