@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import pl.kit.context_aware.lemur.ArrayAdapters.ScriptsListArrayAdapter;
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
 import pl.kit.context_aware.lemur.TmpTests.ListItem;
 

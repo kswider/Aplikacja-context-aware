@@ -1,6 +1,5 @@
 package pl.kit.context_aware.lemur;
 
-import android.*;
 import android.Manifest;
 import android.app.DialogFragment;
 import android.content.Intent;
@@ -8,30 +7,17 @@ import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.appindexing.Action;
@@ -45,10 +31,12 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 
+import pl.kit.context_aware.lemur.ArrayAdapters.ActionsArrayAdapter;
+import pl.kit.context_aware.lemur.ArrayAdapters.DaysArrayAdapter;
+import pl.kit.context_aware.lemur.ArrayAdapters.LocationsArrayAdapter;
+import pl.kit.context_aware.lemur.ArrayAdapters.TimesArrayAdapter;
 import pl.kit.context_aware.lemur.Editor.ModelCreator;
 import pl.kit.context_aware.lemur.Editor.RuleExpressions.ALSVExpression;
 import pl.kit.context_aware.lemur.Editor.RuleExpressions.ActionExpression;
@@ -57,11 +45,7 @@ import pl.kit.context_aware.lemur.Editor.Xtypes.Xattr;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xrule;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xschm;
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
-import pl.kit.context_aware.lemur.TmpTests.ListItem;
 import pl.kit.context_aware.lemur.TmpTests.ListItem2;
-
-import static android.R.id.list;
-import static java.security.AccessController.getContext;
 
 public class EditScript extends AppCompatActivity implements DayOfWeekPickerFragment.NoticeDialogDOWPFListener
         , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener {
@@ -87,6 +71,16 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private ListView listLocation;
     private ListView listAction;
 
+    ArrayList<ListItem2> times;
+    ArrayList<ListItem2> dayss;
+    ArrayList<ListItem2> locations;
+    ArrayList<ListItem2> actionss;
+
+    TimesArrayAdapter timeAdapter;
+    DaysArrayAdapter daysAdapter;
+    LocationsArrayAdapter locationsAdapter;
+    ActionsArrayAdapter actionsAdapter;
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -103,6 +97,14 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         ((TimePickerFragment) newFragment).setHour(hour);
         ((TimePickerFragment) newFragment).setMinute(minute);
         newFragment.show(getFragmentManager(), "Time Picker");
+
+        times.add(new ListItem2("NEW","---"));
+        timeAdapter.notifyDataSetChanged();
+
+
+        v.invalidate();
+
+
     }
 
     /**
@@ -171,27 +173,36 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         listLocation = (ListView)findViewById(R.id.es_lv_location);
         listAction = (ListView)findViewById(R.id.es_lv_actions);
 
-
-        ArrayList<ListItem2> ItemList1 = new ArrayList<ListItem2>();
+        dayss = new ArrayList<ListItem2>();
         for(int i=0;i<3;i++){
-            ItemList1.add(new ListItem2(Integer.toString(i),"---"));
+            dayss.add(new ListItem2("DAY "+Integer.toString(i),"---"));
         }
-
-        if(listDays == null){
-                Toast.makeText(this,"HA!",Toast.LENGTH_SHORT).show();;
-        }
-        final EditScriptsArrayAdapter adapter = new EditScriptsArrayAdapter(this, ItemList1);
-
-        listDays.setAdapter(adapter);
+        daysAdapter = new DaysArrayAdapter(this,dayss);
+        listDays.setAdapter(daysAdapter);
         ListUtils.setDynamicHeight(listDays);
 
-        listTime.setAdapter(adapter);
+        times = new ArrayList<ListItem2>();
+        for(int i=0;i<3;i++){
+            times.add(new ListItem2("TIME "+Integer.toString(i),"---"));
+        }
+        timeAdapter = new TimesArrayAdapter(this, times);
+        listTime.setAdapter(timeAdapter);
         ListUtils.setDynamicHeight(listTime);
 
-        listLocation.setAdapter(adapter);
+        locations = new ArrayList<ListItem2>();
+        for(int i=0;i<3;i++){
+            locations.add(new ListItem2("LOCATION "+Integer.toString(i),"---"));
+        }
+        locationsAdapter = new LocationsArrayAdapter(this,locations);
+        listLocation.setAdapter(locationsAdapter);
         ListUtils.setDynamicHeight(listLocation);
 
-        listAction.setAdapter(adapter);
+        actionss = new ArrayList<ListItem2>();
+        for(int i=0;i<3;i++){
+            actionss.add(new ListItem2("ACTION "+Integer.toString(i),"---"));
+        }
+        actionsAdapter = new ActionsArrayAdapter(this,actionss);
+        listAction.setAdapter(actionsAdapter);
         ListUtils.setDynamicHeight(listAction);
 
         String scriptNameToEdit = intent.getExtras().getString("eFileName");

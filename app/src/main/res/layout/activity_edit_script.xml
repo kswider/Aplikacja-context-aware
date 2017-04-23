@@ -68,7 +68,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                tools:ignore="NestedScrolling"
                 android:id="@+id/es_lv_days"/>
 
             <LinearLayout
