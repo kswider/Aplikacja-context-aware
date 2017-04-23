@@ -24,6 +24,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
+import pl.kit.context_aware.lemur.Editor.ModelCreator;
 import pl.kit.context_aware.lemur.R;
 
 /**
@@ -136,6 +137,34 @@ public class FilesOperations {
             in.close();
             zos.closeEntry();
 
+            //adding notifications and SMS files if they exist:
+            ModelCreator loadedModel = ModelCreator.loadModel(mContext.getFilesDir() + "/" + modelName +".ser");
+            LinkedList<String> list;
+            list = loadedModel.getAttribute("notificationNumber").getValues(); // checking if there is a need to delete notification
+            if(!list.isEmpty()){
+                String name = list.pop();
+                ze = new ZipEntry(name + ".notification");
+                zos.putNextEntry(ze);
+                in = new FileInputStream(mContext.getFilesDir() + "/" + name + ".notification");
+                while ((len = in.read(buffer)) > 0) {
+                    zos.write(buffer, 0, len);
+                }
+                in.close();
+                zos.closeEntry();
+            }
+            list = loadedModel.getAttribute("smsNumber").getValues(); // checking if there is a need to delete notification
+            if(!list.isEmpty()){
+                String name = list.pop();
+                ze = new ZipEntry(name + ".sms");
+                zos.putNextEntry(ze);
+                in = new FileInputStream(mContext.getFilesDir() + "/" + name + ".sms");
+                while ((len = in.read(buffer)) > 0) {
+                    zos.write(buffer, 0, len);
+                }
+                in.close();
+                zos.closeEntry();
+            }
+            
             zos.close();
 
         }catch(IOException ex){
@@ -245,6 +274,15 @@ public class FilesOperations {
         }
         return sms;
     }
+    /**
+     * Method deletes sms, it is used when we edit existing model
+     * @param mContext
+     * @param filename
+     */
+    public static void deleteSMS(Context mContext, String filename){
+        File file = new File(mContext.getFilesDir().toString() + "/" + filename + ".sms");
+        file.delete();
+    }
 
     /**
      * Method creates file containing notification to show, filename is specified time
@@ -273,10 +311,10 @@ public class FilesOperations {
     }
 
     /**
-     * Metgod loads notification from file
+     * Method loads notification from file
      * @param mContext
      * @param filename
-     * @return LinkedList with titles and message
+     * @return LinkedList with title and message
      */
     public static LinkedList<String> loadNotification(Context mContext,String filename){
         LinkedList<String> notification = new LinkedList<>();
@@ -292,5 +330,15 @@ public class FilesOperations {
             in.close();
         }
         return notification;
+    }
+
+    /**
+     * Method deletes notification, it is used when we edit existing model
+     * @param mContext
+     * @param filename
+     */
+    public static void deleteNotification(Context mContext, String filename){
+        File file = new File(mContext.getFilesDir().toString() + "/" + filename + ".notification");
+        file.delete();
     }
 }

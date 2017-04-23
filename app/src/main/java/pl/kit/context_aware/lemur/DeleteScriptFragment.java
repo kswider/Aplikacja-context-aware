@@ -11,6 +11,10 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
+import pl.kit.context_aware.lemur.Editor.ModelCreator;
+import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
 
 /**
  * Created by Tomek on 2017-01-13.
@@ -63,6 +67,19 @@ public class DeleteScriptFragment extends DialogFragment {
                 .setPositiveButton(R.string.tp_ok, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        ModelCreator loadedModel = ModelCreator.loadModel(getActivity().getFilesDir() + "/" + fileName +".ser");
+
+                        LinkedList<String> list;
+                        list = loadedModel.getAttribute("notificationNumber").getValues(); // checking if there is a need to delete notification
+                        if(!list.isEmpty()){
+                            FilesOperations.deleteNotification(getActivity(),list.pop());
+                        }
+                        list = loadedModel.getAttribute("smsNumber").getValues(); // checking if there is a need to delete sms
+                        if(!list.isEmpty()){
+                            FilesOperations.deleteSMS(getActivity(),list.pop());
+                        }
+
                         File fileSer = new File(getActivity().getFilesDir() + "/" + fileName +".ser");
                         File fileHmr = new File(getActivity().getFilesDir() + "/" + fileName +".hmr");
                         fileSer.delete();
