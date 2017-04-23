@@ -11,7 +11,7 @@
     <string name="action_settings">Ustawienia</string>
     <string name="AppInfos">Ta aplikacja została stworzona przez Tomasza Borowicza i Krzysztowa Swidra jako projekt z Programowania Obiektowego.</string>
     <string name="AppWarning">Ta aplikacja to wersja deweloperksa. Pełna wersja aplikacji wciąż znajduje się w przygotowaniu.</string>
-    <string name="at_SendNotify">Wyślij Powiadomienie</string>
+    <string name="at_SendNotify">Wyślij testowe powiadomienie</string>
     <string name="at_normal">Tryb Normalny</string>
     <string name="at_silent">Tryb Cichy</string>
     <string name="at_vibration">Tryb Wibracj</string>
@@ -83,4 +83,21 @@
     <string name="default_message_main">Lemur wysłał Ci powiadomienie</string>
     <string name="default_message_sub">Masz coś do zrobienia!</string>
     <string name="choose_scripts">Wybierz skrypty</string>
+    <string name="at_sendSMS">Wyślij tstowego SMS</string>
+    <string name="at_sendSMSExtended">Wyślij SMS</string>
+    <string name="es_AddAction">Dodaj Akcję</string>
+    <string name="es_AddCycle">Dodaj cykliczny</string>
+    <string name="es_AddLocation">Dodaj lokację</string>
+    <string name="es_AddSingleDate">Dodaj pojedynczy</string>
+    <string name="es_AddTime">Dodaj czas</string>
+    <string name="noti_message">Wiadomość</string>
+    <string name="noti_fragmentTitle">Szczegóły powiadomienia</string>
+    <string name="noti_title">Tytuł</string>
+    <string name="pl_read_contacts">Aplikacja nie posiada uprawnień do czytania kontaktów z twojego telefonu</string>
+    <string name="pl_send_sms">Aplikacja nie posiada uprawnień do wysyłania SMS</string>
+    <string name="sms_fragmentTitle">Szczegóły SMS</string>
+    <string name="sms_message">Wiadomość</string>
+    <string name="sms_phoneNo">Numer telefonu</string>
+    <string name="sms_phone_book">Książka telefoniczna</string>
+    <string name="at_SendNotifyExtended">Wyślij powiadomienie</string>
 </resources>
