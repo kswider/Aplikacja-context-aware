@@ -23,6 +23,17 @@ public class ActionPickerFragment extends DialogFragment {
     private LinkedList<Integer> actions = new LinkedList<Integer>(); //List containing int numbers of picked actions
     boolean[] checkedValues; //List containing list of all actions. If true action which number is array number is checked
     NoticeDialogAPFListener mListener; //Object of inner inference used to communicate between dialog and activity
+    private int position;
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+
+    public int getPosition() {
+
+        return position;
+    }
 
     /**
      * Setter used to setting values checked on dialog window opened

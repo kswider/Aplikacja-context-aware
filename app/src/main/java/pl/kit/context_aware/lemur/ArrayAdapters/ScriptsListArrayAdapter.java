@@ -8,10 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.TmpTests.ListItem;
+import pl.kit.context_aware.lemur.ListItems.ListItem;
 
 /**
  * Created by Tomek on 09.01.2017.

@@ -23,6 +23,17 @@ public class DayOfWeekPickerFragment extends DialogFragment {
     private LinkedList<Integer> daysOfWeek = new LinkedList<>(); //List containing int numbers of picked days
     boolean[] checkedValues; //List containing list of all actions. If true action which number is array number is checked
     NoticeDialogDOWPFListener mListener; //Object of inner inference used to communicate between dialog and activity
+    private int position;
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+
+    public int getPosition() {
+
+        return position;
+    }
 
 
     /**

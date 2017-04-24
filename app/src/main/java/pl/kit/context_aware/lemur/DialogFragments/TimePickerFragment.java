@@ -19,7 +19,17 @@ import pl.kit.context_aware.lemur.R;
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
     private int minute; //picked minute
     private int hour; //picked hour
-    NoticeDialogTPFListener mListener; //Object of inner inference used to communicate between dialog and activity
+    private NoticeDialogTPFListener mListener; //Object of inner inference used to communicate between dialog and activity
+    private int position;
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+
+        return position;
+    }
 
     /**
      * Getter returning picked minutes

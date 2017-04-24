@@ -14,19 +14,19 @@ import java.util.ArrayList;
 
 import pl.kit.context_aware.lemur.DialogFragments.DayOfWeekPickerFragment;
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.TmpTests.ListItem2;
+import pl.kit.context_aware.lemur.ListItems.DayItem;
 
 /**
  * Created by Tomek on 2017-04-22.
  */
 
-public class DaysArrayAdapter extends ArrayAdapter<ListItem2>  {
-    public ArrayList<ListItem2> list;
+public class DaysArrayAdapter extends ArrayAdapter<DayItem>  {
+    public ArrayList<DayItem> list;
     private Context mContext;
     /**
      * Needed constructor
      */
-    public DaysArrayAdapter(Context context, ArrayList<ListItem2> Texts) {
+    public DaysArrayAdapter(Context context, ArrayList<DayItem> Texts) {
         super(context,0, Texts);
         list = Texts;
         mContext = context;
@@ -38,17 +38,23 @@ public class DaysArrayAdapter extends ArrayAdapter<ListItem2>  {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        ListItem2 item = getItem(position);
+        DayItem item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_element_script_edit, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_element_script_edit_1, parent, false);
         }
         // Lookup view for data population
         TextView main = (TextView) convertView.findViewById(R.id.le_es_main);
-        TextView sub = (TextView) convertView.findViewById(R.id.le_es_sub);
-        // Populate the data into the template view using the data object
-        main.setText(item.mainText);
-        sub.setText(item.subText);
+
+        main.setText("");
+        if(item.getType() == 1){
+            final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+            for(int i=0; i <list.size(); i++){
+                main.setText(main.getText() + "," + item.getDayOfWeek().get(i));
+            }
+        }else{
+            main.setText(item.getDay() + "." + item.getMonth() + "." + item.getYear());
+        }
 
         ImageButton editButton = (ImageButton)convertView.findViewById(R.id.le_es_edit);
         ImageButton deleteButton = (ImageButton)convertView.findViewById(R.id.le_es_delete);

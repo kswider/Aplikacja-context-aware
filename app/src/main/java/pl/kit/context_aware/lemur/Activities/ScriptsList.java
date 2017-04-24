@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.Actions;
+package pl.kit.context_aware.lemur.Activities;
 
 
 import android.app.DialogFragment;
@@ -20,7 +20,7 @@ import pl.kit.context_aware.lemur.ArrayAdapters.ScriptsListArrayAdapter;
 import pl.kit.context_aware.lemur.DialogFragments.DeleteScriptFragment;
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.TmpTests.ListItem;
+import pl.kit.context_aware.lemur.ListItems.ListItem;
 
 /**
  * A simple {@link Fragment} subclass.

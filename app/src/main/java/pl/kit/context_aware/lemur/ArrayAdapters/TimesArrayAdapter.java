@@ -14,19 +14,19 @@ import java.util.ArrayList;
 
 import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.DialogFragments.TimePickerFragment;
-import pl.kit.context_aware.lemur.TmpTests.ListItem2;
+import pl.kit.context_aware.lemur.ListItems.TimeItem;
 
 /**
  * Created by Tomek on 2017-04-22.
  */
 
-public class TimesArrayAdapter extends ArrayAdapter<ListItem2>  {
-    public ArrayList<ListItem2> list;
+public class TimesArrayAdapter extends ArrayAdapter<TimeItem>  {
+    public ArrayList<TimeItem> list;
     private Context mContext;
     /**
      * Needed constructor
      */
-    public TimesArrayAdapter(Context context, ArrayList<ListItem2> Texts) {
+    public TimesArrayAdapter(Context context, ArrayList<TimeItem> Texts) {
         super(context,0, Texts);
         list = Texts;
         mContext = context;
@@ -38,17 +38,16 @@ public class TimesArrayAdapter extends ArrayAdapter<ListItem2>  {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        ListItem2 item = getItem(position);
+        TimeItem item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_element_script_edit, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_element_script_edit_1, parent, false);
         }
         // Lookup view for data population
         TextView main = (TextView) convertView.findViewById(R.id.le_es_main);
         TextView sub = (TextView) convertView.findViewById(R.id.le_es_sub);
         // Populate the data into the template view using the data object
-        main.setText(item.mainText);
-        sub.setText(item.subText);
+        main.setText(item.getMinutes() +  ":" + item.getHours());
 
         ImageButton editButton = (ImageButton)convertView.findViewById(R.id.le_es_edit);
         ImageButton deleteButton = (ImageButton)convertView.findViewById(R.id.le_es_delete);
@@ -67,7 +66,7 @@ public class TimesArrayAdapter extends ArrayAdapter<ListItem2>  {
                 DialogFragment newFragment = new TimePickerFragment();
                 ((TimePickerFragment) newFragment).setHour(5);
                 ((TimePickerFragment) newFragment).setMinute(position);
-                newFragment.show(((Activity)mContext).getFragmentManager(), "Time Picker");
+                newFragment.show(((Activity)mContext).getFragmentManager(), "Time Picker1");
                 notifyDataSetChanged();
             }
         });

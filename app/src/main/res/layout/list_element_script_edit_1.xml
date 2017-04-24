@@ -4,11 +4,7 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+
 
         <TextView
             android:layout_width="match_parent"
@@ -16,12 +12,7 @@
             android:id="@+id/le_es_main"
             android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/le_es_sub"
-            android:layout_weight="1" />
-    </LinearLayout>
+
 
     <ImageButton
         android:layout_width="125dp"

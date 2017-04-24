@@ -14,19 +14,19 @@ import java.util.ArrayList;
 
 import pl.kit.context_aware.lemur.DialogFragments.ActionPickerFragment;
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.TmpTests.ListItem2;
+import pl.kit.context_aware.lemur.ListItems.ActionItem;
 
 /**
  * Created by Tomek on 2017-04-22.
  */
 
-public class ActionsArrayAdapter extends ArrayAdapter<ListItem2>  {
-    public ArrayList<ListItem2> list;
+public class ActionsArrayAdapter extends ArrayAdapter<ActionItem>  {
+    public ArrayList<ActionItem> list;
     private Context mContext;
     /**
      * Needed constructor
      */
-    public ActionsArrayAdapter(Context context, ArrayList<ListItem2> Texts) {
+    public ActionsArrayAdapter(Context context, ArrayList<ActionItem> Texts) {
         super(context,0, Texts);
         list = Texts;
         mContext = context;
@@ -38,7 +38,7 @@ public class ActionsArrayAdapter extends ArrayAdapter<ListItem2>  {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        ListItem2 item = getItem(position);
+        ActionItem item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_element_script_edit, parent, false);
@@ -47,8 +47,8 @@ public class ActionsArrayAdapter extends ArrayAdapter<ListItem2>  {
         TextView main = (TextView) convertView.findViewById(R.id.le_es_main);
         TextView sub = (TextView) convertView.findViewById(R.id.le_es_sub);
         // Populate the data into the template view using the data object
-        main.setText(item.mainText);
-        sub.setText(item.subText);
+        main.setText(item.getMainText());
+        sub.setText(item.getSubText());
 
         ImageButton editButton = (ImageButton)convertView.findViewById(R.id.le_es_edit);
         ImageButton deleteButton = (ImageButton)convertView.findViewById(R.id.le_es_delete);

@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.TmpTests;
+package pl.kit.context_aware.lemur.ListItems;
 
 /**
  * Created by Tomek on 09.01.2017.

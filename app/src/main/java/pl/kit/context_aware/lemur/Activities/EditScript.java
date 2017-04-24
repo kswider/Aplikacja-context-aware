@@ -1,10 +1,11 @@
-package pl.kit.context_aware.lemur.Actions;
+package pl.kit.context_aware.lemur.Activities;
 
 import android.Manifest;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -48,8 +49,11 @@ import pl.kit.context_aware.lemur.Editor.Xtypes.Xattr;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xrule;
 import pl.kit.context_aware.lemur.Editor.Xtypes.Xschm;
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
+import pl.kit.context_aware.lemur.ListItems.ActionItem;
+import pl.kit.context_aware.lemur.ListItems.DayItem;
+import pl.kit.context_aware.lemur.ListItems.LocationItem;
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.TmpTests.ListItem2;
+import pl.kit.context_aware.lemur.ListItems.TimeItem;
 
 public class EditScript extends AppCompatActivity implements DayOfWeekPickerFragment.NoticeDialogDOWPFListener
         , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener {
@@ -77,10 +81,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private ListView listLocation;
     private ListView listAction;
 
-    ArrayList<ListItem2> times;
-    ArrayList<ListItem2> dayss;
-    ArrayList<ListItem2> locations;
-    ArrayList<ListItem2> actionss;
+    ArrayList<TimeItem> times;
+    ArrayList<DayItem> dayss;
+    ArrayList<LocationItem> locations;
+    ArrayList<ActionItem> actionss;
 
     TimesArrayAdapter timeAdapter;
     DaysArrayAdapter daysAdapter;
@@ -100,12 +104,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     public void SetTimeOnClick(View v) {
         DialogFragment newFragment = new TimePickerFragment();
-        ((TimePickerFragment) newFragment).setHour(hour);
-        ((TimePickerFragment) newFragment).setMinute(minute);
+        ((TimePickerFragment) newFragment).setPosition(-1);
         newFragment.show(getFragmentManager(), "Time Picker");
-
-        times.add(new ListItem2("NEW","---"));
-        timeAdapter.notifyDataSetChanged();
 
     }
 
@@ -116,11 +116,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     public void SetDayOnClick(View v) {
         DialogFragment newFragment = new DayOfWeekPickerFragment();
-        ((DayOfWeekPickerFragment) newFragment).setDaysOfWeek(days);
+        ((DayOfWeekPickerFragment) newFragment).setPosition(-1);
         newFragment.show(getFragmentManager(), "DayOfWeek Picker");
-
-        dayss.add(new ListItem2("NEW","---"));
-        daysAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -130,11 +127,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     public void SetActionOnClick(View v) {
         DialogFragment newFragment = new ActionPickerFragment();
-        ((ActionPickerFragment)newFragment).setActions(this.actions);
+        ((ActionPickerFragment)newFragment).setPosition(-1);
         newFragment.show(getFragmentManager(), "Action Picker");
-
-        actionss.add(new ListItem2("NEW","---"));
-        actionsAdapter.notifyDataSetChanged();
     }
 
     public void SetDateOnClick(View v) {
@@ -164,9 +158,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         else{
             Toast.makeText(this,this.getResources().getString(R.string.pl_fine_location),Toast.LENGTH_SHORT).show();
         }
-
-        locations.add(new ListItem2("NEW","---"));
-        locationsAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -184,33 +175,27 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         listLocation = (ListView)findViewById(R.id.es_lv_location);
         listAction = (ListView)findViewById(R.id.es_lv_actions);
 
-        dayss = new ArrayList<ListItem2>();
-        for(int i=0;i<3;i++){
-            dayss.add(new ListItem2("DAY "+Integer.toString(i),"---"));
-        }
-        daysAdapter = new DaysArrayAdapter(this,dayss);
-        listDays.setAdapter(daysAdapter);
-        ListUtils.setDynamicHeight(listDays);
 
-        times = new ArrayList<ListItem2>();
+
+        times = new ArrayList<TimeItem>();
         for(int i=0;i<3;i++){
-            times.add(new ListItem2("TIME "+Integer.toString(i),"---"));
+            times.add(new TimeItem(i,i));
         }
         timeAdapter = new TimesArrayAdapter(this, times);
         listTime.setAdapter(timeAdapter);
         ListUtils.setDynamicHeight(listTime);
 
-        locations = new ArrayList<ListItem2>();
+        locations = new ArrayList<LocationItem>();
         for(int i=0;i<3;i++){
-            locations.add(new ListItem2("LOCATION "+Integer.toString(i),"---"));
+            locations.add(new LocationItem(1.1,i+0.05));
         }
         locationsAdapter = new LocationsArrayAdapter(this,locations);
         listLocation.setAdapter(locationsAdapter);
         ListUtils.setDynamicHeight(listLocation);
 
-        actionss = new ArrayList<ListItem2>();
+        actionss = new ArrayList<ActionItem>();
         for(int i=0;i<3;i++){
-            actionss.add(new ListItem2("ACTION "+Integer.toString(i),"---"));
+            actionss.add(new ActionItem("MAIN","SUB",i));
         }
         actionsAdapter = new ActionsArrayAdapter(this,actionss);
         listAction.setAdapter(actionsAdapter);
@@ -612,9 +597,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     public void onDialogTPFPositiveClick(DialogFragment dialog) {
-        hour = ((TimePickerFragment) dialog).getHour();
-        minute = ((TimePickerFragment) dialog).getMinute();
-        time = (double)hour + ((double)minute / 60);
+        if(((TimePickerFragment) dialog).getPosition() == -1) {
+            hour = ((TimePickerFragment) dialog).getHour();
+            minute = ((TimePickerFragment) dialog).getMinute();
+            time = (double) hour + ((double) minute / 60);
+        }else{
+
+        }
     }
 
     /**

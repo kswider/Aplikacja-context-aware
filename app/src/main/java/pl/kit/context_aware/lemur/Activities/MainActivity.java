@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.Actions;
+package pl.kit.context_aware.lemur.Activities;
 
         import android.Manifest;
         import android.app.AlarmManager;

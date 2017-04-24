@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.support.v4.app.TaskStackBuilder;
 
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.Actions.MainActivity;
+import pl.kit.context_aware.lemur.Activities.MainActivity;
 
 /**
  * Created by Tomek on 2017-01-07.
