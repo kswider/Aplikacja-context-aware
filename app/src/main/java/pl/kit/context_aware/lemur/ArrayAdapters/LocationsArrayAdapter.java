@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +20,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 
+import pl.kit.context_aware.lemur.Activities.EditScript;
 import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.ListItems.LocationItem;
 
@@ -64,6 +66,7 @@ public class LocationsArrayAdapter extends ArrayAdapter<LocationItem>  {
                 //do something
                 list.remove(position); //or some other task
                 notifyDataSetChanged();
+                EditScript.ListUtils.setDynamicHeight((ListView)((Activity)mContext).findViewById(R.id.es_lv_location));
             }
         });
         editButton.setOnClickListener(new View.OnClickListener(){

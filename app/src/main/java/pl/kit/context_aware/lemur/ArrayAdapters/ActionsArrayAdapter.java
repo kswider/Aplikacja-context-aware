@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import pl.kit.context_aware.lemur.Activities.EditScript;
 import pl.kit.context_aware.lemur.DialogFragments.ActionPickerFragment;
 import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.ListItems.ActionItem;
@@ -59,6 +61,7 @@ public class ActionsArrayAdapter extends ArrayAdapter<ActionItem>  {
                 //do something
                 list.remove(position); //or some other task
                 notifyDataSetChanged();
+                EditScript.ListUtils.setDynamicHeight((ListView)((Activity)mContext).findViewById(R.id.es_lv_actions));
             }
         });
         editButton.setOnClickListener(new View.OnClickListener(){

@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import pl.kit.context_aware.lemur.Activities.EditScript;
 import pl.kit.context_aware.lemur.DialogFragments.DayOfWeekPickerFragment;
 import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.ListItems.DayItem;
@@ -65,6 +67,7 @@ public class DaysArrayAdapter extends ArrayAdapter<DayItem>  {
                 //do something
                 list.remove(position); //or some other task
                 notifyDataSetChanged();
+                EditScript.ListUtils.setDynamicHeight((ListView)((Activity)mContext).findViewById(R.id.es_lv_days));
             }
         });
         editButton.setOnClickListener(new View.OnClickListener(){

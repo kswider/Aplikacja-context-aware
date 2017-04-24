@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -564,6 +565,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             dayss.get(((DayOfWeekPickerFragment) dialog).getPosition()).setDayOfWeek(((DayOfWeekPickerFragment) dialog).getDays());
         }
         daysAdapter.notifyDataSetChanged();
+        ListUtils.setDynamicHeight(listDays);
     }
 
     /**
@@ -611,6 +613,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             Log.d("APPP",Integer.toString(((TimePickerFragment) dialog).getHour()));
         }
         timeAdapter.notifyDataSetChanged();
+        ListUtils.setDynamicHeight(listTime);
     }
 
     /**
@@ -665,7 +668,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 || requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 double latitude,longitude;
                 Place place = PlacePicker.getPlace(data, this);
@@ -680,8 +682,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     locations.get(requestCode).setLongitude(longitude);
                 }
                 locationsAdapter.notifyDataSetChanged();
+                ListUtils.setDynamicHeight(listLocation);
             }
-        }
 
     }
 
