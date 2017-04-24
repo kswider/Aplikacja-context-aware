@@ -17,7 +17,6 @@ public class TimeItem {
     }
 
     public int getHours() {
-
         return hours;
     }
 

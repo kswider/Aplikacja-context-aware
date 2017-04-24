@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -567,7 +568,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     public void onDialogDOWPFNegativeClick(DialogFragment dialog) {
-
+        if(((DayOfWeekPickerFragment) dialog).getPosition() == -1) {
+            dayss.add(new DayItem(((DayOfWeekPickerFragment) dialog).getDays(),1));
+        }else{
+            dayss.get(((DayOfWeekPickerFragment) dialog).getPosition()).setDayOfWeek(((DayOfWeekPickerFragment) dialog).getDays());
+        }
     }
 
     /**
@@ -598,12 +603,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     @Override
     public void onDialogTPFPositiveClick(DialogFragment dialog) {
         if(((TimePickerFragment) dialog).getPosition() == -1) {
-            hour = ((TimePickerFragment) dialog).getHour();
-            minute = ((TimePickerFragment) dialog).getMinute();
-            time = (double) hour + ((double) minute / 60);
+            times.add(new TimeItem(((TimePickerFragment) dialog).getHour(),((TimePickerFragment) dialog).getMinute()));
         }else{
-
+            times.get(((TimePickerFragment) dialog).getPosition()).setHours(((TimePickerFragment) dialog).getHour());
+            times.get(((TimePickerFragment) dialog).getPosition()).setMinutes(((TimePickerFragment) dialog).getMinute());
+            Log.d("APPP",Integer.toString(((TimePickerFragment) dialog).getHour()));
         }
+        timeAdapter.notifyDataSetChanged();
     }
 
     /**

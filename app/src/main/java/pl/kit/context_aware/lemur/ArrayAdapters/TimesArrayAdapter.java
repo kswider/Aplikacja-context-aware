@@ -47,7 +47,7 @@ public class TimesArrayAdapter extends ArrayAdapter<TimeItem>  {
         TextView main = (TextView) convertView.findViewById(R.id.le_es_main);
         TextView sub = (TextView) convertView.findViewById(R.id.le_es_sub);
         // Populate the data into the template view using the data object
-        main.setText(item.getMinutes() +  ":" + item.getHours());
+        main.setText(item.getHours() + ":" + item.getMinutes());
 
         ImageButton editButton = (ImageButton)convertView.findViewById(R.id.le_es_edit);
         ImageButton deleteButton = (ImageButton)convertView.findViewById(R.id.le_es_delete);
@@ -64,8 +64,9 @@ public class TimesArrayAdapter extends ArrayAdapter<TimeItem>  {
             @Override
             public void onClick(View v) {
                 DialogFragment newFragment = new TimePickerFragment();
-                ((TimePickerFragment) newFragment).setHour(5);
-                ((TimePickerFragment) newFragment).setMinute(position);
+                ((TimePickerFragment) newFragment).setHour(list.get(position).getHours());
+                ((TimePickerFragment) newFragment).setMinute(list.get(position).getMinutes());
+                ((TimePickerFragment) newFragment).setPosition(position);
                 newFragment.show(((Activity)mContext).getFragmentManager(), "Time Picker1");
                 notifyDataSetChanged();
             }
