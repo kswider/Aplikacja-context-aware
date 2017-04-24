@@ -176,7 +176,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         listLocation = (ListView)findViewById(R.id.es_lv_location);
         listAction = (ListView)findViewById(R.id.es_lv_actions);
 
-
+        /*
 
         times = new ArrayList<TimeItem>();
         for(int i=0;i<3;i++){
@@ -198,10 +198,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         for(int i=0;i<3;i++){
             actionss.add(new ActionItem("MAIN","SUB",i));
         }
+
         actionsAdapter = new ActionsArrayAdapter(this,actionss);
         listAction.setAdapter(actionsAdapter);
         ListUtils.setDynamicHeight(listAction);
-
+        */
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
 
@@ -409,7 +410,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 //Adding appropriate arguments to attributesList which is used in creating Xschm
                 //Adding attribites which are needed in inference to ALSVlist
                 //Setting values of Attributes, needed in loading models
-                if (!(time == -1)) {
+                if (!(times.isEmpty())) {
                     attributesList.add(newModel.getAttribute("time"));
                     newModel.getAttribute("hour").addValue(String.valueOf(hour));
                     newModel.getAttribute("minute").addValue(String.valueOf(minute));
