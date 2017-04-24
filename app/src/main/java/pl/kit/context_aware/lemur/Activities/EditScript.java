@@ -145,7 +145,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            int PLACE_PICKER_REQUEST = 1;
+            int PLACE_PICKER_REQUEST = -1;
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
             try {
@@ -563,6 +563,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         }else{
             dayss.get(((DayOfWeekPickerFragment) dialog).getPosition()).setDayOfWeek(((DayOfWeekPickerFragment) dialog).getDays());
         }
+        daysAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -664,16 +665,21 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_PICKER_REQUEST) {
+        if (requestCode == 1 || requestCode == 2) {
             if (resultCode == RESULT_OK) {
+                double latitude,longitude;
                 Place place = PlacePicker.getPlace(data, this);
                 latitude = place.getLatLng().latitude;
                 latitude = ((double)Math.round(latitude*1000)) / 1000;
-                //latitude = Math.round(latitude);
                 longitude = place.getLatLng().longitude;
                 longitude = ((double)Math.round(longitude*1000)) / 1000;
-                TextView LocSubTV = (TextView) findViewById(R.id.es_set_location_sub);
-                LocSubTV.setText( Double.toString(latitude) + "  " + Double.toString(longitude));
+
+                if(requestCode == -1) locations.add(new LocationItem(latitude,longitude));
+                if(requestCode != -1){
+                    locations.get(requestCode).setLatitude(latitude);
+                    locations.get(requestCode).setLongitude(longitude);
+                }
+                locationsAdapter.notifyDataSetChanged();
             }
         }
 
