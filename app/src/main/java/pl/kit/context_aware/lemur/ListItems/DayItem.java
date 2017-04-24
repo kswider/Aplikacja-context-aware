@@ -7,7 +7,7 @@ import java.util.LinkedList;
  */
 
 public class DayItem {
-    private int type;
+    private int type; //1-days of week 2-specified day
     private LinkedList<Integer> days = new LinkedList<>();
     private int day;
     private int month;

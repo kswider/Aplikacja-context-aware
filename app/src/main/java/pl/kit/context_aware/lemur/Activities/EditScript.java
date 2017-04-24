@@ -179,6 +179,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
 
 
+        dayss = new ArrayList<DayItem>();
+        daysAdapter = new DaysArrayAdapter(this, dayss);
+        listDays.setAdapter(daysAdapter);
+        ListUtils.setDynamicHeight(listDays);
+
         times = new ArrayList<TimeItem>();
         for(int i=0;i<3;i++){
             times.add(new TimeItem(i,i));
