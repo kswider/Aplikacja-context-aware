@@ -558,7 +558,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     public void onDialogDOWPFPositiveClick(DialogFragment dialog) {
-        days = (LinkedList<Integer>) ((DayOfWeekPickerFragment) dialog).getDays().clone();
+        if(((DayOfWeekPickerFragment) dialog).getPosition() == -1) {
+            dayss.add(new DayItem(((DayOfWeekPickerFragment) dialog).getDays(),1));
+        }else{
+            dayss.get(((DayOfWeekPickerFragment) dialog).getPosition()).setDayOfWeek(((DayOfWeekPickerFragment) dialog).getDays());
+        }
     }
 
     /**
@@ -568,11 +572,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     public void onDialogDOWPFNegativeClick(DialogFragment dialog) {
-        if(((DayOfWeekPickerFragment) dialog).getPosition() == -1) {
-            dayss.add(new DayItem(((DayOfWeekPickerFragment) dialog).getDays(),1));
-        }else{
-            dayss.get(((DayOfWeekPickerFragment) dialog).getPosition()).setDayOfWeek(((DayOfWeekPickerFragment) dialog).getDays());
-        }
+
     }
 
     /**
