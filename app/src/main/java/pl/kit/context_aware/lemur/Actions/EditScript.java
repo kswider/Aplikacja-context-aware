@@ -60,9 +60,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private double time; //time calculated with hour and minute
     private Double latitude; //latitude selected or loaded from file
     private Double longitude; //longitude selected or loaded from file
+    private String notificationNumber; //used in deleting old files, when we edit model
     private String notificationTitle;
     private String notificationMessage; //TODO
-    private String smsNumber;
+    private String smsNumber; //used in deleting old files, when we edit model
+    private String smsPhoneNumber;
     private String smsMessage; //TODO
     private LinkedList<Integer> days = new LinkedList<>(); //list of days selected or loaded from file
     private LinkedList<Integer> actions = new LinkedList<>(); //list of actions selected or loaded from file
@@ -222,9 +224,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         time = -1;
         latitude = null;
         longitude = null;
+        notificationNumber = "";
         notificationTitle = "tytul test";
         notificationMessage = "zobaczymy czy dziala"; //TODO
         smsNumber = "";
+        smsPhoneNumber = "";
         smsMessage = ""; // TODO
         //if we are creating new model
         if(scriptNameToEdit.isEmpty()) {
@@ -261,11 +265,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             }
 
             if(!loadedModel.getAttribute("notification").getValues().isEmpty()){ // TODO
+                notificationNumber = loadedModel.getAttribute("notificationNumber").getValues().pop();
                 notificationTitle = loadedModel.getAttribute("notification").getValues().getFirst();
                 notificationMessage = loadedModel.getAttribute("notification").getValues().getLast();
             }
             if(!loadedModel.getAttribute("sms").getValues().isEmpty()){ // TODO
-                smsNumber = loadedModel.getAttribute("sms").getValues().getFirst();
+                smsNumber = loadedModel.getAttribute("smsNumber").getValues().pop();
+                smsPhoneNumber = loadedModel.getAttribute("sms").getValues().getFirst();
                 smsMessage = loadedModel.getAttribute("sms").getValues().getLast();
             }
 
@@ -452,11 +458,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 if (!notificationMessage.equals("")){ //TODO
                     newModel.getAttribute("notification").addValue(notificationTitle);
                     newModel.getAttribute("notification").addValue(notificationMessage);
-
                 }
             /*
                 if (!smsMessage.equals("")){
-                    newModel.getAttribute("sms").addValue(smsNumber);
+                    newModel.getAttribute("sms").addValue(smsPhoneNumber);
                     newModel.getAttribute("sms").addValue(smsMessage);
                 }
                 */
@@ -507,8 +512,12 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendNotification");
                             actionList.add(action);
 
-                            String fileNumber = FilesOperations.createNotification(this,notificationTitle,notificationMessage);
-                            decision = new DecisionExpression(newModel.getAttribute("notificationNumber"), fileNumber);
+                            if(!notificationNumber.equals("")){
+                                FilesOperations.deleteNotification(this,notificationNumber); //deleting old notification before we create new one
+                            }
+                            notificationNumber = FilesOperations.createNotification(this,notificationTitle,notificationMessage);
+                            newModel.getAttribute("notificationNumber").addValue(notificationNumber);
+                            decision = new DecisionExpression(newModel.getAttribute("notificationNumber"), notificationNumber);
                             decisionList.add(decision);
 
                         }
@@ -519,8 +528,12 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                             action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendSMS");
                             actionList.add(action);
 
-                            String fileNumber = FilesOperations.createSMS(this,smsNumber,smsMessage);
-                            decision = new DecisionExpression(newModel.getAttribute("smsNumber"), fileNumber);
+                            if (!smsNumber.equals("")) {
+                                FilesOperations.deleteSMS(this,smsNumber); //deleting old sms before we create new one
+                            }
+                            smsNumber = FilesOperations.createSMS(this,smsPhoneNumber,smsMessage);
+                            newModel.getAttribute("smsNumber").addValue(smsNumber);
+                            decision = new DecisionExpression(newModel.getAttribute("smsNumber"), smsNumber);
                             decisionList.add(decision);
                         }
                     } //TODO actions for sending messages

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.io.File;
 
+import java.util.LinkedList;
 
 import pl.kit.context_aware.lemur.Editor.ModelCreator;
 import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
