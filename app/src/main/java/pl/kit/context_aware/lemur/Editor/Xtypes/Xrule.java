@@ -23,6 +23,11 @@ public class Xrule implements XTT2StringRepresentation, Serializable {
     public Xrule(Xschm schm, int ID, LinkedList<ALSVExpression> conditionsList, LinkedList<DecisionExpression> decisionsList, LinkedList<ActionExpression> actionsList) {
         this.nameOfSchema = schm.getName();
         this.ID = Integer.toString(ID);
+
+        //copying list of conditions, because it might change
+        //for(ALSVExpression a : conditionsList){
+        //    this.conditionsList.add(new ALSVExpression(a));
+        //}
         this.conditionsList = conditionsList;
         this.decisionsList = decisionsList;
         this.actionsList = actionsList;

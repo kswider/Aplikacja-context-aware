@@ -5,7 +5,6 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,7 +70,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private String smsNumber; //used in deleting old files, when we edit model
     private String smsPhoneNumber;
     private String smsMessage; //TODO
-    private LinkedList<Integer> days = new LinkedList<>(); //list of days selected or loaded from file
+    private LinkedList<Integer> daysCyclical = new LinkedList<>(); //list of daysCyclical selected or loaded from file
     private LinkedList<Integer> actions = new LinkedList<>(); //list of actions selected or loaded from file
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
     private String scriptNameToLoad; // ??
@@ -84,7 +82,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private ListView listAction;
 
     ArrayList<TimeItem> times;
-    ArrayList<DayItem> dayss;
+    ArrayList<DayItem> days;
     ArrayList<LocationItem> locations;
     ArrayList<ActionItem> actionss;
 
@@ -177,10 +175,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         listLocation = (ListView)findViewById(R.id.es_lv_location);
         listAction = (ListView)findViewById(R.id.es_lv_actions);
 
-        /*
 
-        dayss = new ArrayList<DayItem>();
-        daysAdapter = new DaysArrayAdapter(this, dayss);
+
+        days = new ArrayList<DayItem>();
+        daysAdapter = new DaysArrayAdapter(this, days);
         listDays.setAdapter(daysAdapter);
         ListUtils.setDynamicHeight(listDays);
 
@@ -199,7 +197,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         locationsAdapter = new LocationsArrayAdapter(this,locations);
         listLocation.setAdapter(locationsAdapter);
         ListUtils.setDynamicHeight(listLocation);
-
+        /*
         actionss = new ArrayList<ActionItem>();
         for(int i=0;i<3;i++){
             actionss.add(new ActionItem("MAIN","SUB",i));
@@ -273,7 +271,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             for (String day : loadedModel.getAttribute("day").getValues()){
                 for(int i = 0; i<daysOfWeekArray.length;++i){
                     if(daysOfWeekArray[i].equals(day)){
-                        days.add(i);
+                        daysCyclical.add(i);
                     }
                 }
             }
@@ -316,13 +314,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
             TextView daysTV = (TextView) this.findViewById(R.id.es_set_day_sub);
             daysTV.setText("");
-            if(days.isEmpty()){
+            if(daysCyclical.isEmpty()){
                 daysTV.setText("---");
             }
             else {
-                for (int i = 0; i < days.size(); i++) {
+                for (int i = 0; i < daysCyclical.size(); i++) {
                     Resources res = this.getResources();
-                    daysTV.setText(daysTV.getText().toString() + res.getStringArray(R.array.days)[days.get(i)] + ",");
+                    daysTV.setText(daysTV.getText().toString() + res.getStringArray(R.array.days)[daysCyclical.get(i)] + ",");
                 }
             }
 
@@ -413,51 +411,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 DecisionExpression decision = null;
                 ActionExpression action = null;
 
-                //Adding appropriate arguments to attributesList which is used in creating Xschm
-                //Adding attribites which are needed in inference to ALSVlist
-                //Setting values of Attributes, needed in loading models
-                if (!(times.isEmpty())) {
-                    attributesList.add(newModel.getAttribute("time"));
-                    newModel.getAttribute("hour").addValue(String.valueOf(hour));
-                    newModel.getAttribute("minute").addValue(String.valueOf(minute));
-                    newModel.getAttribute("time").addValue(String.valueOf(time));
-                    alsv = new ALSVExpression(newModel.getAttribute("time"), Double.toString(time));
-                    ALSVList.add(alsv);
-                }
-                if (!days.isEmpty()) {
-                    attributesList.add(newModel.getAttribute("day"));
+                //Creatung list of rules
+                LinkedList<Xrule> rulesList = new LinkedList<>();
 
-                    final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
-                    LinkedList<String> selectedDays = new LinkedList<>();
-                    for (Integer day : days) {
-                        newModel.getAttribute("day").addValue(daysOfWeekArray[day]);
-                        selectedDays.add(daysOfWeekArray[day]);
-                    }
-                    alsv = new ALSVExpression(newModel.getAttribute("day"), selectedDays);
-                    ALSVList.add(alsv);
-                }
-                if ((latitude != null) && (longitude != null)) {
-                    attributesList.add(newModel.getAttribute("latitude"));
-                    newModel.getAttribute("latitude").addValue(String.valueOf(latitude));
-                    alsv = new ALSVExpression(newModel.getAttribute("latitude"), latitude.toString());
-                    ALSVList.add(alsv);
-
-                    attributesList.add(newModel.getAttribute("longitude"));
-                    newModel.getAttribute("longitude").addValue(String.valueOf(longitude));
-                    alsv = new ALSVExpression(newModel.getAttribute("longitude"), longitude.toString());
-                    ALSVList.add(alsv);
-                }
-
-                if (!notificationMessage.equals("")){ //TODO
-                    newModel.getAttribute("notification").addValue(notificationTitle);
-                    newModel.getAttribute("notification").addValue(notificationMessage);
-                }
-            /*
-                if (!smsMessage.equals("")){
-                    newModel.getAttribute("sms").addValue(smsPhoneNumber);
-                    newModel.getAttribute("sms").addValue(smsMessage);
-                }
-                */
+                //TODO
                 //Adding appropriate arguments to attributesToSetList which is used in creating Xschm
                 if (!actions.isEmpty()) {
                     for(Integer actionNumber : actions){ // TODO still need some changes
@@ -531,13 +488,102 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         }
                     } //TODO actions for sending messages
                 }
-                // Creating and adding scheme to model
-                Xschm scheme = new Xschm("SetEverything", attributesList, attributesToSetList);
-                newModel.addScheme(scheme);
-                //Creating Rules
-                LinkedList<Xrule> rulesList = new LinkedList<>();
-                Xrule rule = new Xrule(scheme, 1, ALSVList, decisionList, actionList);
-                newModel.addRule(rule);
+
+                //Adding messages to model for later loading
+                if (!notificationMessage.equals("")){ //TODO
+                    newModel.getAttribute("notification").addValue(notificationTitle);
+                    newModel.getAttribute("notification").addValue(notificationMessage);
+                }
+            /*
+                if (!smsMessage.equals("")){
+                    newModel.getAttribute("sms").addValue(smsPhoneNumber);
+                    newModel.getAttribute("sms").addValue(smsMessage);
+                }
+                */
+
+                //Adding appropriate arguments to attributesList which is used in creating Xschm
+                //Adding attribites which are needed in inference to ALSVlist
+                //Setting values of Attributes, needed in loading models
+                if (!(times.isEmpty())) {
+                    attributesList.add(newModel.getAttribute("time"));
+                    LinkedList<String> timesList = new LinkedList<>();
+
+                    for(TimeItem time : times){
+                        newModel.getAttribute("hour").addValue(String.valueOf(time.getHours()));
+                        newModel.getAttribute("minute").addValue(String.valueOf(time.getMinutes()));
+                        String timeString =  String.valueOf(((double)time.getHours() + ((double)time.getMinutes() / 60)));
+                        newModel.getAttribute("time").addValue(timeString);
+
+                        timesList.add(timeString); // Adding times to list, which will be used in ALSV expression
+                    }
+
+                    alsv = new ALSVExpression(newModel.getAttribute("time"), timesList);
+                    ALSVList.add(alsv);
+                }
+                if (!daysCyclical.isEmpty()) {
+                    attributesList.add(newModel.getAttribute("day"));
+
+                    final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+                    LinkedList<String> selectedDays = new LinkedList<>();
+                    for (Integer day : daysCyclical) {
+                        newModel.getAttribute("day").addValue(daysOfWeekArray[day]);
+                        selectedDays.add(daysOfWeekArray[day]);
+                    }
+                    alsv = new ALSVExpression(newModel.getAttribute("day"), selectedDays);
+                    ALSVList.add(alsv);
+                }
+                if (!days.isEmpty()){
+                    attributesList.add(newModel.getAttribute("dayFromCalendar"));
+
+                    LinkedList<String> selectedDays = new LinkedList<>();
+
+                    for(DayItem day : days){
+                        String selectedDay = String.format("%4d",day.getYear()) + String.format("%02d",day.getMonth()) + String.format("%02d",day.getDay());
+                        newModel.getAttribute("dayFromCalendar").addValue(selectedDay);
+                        selectedDays.add(selectedDay);
+                    }
+                    alsv = new ALSVExpression(newModel.getAttribute("dayFromCalendar"), selectedDays);
+                    ALSVList.add(alsv);
+                }
+
+                if (!locations.isEmpty()) {
+                    attributesList.add(newModel.getAttribute("latitude"));
+                    attributesList.add(newModel.getAttribute("longitude"));
+
+                    // Creating and adding scheme to model
+                    Xschm scheme = new Xschm("SetEverything", attributesList, attributesToSetList);
+                    newModel.addScheme(scheme);
+                    int numberOFRule = 1;
+                    for(LocationItem location : locations){
+                        newModel.getAttribute("latitude").addValue(String.valueOf(location.getLatitude()));
+                        newModel.getAttribute("longitude").addValue(String.valueOf(location.getLongitude()));
+
+                        alsv = new ALSVExpression(newModel.getAttribute("latitude"), String.valueOf(location.getLatitude()));
+                        ALSVList.add(alsv);
+                        alsv = new ALSVExpression(newModel.getAttribute("longitude"), String.valueOf(location.getLongitude()));
+                        ALSVList.add(alsv);
+
+                        Xrule rule = new Xrule(scheme, numberOFRule, ALSVList, decisionList, actionList);
+                        rulesList.add(rule);
+
+                        ALSVList.remove();
+                        ALSVList.remove();
+                        numberOFRule++;
+                    }
+                }
+                else{
+                    // Creating and adding scheme to model
+                    Xschm scheme = new Xschm("SetEverything", attributesList, attributesToSetList);
+                    newModel.addScheme(scheme);
+                    //Creating only one rule if no locations are selected
+                    Xrule rule = new Xrule(scheme, 1, ALSVList, decisionList, actionList);
+                    rulesList.add(rule);
+                }
+
+                //Adding rules to the model
+                for(Xrule rule : rulesList){
+                    newModel.addRule(rule);
+                }
                 newModel.saveModel();
 
                 //deleting old models
@@ -566,9 +612,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     @Override
     public void onDialogDOWPFPositiveClick(DialogFragment dialog) {
         if(((DayOfWeekPickerFragment) dialog).getPosition() == -1) {
-            dayss.add(new DayItem(((DayOfWeekPickerFragment) dialog).getDays(),1));
+            days.add(new DayItem(((DayOfWeekPickerFragment) dialog).getDays(),1));
         }else{
-            dayss.get(((DayOfWeekPickerFragment) dialog).getPosition()).setDayOfWeek(((DayOfWeekPickerFragment) dialog).getDays());
+            days.get(((DayOfWeekPickerFragment) dialog).getPosition()).setDayOfWeek(((DayOfWeekPickerFragment) dialog).getDays());
         }
         daysAdapter.notifyDataSetChanged();
         ListUtils.setDynamicHeight(listDays);
