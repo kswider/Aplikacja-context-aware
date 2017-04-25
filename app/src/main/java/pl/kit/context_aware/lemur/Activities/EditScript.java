@@ -40,6 +40,8 @@ import pl.kit.context_aware.lemur.ArrayAdapters.LocationsArrayAdapter;
 import pl.kit.context_aware.lemur.ArrayAdapters.TimesArrayAdapter;
 import pl.kit.context_aware.lemur.DialogFragments.ActionPickerFragment;
 import pl.kit.context_aware.lemur.DialogFragments.DayOfWeekPickerFragment;
+import pl.kit.context_aware.lemur.DialogFragments.NotificationMessageDetailsFragment;
+import pl.kit.context_aware.lemur.DialogFragments.SMSMessageDetailsFragment;
 import pl.kit.context_aware.lemur.DialogFragments.TimePickerFragment;
 import pl.kit.context_aware.lemur.Editor.ModelCreator;
 import pl.kit.context_aware.lemur.Editor.RuleExpressions.ALSVExpression;
@@ -56,7 +58,7 @@ import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.ListItems.TimeItem;
 
 public class EditScript extends AppCompatActivity implements DayOfWeekPickerFragment.NoticeDialogDOWPFListener
-        , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener {
+        , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener, NotificationMessageDetailsFragment.NoticeNotificationMessageDetailsFragmentListener{
 
     String rememberedModelName; //used in deleting old models
     private int hour; //hour selected or loaded from file
@@ -197,16 +199,16 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         locationsAdapter = new LocationsArrayAdapter(this,locations);
         listLocation.setAdapter(locationsAdapter);
         ListUtils.setDynamicHeight(listLocation);
-        /*
+
         actionss = new ArrayList<ActionItem>();
         for(int i=0;i<3;i++){
-            actionss.add(new ActionItem("MAIN","SUB",i));
+            actionss.add(new ActionItem("","",i));
         }
 
         actionsAdapter = new ActionsArrayAdapter(this,actionss);
         listAction.setAdapter(actionsAdapter);
         ListUtils.setDynamicHeight(listAction);
-        */
+
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
 
@@ -637,7 +639,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     public void onDialogAPFPositiveClick(DialogFragment dialog) {
-        actions = (LinkedList<Integer>) ((ActionPickerFragment) dialog).getActions().clone();
+        if(((ActionPickerFragment)dialog).getPosition() == -1){
+            actionss.add(new ActionItem("","",((ActionPickerFragment)dialog).getActions()));
+        } else{
+            actionss.get(((ActionPickerFragment)dialog).getPosition()).setActionType(((ActionPickerFragment)dialog).getActions());
+        }
+        actionsAdapter.notifyDataSetChanged();
+        ListUtils.setDynamicHeight(listAction);
     }
 
     /**
@@ -736,6 +744,26 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 locationsAdapter.notifyDataSetChanged();
                 ListUtils.setDynamicHeight(listLocation);
             }
+
+    }
+
+    @Override
+    public void onSMSMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onSMSMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onNotificationMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onNotificationMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
 
     }
 

@@ -33,6 +33,16 @@ public class SMSMessageDetailsFragment extends DialogFragment {
     private String phoneNo;
     private String message;
     private static final int REQUEST_CONTACT_NUMBER = 1;
+    private int position;
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+
+        return position;
+    }
 
     private EditText et_phoneNo;
     private EditText et_message;
