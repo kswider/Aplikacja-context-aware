@@ -25,10 +25,7 @@ public class Xrule implements XTT2StringRepresentation, Serializable {
         this.ID = Integer.toString(ID);
 
         //copying list of conditions, because it might change
-        //for(ALSVExpression a : conditionsList){
-        //    this.conditionsList.add(new ALSVExpression(a));
-        //}
-        this.conditionsList = conditionsList;
+        this.conditionsList = (LinkedList)conditionsList.clone();
         this.decisionsList = decisionsList;
         this.actionsList = actionsList;
     }
