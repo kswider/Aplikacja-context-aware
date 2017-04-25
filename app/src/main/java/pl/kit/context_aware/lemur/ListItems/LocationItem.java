@@ -16,10 +16,7 @@ public class LocationItem {
         this.longitude = longitude;
     }
 
-    public Double getLongitude() {
-
-        return longitude;
-    }
+    public Double getLongitude() { return longitude; }
 
     public Double getLatitude() {
         return latitude;

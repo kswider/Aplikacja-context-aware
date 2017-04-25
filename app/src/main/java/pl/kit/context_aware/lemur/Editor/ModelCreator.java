@@ -180,9 +180,10 @@ public class ModelCreator implements Serializable {
         final Xtype latitude_type = new Xtype("latitude_type", "numeric", "[-90.0000000 to 90.0000000]");
         final Xtype longitude_type = new Xtype("longitude_type", "numeric", "[-180.0000000 to 180.0000000]");
         final Xtype sound_type = new Xtype("sound_type", "symbolic", "[on,off,vibration]");
-        final Xtype on_off_type = new Xtype ("on_off_type","symbolic", "[on,off]");
-        final Xtype message_type = new Xtype ("message_type","symbolic","[toSend,sent]");
-        final Xtype message_number_type = new Xtype ("message_number_type","numeric","[0 to 999]");
+        final Xtype on_off_type = new Xtype("on_off_type","symbolic", "[on,off]");
+        final Xtype message_type = new Xtype("message_type","symbolic","[toSend,sent]");
+        final Xtype message_number_type = new Xtype("message_number_type","numeric","[0 to 999]");
+        final Xtype day_from_calendar_type = new Xtype("day_from_calendar_type","numeric","[20000000 to 30000101]");
 
         //We will use only these arguments in our model, user can't add his own arguments
         final Xattr hour = new Xattr(hour_type, "hour", "hour1", "in", "");
@@ -198,6 +199,7 @@ public class ModelCreator implements Serializable {
         final Xattr notificationNumber = new Xattr(message_number_type,"notificationNumber","notificationNumber1","inter", "");
         final Xattr sms = new Xattr(message_type, "sms", "sms1", "inter", "");
         final Xattr smsNumber = new Xattr(message_number_type,"smsNumber","smsNumber1","inter", "");
+        final Xattr dayFromCalendar = new Xattr(day_from_calendar_type,"dayFromCalendar","dayFromCalendar1","in","pl.kit.context_aware.lemur.HeartDROID.callbacks.GetDayFromCalendar");
 
         // Creating model by adding everything into ModelCreator and saving it
         ModelCreator model = new ModelCreator(modelName,mContext.getFilesDir().toString());
@@ -212,6 +214,7 @@ public class ModelCreator implements Serializable {
         model.addType(on_off_type);
         model.addType(message_type);
         model.addType(message_number_type);
+        model.addType(day_from_calendar_type);
 
         model.addAttribute(hour);
         model.addAttribute(minute);
@@ -226,6 +229,7 @@ public class ModelCreator implements Serializable {
         model.addAttribute(notificationNumber);
         model.addAttribute(sms);
         model.addAttribute(smsNumber);
+        model.addAttribute(dayFromCalendar);
 
         return model;
     }

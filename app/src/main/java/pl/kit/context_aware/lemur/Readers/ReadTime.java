@@ -38,11 +38,12 @@ public class ReadTime {
 
     /**
      * Method returns current date
-     * @return String with pattern DD:MM:YYYY
+     * @return String with pattern YYYYMMDD
      */
     public static String ReadDate(){
         Calendar c = Calendar.getInstance();
-        return c.get(Calendar.DAY_OF_MONTH) + "." + c.get(Calendar.MONTH ) + "." + c.get(Calendar.YEAR);
+        return String.format("%4d",c.get(Calendar.YEAR)) + String.format("%02d",c.get(Calendar.MONTH )) + String.format("%02d",c.get(Calendar.DAY_OF_MONTH));
+
     }
 
     /**
