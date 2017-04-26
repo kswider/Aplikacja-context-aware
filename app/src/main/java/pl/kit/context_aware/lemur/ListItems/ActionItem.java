@@ -9,6 +9,11 @@ public class ActionItem {
     private String subText;
     private int actionType;
 
+    private String notificationTitle;
+    private String notificationMessage;
+    private String smsPhoneNumber;
+    private String smsMessage;
+
     public static final int ACTION_BLUETOOTH_ON = 0;
     public static final int ACTION_BLUETOOTH_OFF = 1;
     public static final int ACTION_WIFI_ON = 2;
@@ -31,6 +36,14 @@ public class ActionItem {
         this.actionType = actionType;
     }
 
+    public void setNotificationTitle(String notificationTitle) { this.notificationTitle = notificationTitle; }
+
+    public void setNotificationMessage(String notificationMessage) { this.notificationMessage = notificationMessage; }
+
+    public void setSmsPhoneNumber(String smsPhoneNumber) { this.smsPhoneNumber = smsPhoneNumber; }
+
+    public void setSmsMessage(String smsMessage) { this.smsMessage = smsMessage; }
+
     public String getMainText() {
         return mainText;
     }
@@ -41,6 +54,18 @@ public class ActionItem {
 
     public int getActionType() {
         return actionType;
+    }
+
+    public String getNotificationTitle() { return notificationTitle; }
+
+    public String getNotificationMessage() { return notificationMessage; }
+
+    public String getSmsPhoneNumber() {
+        return smsPhoneNumber;
+    }
+
+    public String getSmsMessage() {
+        return smsMessage;
     }
 
     public ActionItem(String mainText, String subText, int actionType) {

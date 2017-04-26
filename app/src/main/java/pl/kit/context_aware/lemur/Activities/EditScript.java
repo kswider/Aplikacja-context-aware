@@ -480,13 +480,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                                 break;
                             case ActionItem.ACTION_SEND_NOTIFICATION:
                                 notificationToSend = true;
-                                newModel.getAttribute("notification").addValue(action.getMainText());
-                                newModel.getAttribute("notification").addValue(action.getSubText());
+                                newModel.getAttribute("notification").addValue(action.getNotificationTitle());
+                                newModel.getAttribute("notification").addValue(action.getNotificationMessage());
                                 break;
                             case ActionItem.ACTION_SEND_SMS:
                                 smsToSend = true;
-                                newModel.getAttribute("sms").addValue(action.getMainText());
-                                newModel.getAttribute("sms").addValue(action.getSubText());
+                                newModel.getAttribute("sms").addValue(action.getSmsPhoneNumber());
+                                newModel.getAttribute("sms").addValue(action.getSmsMessage());
                                 break;
                         }
                     }
