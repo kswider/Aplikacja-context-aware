@@ -21,10 +21,13 @@ public class sendSMS implements Action {
     public void execute(State state) {
         String name = state.getValueOfAttribute("smsNumber").toString();
         name = name.substring(0,name.length()-2);
-        LinkedList<String> sms = FilesOperations.loadSMS(Inference.getmContext(),name);
-        String number = sms.pop();
-        String message = sms.pop();
-        SendSMS.sendMessage(Inference.getmContext(),number,message);
+        LinkedList<String> smses = FilesOperations.loadSMS(Inference.getmContext(),name);
+        for(int i = 0; i < smses.size()/2; ++i){ //smses contains number and message for each sms, so in fact there smses.size()/2 smses
+            String number = smses.pop();
+            String message = smses.pop();
+            SendSMS.sendMessage(Inference.getmContext(),number,message);
+        }
+
     }
 }
 

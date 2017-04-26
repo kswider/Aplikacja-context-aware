@@ -24,10 +24,12 @@ public class sendNotification implements Action {
         Random generator = new Random();
         String name = state.getValueOfAttribute("notificationNumber").toString();
         name = name.substring(0,name.length()-2);
-        LinkedList<String> notification = FilesOperations.loadNotification(Inference.getmContext(),name);
-        String title = notification.pop();
-        String message = notification.pop();
-        SendNotification.sendNotification(Inference.getmContext(),generator.nextInt(1000),title,message);
+        LinkedList<String> notifications = FilesOperations.loadNotification(Inference.getmContext(),name);
+        for(int i=0; i < notifications.size()/2; ++i) { //notifications contains title and message for each notifications, so in fact there is notifications.size()/2 notifications
+            String title = notifications.pop();
+            String message = notifications.pop();
+            SendNotification.sendNotification(Inference.getmContext(), generator.nextInt(1000), title, message);
+        }
     }
 }
 

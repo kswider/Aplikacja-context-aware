@@ -229,12 +229,10 @@ public class FilesOperations {
     /**
      * Method creates file containing sms to send, filename is specified time
      * @param mContext
-     * @param phoneNumber
-     * @param message
+     * @param messagesList
      */
-    public static String createSMS(Context mContext,String phoneNumber,String message) {
+    public static String createSMS(Context mContext,LinkedList<String> messagesList) {
         PrintWriter out = null;
-        LinkedList<String> smsList = new LinkedList<String>();
         File sms = null;
         int i;
         for(i=0;i<1000;++i) {
@@ -243,8 +241,9 @@ public class FilesOperations {
         }
         try {
             out = new PrintWriter(sms);
-            out.println(phoneNumber);
-            out.println(message);
+            for(String message : messagesList) {
+                out.println(message);
+            }
         } catch (IOException e) {
 
         } finally {
@@ -265,8 +264,9 @@ public class FilesOperations {
         File file = new File(mContext.getFilesDir().toString() + "/" + filename + ".sms");
         try {
             in = new Scanner(file);
-            sms.add(in.nextLine());
-            sms.add(in.nextLine());
+            while(in.hasNextLine()) {
+                sms.add(in.nextLine());
+            }
         } catch (IOException e) {
 
         } finally {
@@ -287,10 +287,9 @@ public class FilesOperations {
     /**
      * Method creates file containing notification to show, filename is specified time
      * @param mContext
-     * @param title
-     * @param message
+     * @param messagesList
      */
-    public static String createNotification(Context mContext,String title,String message) {
+    public static String createNotification(Context mContext,LinkedList<String> messagesList) {
         PrintWriter out = null;
         File notification = null;
         int i;
@@ -300,8 +299,9 @@ public class FilesOperations {
         }
         try {
             out = new PrintWriter(notification);
-            out.println(title);
-            out.println(message);
+            for(String message : messagesList) {
+                out.println(message);
+            }
         } catch (IOException e) {
 
         } finally {
@@ -322,8 +322,9 @@ public class FilesOperations {
         File file = new File(mContext.getFilesDir().toString() + "/" + filename + ".notification");
         try {
             in = new Scanner(file);
-            notification.add(in.nextLine());
-            notification.add(in.nextLine());
+            while(in.hasNextLine()) {
+                notification.add(in.nextLine());
+            }
         } catch (IOException e) {
 
         } finally {
