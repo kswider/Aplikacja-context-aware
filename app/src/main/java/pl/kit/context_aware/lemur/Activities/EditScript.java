@@ -73,7 +73,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private String smsPhoneNumber;
     private String smsMessage; //TODO
     private LinkedList<Integer> daysCyclical = new LinkedList<>(); //list of daysCyclical selected or loaded from file
-    private LinkedList<Integer> actions = new LinkedList<>(); //list of actions selected or loaded from file
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
     private String scriptNameToLoad; // ??
     EditText scriptName; //Edit text field with script name
@@ -86,7 +85,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     ArrayList<TimeItem> times;
     ArrayList<DayItem> days;
     ArrayList<LocationItem> locations;
-    ArrayList<ActionItem> actionss;
+    ArrayList<ActionItem> actions;
 
     TimesArrayAdapter timeAdapter;
     DaysArrayAdapter daysAdapter;
@@ -200,12 +199,12 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         listLocation.setAdapter(locationsAdapter);
         ListUtils.setDynamicHeight(listLocation);
 
-        actionss = new ArrayList<ActionItem>();
+        actions = new ArrayList<ActionItem>();
         for(int i=0;i<3;i++){
-            actionss.add(new ActionItem("","",i));
+            actions.add(new ActionItem("","",i));
         }
 
-        actionsAdapter = new ActionsArrayAdapter(this,actionss);
+        actionsAdapter = new ActionsArrayAdapter(this, actions);
         listAction.setAdapter(actionsAdapter);
         ListUtils.setDynamicHeight(listAction);
 
@@ -278,7 +277,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
             }
 
-
+            /* TODO
             final String[] argumentsArray = {"bluetooth","wifi","sound","notification","sms"}; //TODO message, it will be different when we implement setting action differently
             final String[] stateArray = {"off", "on", "vibration"};
             for(int j = 0; j < argumentsArray.length; ++j) {
@@ -298,7 +297,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     }
                 }
             }
-
+        */
             Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
 
 
@@ -335,6 +334,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             }
 
             TextView actionsTV = (TextView) this.findViewById(R.id.es_set_action_sub);
+            /* TODO
             actionsTV.setText("");
             if(actions.isEmpty()){
                 actionsTV.setText("---");
@@ -344,7 +344,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     Resources res = this.getResources();
                     actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[actions.get(i)] + ",");
                 }
-            }
+            }*/
             //TODO!!!
             if(notificationMessage.equals("")){
                 //notificationTitleTV.setText("");
@@ -409,100 +409,121 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 LinkedList<ActionExpression> actionList = new LinkedList<>();
 
                 //Creating expressions which will be added to lists
-                ALSVExpression alsv = null;
-                DecisionExpression decision = null;
-                ActionExpression action = null;
+                ALSVExpression alsvExpression = null;
+                DecisionExpression decisionExpression = null;
+                ActionExpression actionExpression = null;
 
                 //Creatung list of rules
                 LinkedList<Xrule> rulesList = new LinkedList<>();
 
-                //TODO
-                //Adding appropriate arguments to attributesToSetList which is used in creating Xschm
-                if (!actions.isEmpty()) {
-                    for(Integer actionNumber : actions){ // TODO still need some changes
-                        if(actionNumber < 2) attributesToSetList.add(newModel.getAttribute("bluetooth"));
-                        else if(actionNumber > 1 && actionNumber < 4) attributesToSetList.add(newModel.getAttribute("wifi"));
-                        else if(actionNumber > 3 && actionNumber < 7) attributesToSetList.add(newModel.getAttribute("sound"));
-                        else if(actionNumber==7) {
-                            attributesToSetList.add(newModel.getAttribute("notification"));
-                            attributesToSetList.add(newModel.getAttribute("notificationNumber"));
-                        }
-                        else if(actionNumber==8){
-                            attributesToSetList.add(newModel.getAttribute("sms"));
-                            attributesToSetList.add(newModel.getAttribute("smsNumber"));
+                if(!actions.isEmpty()){
+                    boolean notificationToSend = false;
+                    boolean smsToSend = false;
+                    for(ActionItem action : actions){
+                        int actionType = action.getActionType();
+                        switch(actionType){
+                            case ActionItem.ACTION_BLUETOOTH_ON:
+                                attributesToSetList.add(newModel.getAttribute("bluetooth"));
+                                newModel.getAttribute("bluetooth").addValue("on");
+                                decisionExpression = new DecisionExpression(newModel.getAttribute("bluetooth"), "on");
+                                decisionList.add(decisionExpression);
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setBluetooth");
+                                actionList.add(actionExpression);
+                                break;
+                            case ActionItem.ACTION_BLUETOOTH_OFF:
+                                attributesToSetList.add(newModel.getAttribute("bluetooth"));
+                                newModel.getAttribute("bluetooth").addValue("off");
+                                decisionExpression = new DecisionExpression(newModel.getAttribute("bluetooth"), "off");
+                                decisionList.add(decisionExpression);
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setBluetooth");
+                                actionList.add(actionExpression);
+                                break;
+                            case ActionItem.ACTION_WIFI_ON:
+                                attributesToSetList.add(newModel.getAttribute("wifi"));
+                                newModel.getAttribute("wifi").addValue("on");
+                                decisionExpression = new DecisionExpression(newModel.getAttribute("wifi"), "on");
+                                decisionList.add(decisionExpression);
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setWifi");
+                                actionList.add(actionExpression);
+                                break;
+                            case ActionItem.ACTION_WIFI_OFF:
+                                attributesToSetList.add(newModel.getAttribute("wifi"));
+                                newModel.getAttribute("wifi").addValue("off");
+                                decisionExpression = new DecisionExpression(newModel.getAttribute("wifi"), "off");
+                                decisionList.add(decisionExpression);
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setWifi");
+                                actionList.add(actionExpression);
+                                break;
+                            case ActionItem.ACTION_SOUND_OFF:
+                                attributesToSetList.add(newModel.getAttribute("sound"));
+                                newModel.getAttribute("sound").addValue("off");
+                                decisionExpression = new DecisionExpression(newModel.getAttribute("sound"), "off");
+                                decisionList.add(decisionExpression);
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
+                                actionList.add(actionExpression);
+                                break;
+                            case ActionItem.ACTION_SOUND_ON:
+                                attributesToSetList.add(newModel.getAttribute("sound"));
+                                newModel.getAttribute("sound").addValue("on");
+                                decisionExpression = new DecisionExpression(newModel.getAttribute("sound"), "on");
+                                decisionList.add(decisionExpression);
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
+                                actionList.add(actionExpression);
+                                break;
+                            case ActionItem.ACTION_VIBRATIONS_MODE:
+                                attributesToSetList.add(newModel.getAttribute("sound"));
+                                newModel.getAttribute("sound").addValue("vibration");
+                                decisionExpression = new DecisionExpression(newModel.getAttribute("sound"), "vibration");
+                                decisionList.add(decisionExpression);
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
+                                actionList.add(actionExpression);
+                                break;
+                            case ActionItem.ACTION_SEND_NOTIFICATION:
+                                notificationToSend = true;
+                                newModel.getAttribute("notification").addValue(action.getMainText());
+                                newModel.getAttribute("notification").addValue(action.getSubText());
+                                break;
+                            case ActionItem.ACTION_SEND_SMS:
+                                smsToSend = true;
+                                newModel.getAttribute("sms").addValue(action.getMainText());
+                                newModel.getAttribute("sms").addValue(action.getSubText());
+                                break;
                         }
                     }
+                    if(notificationToSend){
+                        attributesToSetList.add(newModel.getAttribute("notification"));
+                        attributesToSetList.add(newModel.getAttribute("notificationNumber"));
+                        decisionExpression = new DecisionExpression(newModel.getAttribute("notification"), "sent");
+                        decisionList.add(decisionExpression);
+                        actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendNotification");
+                        actionList.add(actionExpression);
 
-                    //Filling decisionList and actionList with appropriate content
-                    final String[] actionsArray = {"off", "on", "vibration"};
-                    for (Integer actionNumber : actions) {
-                        if(actionNumber < 2){
-                            newModel.getAttribute("bluetooth").addValue(actionsArray[actionNumber]);
-                            decision = new DecisionExpression(newModel.getAttribute("bluetooth"), actionsArray[actionNumber]);
-                            decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setBluetooth");
-                            actionList.add(action);
+                        if(!notificationNumber.equals("")){
+                            FilesOperations.deleteNotification(this,notificationNumber); //deleting old notification before we create new one
                         }
-                        if(actionNumber > 1 && actionNumber < 4){
-                            newModel.getAttribute("wifi").addValue(actionsArray[actionNumber-2]);
-                            decision = new DecisionExpression(newModel.getAttribute("wifi"), actionsArray[actionNumber-2]);
-                            decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setWifi");
-                            actionList.add(action);
-                        }
-                        if(actionNumber > 3 && actionNumber < 7){
-                            newModel.getAttribute("sound").addValue(actionsArray[actionNumber-4]);
-                            decision = new DecisionExpression(newModel.getAttribute("sound"), actionsArray[actionNumber-4]);
-                            decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
-                            actionList.add(action);
-                        }
-                        if(actionNumber == 7){
-                            newModel.getAttribute("notification").addValue(notificationMessage);
-                            decision = new DecisionExpression(newModel.getAttribute("notification"), "sent");
-                            decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendNotification");
-                            actionList.add(action);
+                        notificationNumber = FilesOperations.createNotification(this,newModel.getAttribute("notification").getValues());
+                        newModel.getAttribute("notificationNumber").addValue(notificationNumber);
+                        decisionExpression = new DecisionExpression(newModel.getAttribute("notificationNumber"), notificationNumber);
+                        decisionList.add(decisionExpression);
+                    }
+                    if(smsToSend){
+                        attributesToSetList.add(newModel.getAttribute("sms"));
+                        attributesToSetList.add(newModel.getAttribute("smsNumber"));
+                        decisionExpression = new DecisionExpression(newModel.getAttribute("sms"), "sent");
+                        decisionList.add(decisionExpression);
+                        actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendSMS");
+                        actionList.add(actionExpression);
 
-                            if(!notificationNumber.equals("")){
-                                FilesOperations.deleteNotification(this,notificationNumber); //deleting old notification before we create new one
-                            }
-                            notificationNumber = FilesOperations.createNotification(this,notificationTitle,notificationMessage);
-                            newModel.getAttribute("notificationNumber").addValue(notificationNumber);
-                            decision = new DecisionExpression(newModel.getAttribute("notificationNumber"), notificationNumber);
-                            decisionList.add(decision);
-
+                        if(!smsNumber.equals("")){
+                            FilesOperations.deleteSMS(this,smsNumber); //deleting old notification before we create new one
                         }
-                        if(actionNumber == 8){
-                            newModel.getAttribute("sms").addValue(smsMessage);
-                            decision = new DecisionExpression(newModel.getAttribute("sms"), "sent");
-                            decisionList.add(decision);
-                            action = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendSMS");
-                            actionList.add(action);
+                        smsNumber = FilesOperations.createNotification(this,newModel.getAttribute("sms").getValues());
+                        newModel.getAttribute("smsNumber").addValue(smsNumber);
+                        decisionExpression = new DecisionExpression(newModel.getAttribute("smsNumber"), smsNumber);
+                        decisionList.add(decisionExpression);
+                    }
 
-                            if (!smsNumber.equals("")) {
-                                FilesOperations.deleteSMS(this,smsNumber); //deleting old sms before we create new one
-                            }
-                            smsNumber = FilesOperations.createSMS(this,smsPhoneNumber,smsMessage);
-                            newModel.getAttribute("smsNumber").addValue(smsNumber);
-                            decision = new DecisionExpression(newModel.getAttribute("smsNumber"), smsNumber);
-                            decisionList.add(decision);
-                        }
-                    } //TODO actions for sending messages
                 }
-
-                //Adding messages to model for later loading
-                if (!notificationMessage.equals("")){ //TODO
-                    newModel.getAttribute("notification").addValue(notificationTitle);
-                    newModel.getAttribute("notification").addValue(notificationMessage);
-                }
-            /*
-                if (!smsMessage.equals("")){
-                    newModel.getAttribute("sms").addValue(smsPhoneNumber);
-                    newModel.getAttribute("sms").addValue(smsMessage);
-                }
-                */
-
                 //Adding appropriate arguments to attributesList which is used in creating Xschm
                 //Adding attribites which are needed in inference to ALSVlist
                 //Setting values of Attributes, needed in loading models
@@ -519,8 +540,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         timesList.add(timeString); // Adding times to list, which will be used in ALSV expression
                     }
 
-                    alsv = new ALSVExpression(newModel.getAttribute("time"), timesList);
-                    ALSVList.add(alsv);
+                    alsvExpression = new ALSVExpression(newModel.getAttribute("time"), timesList);
+                    ALSVList.add(alsvExpression);
                 }
                 if (!daysCyclical.isEmpty()) {
                     attributesList.add(newModel.getAttribute("day"));
@@ -531,8 +552,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         newModel.getAttribute("day").addValue(daysOfWeekArray[day]);
                         selectedDays.add(daysOfWeekArray[day]);
                     }
-                    alsv = new ALSVExpression(newModel.getAttribute("day"), selectedDays);
-                    ALSVList.add(alsv);
+                    alsvExpression = new ALSVExpression(newModel.getAttribute("day"), selectedDays);
+                    ALSVList.add(alsvExpression);
                 }
                 if (!days.isEmpty()){
                     attributesList.add(newModel.getAttribute("dayFromCalendar"));
@@ -544,8 +565,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         newModel.getAttribute("dayFromCalendar").addValue(selectedDay);
                         selectedDays.add(selectedDay);
                     }
-                    alsv = new ALSVExpression(newModel.getAttribute("dayFromCalendar"), selectedDays);
-                    ALSVList.add(alsv);
+                    alsvExpression = new ALSVExpression(newModel.getAttribute("dayFromCalendar"), selectedDays);
+                    ALSVList.add(alsvExpression);
                 }
 
                 if (!locations.isEmpty()) {
@@ -560,16 +581,16 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         newModel.getAttribute("latitude").addValue(String.valueOf(location.getLatitude()));
                         newModel.getAttribute("longitude").addValue(String.valueOf(location.getLongitude()));
 
-                        alsv = new ALSVExpression(newModel.getAttribute("latitude"), String.valueOf(location.getLatitude()));
-                        ALSVList.add(alsv);
-                        alsv = new ALSVExpression(newModel.getAttribute("longitude"), String.valueOf(location.getLongitude()));
-                        ALSVList.add(alsv);
+                        alsvExpression = new ALSVExpression(newModel.getAttribute("latitude"), String.valueOf(location.getLatitude()));
+                        ALSVList.add(alsvExpression);
+                        alsvExpression = new ALSVExpression(newModel.getAttribute("longitude"), String.valueOf(location.getLongitude()));
+                        ALSVList.add(alsvExpression);
 
                         Xrule rule = new Xrule(scheme, numberOFRule, ALSVList, decisionList, actionList);
                         rulesList.add(rule);
 
-                        ALSVList.remove();
-                        ALSVList.remove();
+                        ALSVList.removeLast();
+                        ALSVList.removeLast();
                         numberOFRule++;
                     }
                 }
@@ -586,6 +607,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 for(Xrule rule : rulesList){
                     newModel.addRule(rule);
                 }
+                //Saving the model
                 newModel.saveModel();
 
                 //deleting old models
@@ -640,9 +662,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     @Override
     public void onDialogAPFPositiveClick(DialogFragment dialog) {
         if(((ActionPickerFragment)dialog).getPosition() == -1){
-            actionss.add(new ActionItem("","",((ActionPickerFragment)dialog).getActions()));
+            actions.add(new ActionItem("","",((ActionPickerFragment)dialog).getActions()));
         } else{
-            actionss.get(((ActionPickerFragment)dialog).getPosition()).setActionType(((ActionPickerFragment)dialog).getActions());
+            actions.get(((ActionPickerFragment)dialog).getPosition()).setActionType(((ActionPickerFragment)dialog).getActions());
         }
         actionsAdapter.notifyDataSetChanged();
         ListUtils.setDynamicHeight(listAction);

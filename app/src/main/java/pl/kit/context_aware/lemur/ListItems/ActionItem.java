@@ -7,17 +7,17 @@ package pl.kit.context_aware.lemur.ListItems;
 public class ActionItem {
     private String mainText;
     private String subText;
-    private  int actionType;
+    private int actionType;
 
-    public static int ACTION_BLUETOOTH_ON = 0;
-    public static int ACTION_BLUETOOTH_OFF = 1;
-    public static int ACTION_WIFI_ON = 2;
-    public static int ACTION_WIFI_OFF = 3;
-    public static int ACTION_SOUND_ON = 5;
-    public static int ACTION_SOUND_OFF = 4;
-    public static int ACTION_VIBRATIONS_MODE = 6;
-    public static int ACTION_SEND_NOTIFICATION = 7;
-    public static int ACTION_SEND_SMS =8;
+    public static final int ACTION_BLUETOOTH_ON = 0;
+    public static final int ACTION_BLUETOOTH_OFF = 1;
+    public static final int ACTION_WIFI_ON = 2;
+    public static final int ACTION_WIFI_OFF = 3;
+    public static final int ACTION_SOUND_ON = 5;
+    public static final int ACTION_SOUND_OFF = 4;
+    public static final int ACTION_VIBRATIONS_MODE = 6;
+    public static final int ACTION_SEND_NOTIFICATION = 7;
+    public static final int ACTION_SEND_SMS =8;
 
     public void setMainText(String mainText) {
         this.mainText = mainText;

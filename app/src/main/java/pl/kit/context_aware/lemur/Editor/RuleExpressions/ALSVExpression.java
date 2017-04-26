@@ -36,17 +36,6 @@ public class ALSVExpression implements XTT2StringRepresentation, Serializable {
         this.values = values;
     }
 
-    //constructor needed for copying list
-    public ALSVExpression(ALSVExpression alsv){
-        this.attributeName = alsv.attributeName;
-        this.ALSVOperator = alsv.ALSVOperator;
-        this.value = alsv.value;
-        this.from = alsv.from;
-        this.to = alsv.to;
-        for(String value : alsv.values){
-            this.values.add(value);
-        }
-    }
     /**
      * Method returns String representation of object, useful in saving model into file
      * @return String representation of ALSVExpression
