@@ -1,6 +1,7 @@
 package pl.kit.context_aware.lemur.Activities;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -39,6 +40,7 @@ import pl.kit.context_aware.lemur.ArrayAdapters.DaysArrayAdapter;
 import pl.kit.context_aware.lemur.ArrayAdapters.LocationsArrayAdapter;
 import pl.kit.context_aware.lemur.ArrayAdapters.TimesArrayAdapter;
 import pl.kit.context_aware.lemur.DialogFragments.ActionPickerFragment;
+import pl.kit.context_aware.lemur.DialogFragments.DatePickerFragment;
 import pl.kit.context_aware.lemur.DialogFragments.DayOfWeekPickerFragment;
 import pl.kit.context_aware.lemur.DialogFragments.NotificationMessageDetailsFragment;
 import pl.kit.context_aware.lemur.DialogFragments.SMSMessageDetailsFragment;
@@ -58,7 +60,8 @@ import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.ListItems.TimeItem;
 
 public class EditScript extends AppCompatActivity implements DayOfWeekPickerFragment.NoticeDialogDOWPFListener
-        , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener, NotificationMessageDetailsFragment.NoticeNotificationMessageDetailsFragmentListener{
+        , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener
+        , NotificationMessageDetailsFragment.NoticeNotificationMessageDetailsFragmentListener, DatePickerFragment.NoticeDialogDPFListener{
 
     String rememberedModelName; //used in deleting old models
     private int hour; //hour selected or loaded from file
@@ -152,7 +155,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     }
 
     public void SetDateOnClick(View v) {
-        Toast.makeText(this,"TO DO",Toast.LENGTH_SHORT).show();
+        DialogFragment newFragment = new DatePickerFragment();
+        ((DatePickerFragment)newFragment).setPosition(-1);
+        newFragment.show(getFragmentManager(), "Date Picker");
     }
 
     /**
@@ -203,26 +208,16 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         ListUtils.setDynamicHeight(listDays);
 
         times = new ArrayList<TimeItem>();
-        for(int i=0;i<3;i++){
-            times.add(new TimeItem(i,i));
-        }
         timeAdapter = new TimesArrayAdapter(this, times);
         listTime.setAdapter(timeAdapter);
         ListUtils.setDynamicHeight(listTime);
 
         locations = new ArrayList<LocationItem>();
-        for(int i=0;i<3;i++){
-            locations.add(new LocationItem(1.1,i+0.05));
-        }
         locationsAdapter = new LocationsArrayAdapter(this,locations);
         listLocation.setAdapter(locationsAdapter);
         ListUtils.setDynamicHeight(listLocation);
 
         actions = new ArrayList<ActionItem>();
-        for(int i=0;i<3;i++){
-            actions.add(new ActionItem("","",i));
-        }
-
         actionsAdapter = new ActionsArrayAdapter(this, actions);
         listAction.setAdapter(actionsAdapter);
         ListUtils.setDynamicHeight(listAction);
@@ -326,46 +321,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             //filling fields with loaded attributes
             scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
             scriptName.setText(scriptNameToEdit);
-            TextView timeTV = (TextView) this.findViewById(R.id.es_set_time_sub);
-            if(time == -1) {
-                timeTV.setText("---");
-            }
-            else{
-                timeTV.setText(hour + ":" + minute);
-            }
 
-            TextView daysTV = (TextView) this.findViewById(R.id.es_set_day_sub);
-            daysTV.setText("");
-            if(daysCyclical.isEmpty()){
-                daysTV.setText("---");
-            }
-            else {
-                for (int i = 0; i < daysCyclical.size(); i++) {
-                    Resources res = this.getResources();
-                    daysTV.setText(daysTV.getText().toString() + res.getStringArray(R.array.days)[daysCyclical.get(i)] + ",");
-                }
-            }
-
-            TextView LocSubTV = (TextView) findViewById(R.id.es_set_location_sub);
-            if(latitude == null){
-                LocSubTV.setText("---");
-            }
-            else{
-                LocSubTV.setText( Double.toString(latitude) + "  " + Double.toString(longitude));
-            }
-
-            TextView actionsTV = (TextView) this.findViewById(R.id.es_set_action_sub);
-            /* TODO
-            actionsTV.setText("");
-            if(actions.isEmpty()){
-                actionsTV.setText("---");
-            }
-            else {
-                for (int i = 0; i < actions.size(); i++) {
-                    Resources res = this.getResources();
-                    actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[actions.get(i)] + ",");
-                }
-            }*/
             //TODO!!!
             if(notificationMessage.equals("")){
                 //notificationTitleTV.setText("");
@@ -863,6 +819,24 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     @Override
     public void onNotificationMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
+
+    }
+
+    @Override
+    public void onDialogDPFPositiveClick(DialogFragment dialog) {
+        if(((DatePickerFragment)dialog).getPosition() == -1){
+            days.add(new DayItem(((DatePickerFragment)dialog).getDay(),((DatePickerFragment)dialog).getMonth(),((DatePickerFragment)dialog).getYear()));
+        }else{
+            days.get(((DatePickerFragment)dialog).getPosition()).setDay(((DatePickerFragment)dialog).getDay());
+            days.get(((DatePickerFragment)dialog).getPosition()).setMonth(((DatePickerFragment)dialog).getMonth());
+            days.get(((DatePickerFragment)dialog).getPosition()).setYear(((DatePickerFragment)dialog).getYear());
+        }
+        daysAdapter.notifyDataSetChanged();
+        ListUtils.setDynamicHeight(listDays);
+    }
+
+    @Override
+    public void onDialogDPFNegativeClick(DialogFragment dialog) {
 
     }
 

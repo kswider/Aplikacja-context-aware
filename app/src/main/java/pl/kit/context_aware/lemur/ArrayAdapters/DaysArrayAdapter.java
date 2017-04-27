@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import pl.kit.context_aware.lemur.Activities.EditScript;
+import pl.kit.context_aware.lemur.DialogFragments.DatePickerFragment;
 import pl.kit.context_aware.lemur.DialogFragments.DayOfWeekPickerFragment;
 import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.ListItems.DayItem;
@@ -40,13 +41,14 @@ public class DaysArrayAdapter extends ArrayAdapter<DayItem>  {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        DayItem item = getItem(position);
+        final DayItem item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_element_script_edit_1, parent, false);
         }
         // Lookup view for data population
         TextView main = (TextView) convertView.findViewById(R.id.le_es_main);
+        TextView sub = (TextView) convertView.findViewById(R.id.le_es_sub);
 
         main.setText("");
         main.setText(item.getDay() + "." + item.getMonth() + "." + item.getYear());
@@ -66,9 +68,12 @@ public class DaysArrayAdapter extends ArrayAdapter<DayItem>  {
         editButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new DayOfWeekPickerFragment();
-                //((DayOfWeekPickerFragment) newFragment).setDaysOfWeek(days);
-                newFragment.show(((Activity)mContext).getFragmentManager(), "DayOfWeek Picker");
+                DialogFragment newFragment = new DatePickerFragment();
+                ((DatePickerFragment)newFragment).setPosition(position);
+                ((DatePickerFragment)newFragment).setDay(item.getDay());
+                ((DatePickerFragment)newFragment).setMonth(item.getMonth());
+                ((DatePickerFragment)newFragment).setYear(item.getYear());
+                newFragment.show(((Activity)mContext).getFragmentManager(), "Date Picker");
                 notifyDataSetChanged();
             }
         });

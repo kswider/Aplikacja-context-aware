@@ -63,8 +63,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/es_set_day_repeating_main"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_weight="1" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -76,7 +75,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/es_add_cycle"
-                android:layout_weight="1"
                 android:onClick="SetDayOnClick"
                 tools:ignore="ButtonStyle" />
 
@@ -91,13 +89,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/es_set_day_main"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_weight="1" />
+                android:textStyle="bold" />
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:id="@+id/es_lv_days"/>
 
             <Button
@@ -105,15 +101,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/es_add_single_date"
-                android:layout_weight="1"
                 android:onClick="SetDateOnClick"
                 tools:ignore="ButtonStyle" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="#c0c0c0"
-                android:layout_weight="1" />
+                android:background="#c0c0c0" />
 
             <TextView
                 android:text="@string/es_SetTime"
@@ -125,14 +119,14 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:ignore="NestedScrolling"
                 android:id="@+id/es_lv_time"/>
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:text="@string/es_AddTime"
@@ -140,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/es_add_time"
                     android:onClick="SetTimeOnClick"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"/>
 
                 <Button
                     android:text="@string/es_AddInterval"
@@ -148,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/es_add_interval"
                     android:onClick="SetTimeIntervalOnClick"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"/>
             </LinearLayout>
 
             <View
@@ -166,7 +160,7 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:ignore="NestedScrolling"
                 android:id="@+id/es_lv_location"/>
 
@@ -193,7 +187,7 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:ignore="NestedScrolling"
                 android:id="@+id/es_lv_actions"/>
 
@@ -203,34 +197,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/es_add_action"
                 android:onClick="SetActionOnClick"/>
-
-            <TextView
-                android:text="@string/es_notSelected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/es_set_time_sub"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:text="@string/es_notSelected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/es_set_day_sub"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:text="@string/es_notSelected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/es_set_location_sub"
-                android:textSize="15sp"/>
-
-            <TextView
-                android:text="@string/es_notSelected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/es_set_action_sub"
-                android:textSize="15sp"/>
 
 
         </LinearLayout>
