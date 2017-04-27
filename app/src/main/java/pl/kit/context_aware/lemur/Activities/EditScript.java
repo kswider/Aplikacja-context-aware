@@ -76,6 +76,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
     private String scriptNameToLoad; // ??
     EditText scriptName; //Edit text field with script name
+    TextView TVDaysCyclocal;
 
     private ListView listDays;
     private ListView listTime;
@@ -211,6 +212,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
 
+        TVDaysCyclocal = (TextView) findViewById(R.id.es_repeating_days);
+
         hour = -1;
         minute = -1;
         time = -1;
@@ -267,7 +270,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 smsMessage = loadedModel.getAttribute("sms").getValues().getLast();
             }
 
-            final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
+            final String[] daysOfWeekArray = this.getResources().getStringArray(R.array.days_short);
 
             for (String day : loadedModel.getAttribute("day").getValues()){
                 for(int i = 0; i<daysOfWeekArray.length;++i){
@@ -635,13 +638,14 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     public void onDialogDOWPFPositiveClick(DialogFragment dialog) {
-        if(((DayOfWeekPickerFragment) dialog).getPosition() == -1) {
-            days.add(new DayItem(((DayOfWeekPickerFragment) dialog).getDays(),1));
-        }else{
-            days.get(((DayOfWeekPickerFragment) dialog).getPosition()).setDayOfWeek(((DayOfWeekPickerFragment) dialog).getDays());
+        String [] daysStr = this.getResources().getStringArray(R.array.days_short);
+        daysCyclical = ((DayOfWeekPickerFragment) dialog).getDays();
+        TVDaysCyclocal.setText("");
+        for(int i=0;i<daysCyclical.size();i++){
+            if(TVDaysCyclocal.getText().equals("")) TVDaysCyclocal.setText(daysStr[i]);
+            else TVDaysCyclocal.setText(TVDaysCyclocal.getText()+","+daysStr[i]);
         }
-        daysAdapter.notifyDataSetChanged();
-        ListUtils.setDynamicHeight(listDays);
+
     }
 
     /**

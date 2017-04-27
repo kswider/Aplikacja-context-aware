@@ -58,6 +58,34 @@
 
 
             <TextView
+                android:text="@string/es_SetRepeating"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/es_set_day_repeating_main"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/es_repeating_days" />
+
+            <Button
+                android:text="@string/es_AddCycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/es_add_cycle"
+                android:layout_weight="1"
+                android:onClick="SetDayOnClick"
+                tools:ignore="ButtonStyle" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#c0c0c0" />
+
+            <TextView
                 android:text="@string/es_SetDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -72,30 +100,14 @@
                 android:layout_weight="1"
                 android:id="@+id/es_lv_days"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <Button
+                android:text="@string/es_AddSingleDate"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <Button
-                    android:text="@string/es_AddCycle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/es_add_cycle"
-                    android:layout_weight="1"
-                    android:onClick="SetDayOnClick"
-                    tools:ignore="ButtonStyle" />
-
-                <Button
-                    android:text="@string/es_AddSingleDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/es_add_single_date"
-                    android:layout_weight="1"
-                    android:onClick="SetDateOnClick"
-                    tools:ignore="ButtonStyle" />
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:id="@+id/es_add_single_date"
+                android:layout_weight="1"
+                android:onClick="SetDateOnClick"
+                tools:ignore="ButtonStyle" />
 
             <View
                 android:layout_width="match_parent"
@@ -117,12 +129,26 @@
                 tools:ignore="NestedScrolling"
                 android:id="@+id/es_lv_time"/>
 
-            <Button
-                android:text="@string/es_AddTime"
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/es_add_time"
-                android:onClick="SetTimeOnClick"/>
+                android:layout_height="match_parent">
+
+                <Button
+                    android:text="@string/es_AddTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/es_add_time"
+                    android:onClick="SetTimeOnClick"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:text="@string/es_AddInterval"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/es_add_interval"
+                    android:layout_weight="1" />
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"

@@ -59,6 +59,7 @@
     <string name="es_SetTime">Set Time</string>
     <string name="es_SetDate">Set Date</string>
     <string name="es_SetDay">Set Day</string>
+    <string name="es_SetRepeating">Set Repeating</string>
     <string name="es_SetLocation">Set Location</string>
     <string name="es_SetAction">Set Action</string>
     <string name="es_notSelected">----</string>
@@ -69,6 +70,7 @@
     <string name="es_AddTime">Add time</string>
     <string name="es_AddLocation">Add location</string>
     <string name="es_AddAction">Add action</string>
+    <string name="es_AddInterval">Add time division</string>
 
     <!--Time Picker-->
     <string name="tp_cancel">Cancel</string>
@@ -91,6 +93,15 @@
         <item>@string/fri</item>
         <item>@string/sat</item>
         <item>@string/sun</item>
+    </string-array>
+    <string-array name="days_short">
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+        <item>Sun</item>
     </string-array>
 
     <!--ImportExportFragment-->

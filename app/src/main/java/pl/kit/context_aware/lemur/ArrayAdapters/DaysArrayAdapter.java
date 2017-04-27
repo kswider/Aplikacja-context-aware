@@ -49,14 +49,7 @@ public class DaysArrayAdapter extends ArrayAdapter<DayItem>  {
         TextView main = (TextView) convertView.findViewById(R.id.le_es_main);
 
         main.setText("");
-        if(item.getType() == 1){
-            final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
-            for(int i=0; i <list.size(); i++){
-                main.setText(main.getText() + "," + item.getDayOfWeek().get(i));
-            }
-        }else{
-            main.setText(item.getDay() + "." + item.getMonth() + "." + item.getYear());
-        }
+        main.setText(item.getDay() + "." + item.getMonth() + "." + item.getYear());
 
         ImageButton editButton = (ImageButton)convertView.findViewById(R.id.le_es_edit);
         ImageButton deleteButton = (ImageButton)convertView.findViewById(R.id.le_es_delete);
