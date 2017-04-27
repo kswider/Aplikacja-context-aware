@@ -58,7 +58,7 @@ public class ActionsArrayAdapter extends ArrayAdapter<ActionItem>  {
 
 
         ImageButton editButton = (ImageButton)convertView.findViewById(R.id.le_es_edit);
-        ImageButton deleteButton = (ImageButton)convertView.findViewById(R.id.le_es_delete);
+        final ImageButton deleteButton = (ImageButton)convertView.findViewById(R.id.le_es_delete);
 
         final int type = item.getActionType();
         if(type == ActionItem.ACTION_BLUETOOTH_OFF) {
@@ -119,6 +119,9 @@ public class ActionsArrayAdapter extends ArrayAdapter<ActionItem>  {
                     }
                 }else if(type == ActionItem.ACTION_SEND_NOTIFICATION){
                     DialogFragment newFragment = new NotificationMessageDetailsFragment();
+                    ((NotificationMessageDetailsFragment) newFragment).setPosition(position);
+                    ((NotificationMessageDetailsFragment) newFragment).setMessage(list.get(position).getNotificationMessage());
+                    ((NotificationMessageDetailsFragment) newFragment).setnotiTitle(list.get(position).getNotificationTitle());
                     newFragment.show(((Activity)mContext).getFragmentManager(), "NotificationExtended");
                 }
 

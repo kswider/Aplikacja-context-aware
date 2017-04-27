@@ -794,7 +794,20 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     @Override
     public void onNotificationMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
-
+        if(((NotificationMessageDetailsFragment)dialog).getPosition() == -1){
+            ActionItem noti = new ActionItem();
+            noti.setNotificationMessage(((NotificationMessageDetailsFragment)dialog).getMessage());
+            noti.setNotificationTitle(((NotificationMessageDetailsFragment)dialog).getnotiTitle());
+            noti.setActionType(ActionItem.ACTION_SEND_NOTIFICATION);
+            noti.setSubText(noti.getNotificationTitle()+"\n"+noti.getNotificationMessage());
+            actions.add(noti);
+        }else{
+            actions.get(((NotificationMessageDetailsFragment)dialog).getPosition()).setNotificationMessage(((NotificationMessageDetailsFragment)dialog).getMessage());
+            actions.get(((NotificationMessageDetailsFragment)dialog).getPosition()).setNotificationTitle(((NotificationMessageDetailsFragment)dialog).getnotiTitle());
+            actions.get(((NotificationMessageDetailsFragment)dialog).getPosition()).setSubText(((NotificationMessageDetailsFragment)dialog).getnotiTitle() +"\n"+((NotificationMessageDetailsFragment)dialog).getMessage());
+        }
+        actionsAdapter.notifyDataSetChanged();
+        ListUtils.setDynamicHeight(listAction);
     }
 
     @Override

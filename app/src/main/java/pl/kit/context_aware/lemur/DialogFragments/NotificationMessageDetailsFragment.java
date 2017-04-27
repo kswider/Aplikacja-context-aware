@@ -20,8 +20,23 @@ public class NotificationMessageDetailsFragment extends DialogFragment {
 
     private String notiTitle;
     private String message;
-    private static final int REQUEST_CONTACT_NUMBER = 1;
+    private int position;
 
+    public NotificationMessageDetailsFragment() {
+        position = -1;
+    }
+
+    public void setPosition(int position) {
+
+        this.position = position;
+    }
+
+    public int getPosition() {
+
+        return position;
+    }
+
+    private static final int REQUEST_CONTACT_NUMBER = 1;
     private EditText et_notiTitle;
     private EditText et_message;
 
@@ -79,6 +94,8 @@ public class NotificationMessageDetailsFragment extends DialogFragment {
         et_notiTitle = (EditText) dialogView.findViewById(R.id.noti_et_title);
         et_message = (EditText) dialogView.findViewById(R.id.noti_et_message);
 
+        et_notiTitle.setText(this.notiTitle);
+        et_message.setText(this.message);
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout

@@ -39,10 +39,6 @@ public class SMSMessageDetailsFragment extends DialogFragment {
         this.position = -1;
     }
 
-    public SMSMessageDetailsFragment(int position) {
-        this.position = position;
-    }
-
     public void setPosition(int position) {
         this.position = position;
     }
