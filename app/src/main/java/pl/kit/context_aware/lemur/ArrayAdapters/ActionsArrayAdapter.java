@@ -110,6 +110,9 @@ public class ActionsArrayAdapter extends ArrayAdapter<ActionItem>  {
                             Manifest.permission.SEND_SMS)
                             == PackageManager.PERMISSION_GRANTED) {
                         DialogFragment newFragment = new SMSMessageDetailsFragment();
+                        ((SMSMessageDetailsFragment) newFragment).setPosition(position);
+                        ((SMSMessageDetailsFragment) newFragment).setMessage(list.get(position).getSmsMessage());
+                        ((SMSMessageDetailsFragment) newFragment).setPhoneNo(list.get(position).getSmsPhoneNumber());
                         newFragment.show(((Activity)mContext).getFragmentManager(), "SendSMSExtended");
                     } else {
                         Toast.makeText(mContext, mContext.getResources().getString(R.string.pl_send_sms), Toast.LENGTH_SHORT).show();

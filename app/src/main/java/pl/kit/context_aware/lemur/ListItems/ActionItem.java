@@ -24,6 +24,12 @@ public class ActionItem {
     public static final int ACTION_SEND_NOTIFICATION = 7;
     public static final int ACTION_SEND_SMS =8;
 
+    public ActionItem(){
+        mainText = "";
+        subText = "";
+        actionType = -1;
+    }
+
     public void setMainText(String mainText) {
         this.mainText = mainText;
     }

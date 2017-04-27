@@ -771,7 +771,20 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     @Override
     public void onSMSMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
-
+        if(((SMSMessageDetailsFragment)dialog).getPosition() == -1){
+            ActionItem sms = new ActionItem();
+            sms.setSmsPhoneNumber(((SMSMessageDetailsFragment)dialog).getPhoneNo());
+            sms.setSmsMessage(((SMSMessageDetailsFragment)dialog).getMessage());
+            sms.setActionType(ActionItem.ACTION_SEND_SMS);
+            sms.setSubText(sms.getSmsPhoneNumber()+":\n"+sms.getSmsMessage());
+            actions.add(sms);
+        }else{
+            actions.get(((SMSMessageDetailsFragment)dialog).getPosition()).setSmsMessage(((SMSMessageDetailsFragment)dialog).getMessage());
+            actions.get(((SMSMessageDetailsFragment)dialog).getPosition()).setSmsPhoneNumber(((SMSMessageDetailsFragment)dialog).getPhoneNo());
+            actions.get(((SMSMessageDetailsFragment)dialog).getPosition()).setSubText(((SMSMessageDetailsFragment)dialog).getPhoneNo()+":\n"+((SMSMessageDetailsFragment)dialog).getMessage());
+        }
+        actionsAdapter.notifyDataSetChanged();
+        ListUtils.setDynamicHeight(listAction);
     }
 
     @Override

@@ -35,6 +35,14 @@ public class SMSMessageDetailsFragment extends DialogFragment {
     private static final int REQUEST_CONTACT_NUMBER = 1;
     private int position;
 
+    public SMSMessageDetailsFragment() {
+        this.position = -1;
+    }
+
+    public SMSMessageDetailsFragment(int position) {
+        this.position = position;
+    }
+
     public void setPosition(int position) {
         this.position = position;
     }
@@ -101,6 +109,9 @@ public class SMSMessageDetailsFragment extends DialogFragment {
 
         et_phoneNo = (EditText) dialogView.findViewById(R.id.et_sms_phoneNo);
         et_message = (EditText) dialogView.findViewById(R.id.et_sms_message);
+
+        et_message.setText(message);
+        et_phoneNo.setText(phoneNo);
 
         clickButton = (Button) dialogView.findViewById(R.id.sms_pb_button);
         clickButton.setOnClickListener( new View.OnClickListener() {

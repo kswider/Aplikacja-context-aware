@@ -106,7 +106,7 @@ public class ActionPickerFragment extends DialogFragment {
                             DialogFragment newFragment = new NotificationMessageDetailsFragment();
                             newFragment.show(getFragmentManager(), "NotificationExtended");
                         }
-                        mListener.onDialogAPFPositiveClick(ActionPickerFragment.this);
+                        else mListener.onDialogAPFPositiveClick(ActionPickerFragment.this);
                     }
                 });
         return builder.create();
