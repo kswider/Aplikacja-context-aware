@@ -77,6 +77,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private String scriptNameToLoad; // ??
     EditText scriptName; //Edit text field with script name
     TextView TVDaysCyclocal;
+    private TimeItem tmpTimeInterval;
 
     private ListView listDays;
     private ListView listTime;
@@ -108,6 +109,23 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         DialogFragment newFragment = new TimePickerFragment();
         ((TimePickerFragment) newFragment).setPosition(-1);
         newFragment.show(getFragmentManager(), "Time Picker");
+
+    }
+
+    /**
+     * Action for the Set Time Interval Clicked
+     * Opens TimePickerFragment with previously selected items checked
+     * @param v current View
+     */
+    public void SetTimeIntervalOnClick(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        ((TimePickerFragment) newFragment).setPosition(-1);
+        ((TimePickerFragment) newFragment).setTypeInterval(2);
+        newFragment.show(getFragmentManager(), "Time Picker");
+        DialogFragment newFragment1 = new TimePickerFragment();
+        ((TimePickerFragment) newFragment1).setPosition(-1);
+        ((TimePickerFragment) newFragment1).setTypeInterval(1);
+        newFragment1.show(getFragmentManager(), "Time Picker");
 
     }
 
@@ -692,11 +710,38 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     @Override
     public void onDialogTPFPositiveClick(DialogFragment dialog) {
         if(((TimePickerFragment) dialog).getPosition() == -1) {
-            times.add(new TimeItem(((TimePickerFragment) dialog).getHour(),((TimePickerFragment) dialog).getMinute()));
+            if (((TimePickerFragment) dialog).getTypeInterval() == 0)
+                times.add(new TimeItem(((TimePickerFragment) dialog).getHour(), ((TimePickerFragment) dialog).getMinute(), ((TimePickerFragment) dialog).getHour(), ((TimePickerFragment) dialog).getMinute()));
+            else if (((TimePickerFragment) dialog).getTypeInterval() == 1) {
+                tmpTimeInterval = new TimeItem(((TimePickerFragment) dialog).getHour(), ((TimePickerFragment) dialog).getMinute(), -1, -1);
+            } else if (((TimePickerFragment) dialog).getTypeInterval() == 2) {
+                tmpTimeInterval.setHoursEnd(((TimePickerFragment) dialog).getHour());
+                tmpTimeInterval.setMinutesEnd(((TimePickerFragment) dialog).getMinute());
+                if(tmpTimeInterval.isRightIntervalType()) times.add(tmpTimeInterval);
+                else Toast.makeText(getBaseContext(),getBaseContext().getResources().getString(R.string.es_WrongInterval),Toast.LENGTH_LONG).show();
+            }
         }else{
-            times.get(((TimePickerFragment) dialog).getPosition()).setHours(((TimePickerFragment) dialog).getHour());
-            times.get(((TimePickerFragment) dialog).getPosition()).setMinutes(((TimePickerFragment) dialog).getMinute());
-            Log.d("APPP",Integer.toString(((TimePickerFragment) dialog).getHour()));
+            if(((TimePickerFragment)dialog).getTypeInterval() == 0) {
+                times.get(((TimePickerFragment) dialog).getPosition()).setHours(((TimePickerFragment) dialog).getHour());
+                times.get(((TimePickerFragment) dialog).getPosition()).setMinutes(((TimePickerFragment) dialog).getMinute());
+                times.get(((TimePickerFragment) dialog).getPosition()).setHoursEnd(((TimePickerFragment) dialog).getHour());
+                times.get(((TimePickerFragment) dialog).getPosition()).setMinutesEnd(((TimePickerFragment) dialog).getMinute());
+            }else if(((TimePickerFragment)dialog).getTypeInterval() == 1) {
+                tmpTimeInterval = new TimeItem(times.get(((TimePickerFragment) dialog).getPosition()));
+                times.get(((TimePickerFragment) dialog).getPosition()).setHours(((TimePickerFragment) dialog).getHour());
+                times.get(((TimePickerFragment) dialog).getPosition()).setMinutes(((TimePickerFragment) dialog).getMinute());
+            }
+            else if(((TimePickerFragment)dialog).getTypeInterval() == 2) {
+                times.get(((TimePickerFragment) dialog).getPosition()).setHoursEnd(((TimePickerFragment) dialog).getHour());
+                times.get(((TimePickerFragment) dialog).getPosition()).setMinutesEnd(((TimePickerFragment) dialog).getMinute());
+                if(!times.get(((TimePickerFragment) dialog).getPosition()).isRightIntervalType()){
+                    times.get(((TimePickerFragment) dialog).getPosition()).setHours(tmpTimeInterval.getHours());
+                    times.get(((TimePickerFragment) dialog).getPosition()).setMinutes(tmpTimeInterval.getMinutes());
+                    times.get(((TimePickerFragment) dialog).getPosition()).setHoursEnd(tmpTimeInterval.getHoursEnd());
+                    times.get(((TimePickerFragment) dialog).getPosition()).setMinutesEnd(tmpTimeInterval.getMinutesEnd());
+                    Toast.makeText(this,this.getResources().getString(R.string.es_WrongInterval),Toast.LENGTH_LONG).show();
+                }
+            }
         }
         timeAdapter.notifyDataSetChanged();
         ListUtils.setDynamicHeight(listTime);
@@ -709,7 +754,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     public void onDialogTPFNegativeClick(DialogFragment dialog) {
-
+        if(((TimePickerFragment)dialog).getTypeInterval() != 0){
+            times.remove(times.size()-1);
+        }
     }
 
     /**

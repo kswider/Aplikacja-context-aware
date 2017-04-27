@@ -57,6 +57,8 @@
     <string name="es_Script">Script</string>
     <string name="es_Added">Script Added successfully</string>
     <string name="es_SetTime">Set Time</string>
+    <string name="es_SetTime1">Set Start Time</string>
+    <string name="es_SetTime2">Set Stop Time</string>
     <string name="es_SetDate">Set Date</string>
     <string name="es_SetDay">Set Day</string>
     <string name="es_SetRepeating">Set Repeating</string>
@@ -71,6 +73,7 @@
     <string name="es_AddLocation">Add location</string>
     <string name="es_AddAction">Add action</string>
     <string name="es_AddInterval">Add time division</string>
+    <string name="es_WrongInterval">This is not a proper time interval</string>
 
     <!--Time Picker-->
     <string name="tp_cancel">Cancel</string>
