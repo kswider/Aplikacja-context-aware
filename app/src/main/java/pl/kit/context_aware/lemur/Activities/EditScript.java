@@ -140,6 +140,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public void SetDayOnClick(View v) {
         DialogFragment newFragment = new DayOfWeekPickerFragment();
         ((DayOfWeekPickerFragment) newFragment).setPosition(-1);
+        ((DayOfWeekPickerFragment) newFragment).setDaysOfWeek(daysCyclical);
         newFragment.show(getFragmentManager(), "DayOfWeek Picker");
     }
 
@@ -616,8 +617,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         daysCyclical = ((DayOfWeekPickerFragment) dialog).getDays();
         TVDaysCyclocal.setText("");
         for(int i=0;i<daysCyclical.size();i++){
-            if(TVDaysCyclocal.getText().equals("")) TVDaysCyclocal.setText(daysStr[i]);
-            else TVDaysCyclocal.setText(TVDaysCyclocal.getText()+","+daysStr[i]);
+            if(TVDaysCyclocal.getText().equals("")) TVDaysCyclocal.setText(daysStr[daysCyclical.get(i)]);
+            else TVDaysCyclocal.setText(TVDaysCyclocal.getText()+","+daysStr[daysCyclical.get(i)]);
         }
 
     }
