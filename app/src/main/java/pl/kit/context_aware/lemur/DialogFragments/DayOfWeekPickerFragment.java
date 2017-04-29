@@ -112,12 +112,6 @@ public class DayOfWeekPickerFragment extends DialogFragment {
                 .setPositiveButton(R.string.tp_ok, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        TextView days = (TextView) getActivity().findViewById(R.id.es_set_day_sub);
-                        days.setText("");
-                        for(int i=0; i<mSelectedItems.size(); i++){
-                            Resources res = getActivity().getResources();
-                            days.setText(days.getText().toString() + res.getStringArray(R.array.days)[mSelectedItems.get(i)] + ",");
-                        }
                         mListener.onDialogDOWPFPositiveClick(DayOfWeekPickerFragment.this);
 
                     }

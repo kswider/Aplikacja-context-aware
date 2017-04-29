@@ -21,6 +21,19 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     private int hour; //picked hour
     private NoticeDialogTPFListener mListener; //Object of inner inference used to communicate between dialog and activity
     private int position;
+    private int typeInterval;
+
+    public TimePickerFragment() {
+        typeInterval = 0;
+    }
+
+    public void setTypeInterval(int typeInterval) {
+        this.typeInterval = typeInterval;
+    }
+
+    public int getTypeInterval() {
+        return typeInterval;
+    }
 
     public void setPosition(int position) {
         this.position = position;
@@ -94,18 +107,26 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
      */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new TimePickerDialog(getActivity(), this, hour, minute,
+        TimePickerDialog tpf = new TimePickerDialog(getActivity(), this, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
+        if(typeInterval == 0) tpf.setTitle(this.getResources().getString(R.string.es_SetTime));
+        if(typeInterval == 1){
+            tpf.setTitle(this.getResources().getString(R.string.es_SetTime1));
+            tpf.setCancelable(false);
+        }
+        if(typeInterval == 2){
+            tpf.setTitle(this.getResources().getString(R.string.es_SetTime2));
+            tpf.setCancelable(false);
+        }
+        return tpf;
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
         this.minute = minute;
 
         this.hour = hourOfDay;
-
-        TextView time = (TextView) getActivity().findViewById(R.id.es_set_time_sub);
-        time.setText(hourOfDay +":" + minute);
 
         mListener.onDialogTPFPositiveClick(TimePickerFragment.this);
     }

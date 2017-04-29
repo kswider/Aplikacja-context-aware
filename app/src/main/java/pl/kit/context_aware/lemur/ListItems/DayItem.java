@@ -7,22 +7,16 @@ import java.util.LinkedList;
  */
 
 public class DayItem {
-    private LinkedList<Integer> days = new LinkedList<>();
     private int day;
     private int month;
     private int year;
 
-    public DayItem(int day, int month, int year, int type) {
+    public DayItem(int day, int month, int year) {
         this.day = day;
         this.month = month;
         this.year = year;
     }
-    public DayItem(LinkedList<Integer> days, int type) {
-        this.days = (LinkedList<Integer>) days.clone();
-    }
-    public void setDayOfWeek(LinkedList<Integer> days) {
-        this.days = (LinkedList<Integer>) days.clone();
-    }
+
     public void setDay(int day) {
         this.day = day;
     }
@@ -33,11 +27,6 @@ public class DayItem {
 
     public void setYear(int year) {
         this.year = year;
-    }
-    
-
-    public LinkedList<Integer> getDayOfWeek() {
-        return days;
     }
 
     public int getDay() {

@@ -41,7 +41,7 @@ public class TimesArrayAdapter extends ArrayAdapter<TimeItem>  {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        TimeItem item = getItem(position);
+        final TimeItem item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_element_script_edit_1, parent, false);
@@ -51,6 +51,8 @@ public class TimesArrayAdapter extends ArrayAdapter<TimeItem>  {
         TextView sub = (TextView) convertView.findViewById(R.id.le_es_sub);
         // Populate the data into the template view using the data object
         main.setText(item.getHours() + ":" + item.getMinutes());
+
+        if(item.isIntervalType()) main.setText(main.getText() + " - " + item.getHoursEnd() + ":" + item.getMinutesEnd());
 
         ImageButton editButton = (ImageButton)convertView.findViewById(R.id.le_es_edit);
         ImageButton deleteButton = (ImageButton)convertView.findViewById(R.id.le_es_delete);
@@ -67,12 +69,28 @@ public class TimesArrayAdapter extends ArrayAdapter<TimeItem>  {
         editButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                DialogFragment newFragment = new TimePickerFragment();
-                ((TimePickerFragment) newFragment).setHour(list.get(position).getHours());
-                ((TimePickerFragment) newFragment).setMinute(list.get(position).getMinutes());
-                ((TimePickerFragment) newFragment).setPosition(position);
-                newFragment.show(((Activity)mContext).getFragmentManager(), "Time Picker1");
-                notifyDataSetChanged();
+                if(item.isIntervalType()) {
+                    DialogFragment newFragment = new TimePickerFragment();
+                    ((TimePickerFragment) newFragment).setHour(list.get(position).getHoursEnd());
+                    ((TimePickerFragment) newFragment).setMinute(list.get(position).getMinutesEnd());
+                    ((TimePickerFragment) newFragment).setPosition(position);
+                    ((TimePickerFragment) newFragment).setTypeInterval(2);
+                    newFragment.show(((Activity) mContext).getFragmentManager(), "Time Picker1");
+                    DialogFragment newFragment1 = new TimePickerFragment();
+                    ((TimePickerFragment) newFragment1).setHour(list.get(position).getHours());
+                    ((TimePickerFragment) newFragment1).setMinute(list.get(position).getMinutes());
+                    ((TimePickerFragment) newFragment1).setPosition(position);
+                    ((TimePickerFragment) newFragment1).setTypeInterval(1);
+                    newFragment1.show(((Activity) mContext).getFragmentManager(), "Time Picker1");
+                    notifyDataSetChanged();
+                }else{
+                    DialogFragment newFragment2 = new TimePickerFragment();
+                    ((TimePickerFragment) newFragment2).setHour(list.get(position).getHours());
+                    ((TimePickerFragment) newFragment2).setMinute(list.get(position).getMinutes());
+                    ((TimePickerFragment) newFragment2).setPosition(position);
+                    newFragment2.show(((Activity) mContext).getFragmentManager(), "Time Picker1");
+                    notifyDataSetChanged();
+                }
             }
         });
 
