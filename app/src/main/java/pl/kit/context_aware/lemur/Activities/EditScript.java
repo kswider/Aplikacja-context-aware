@@ -61,22 +61,13 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener, NotificationMessageDetailsFragment.NoticeNotificationMessageDetailsFragmentListener{
 
     String rememberedModelName; //used in deleting old models
-    private int hour; //hour selected or loaded from file
-    private int minute; //minute selected or loaded from file
-    private double time; //time calculated with hour and minute
-    private Double latitude; //latitude selected or loaded from file
-    private Double longitude; //longitude selected or loaded from file
     private String notificationNumber; //used in deleting old files, when we edit model
-    private String notificationTitle;
-    private String notificationMessage; //TODO
     private String smsNumber; //used in deleting old files, when we edit model
-    private String smsPhoneNumber;
-    private String smsMessage; //TODO
     private LinkedList<Integer> daysCyclical = new LinkedList<>(); //list of daysCyclical selected or loaded from file
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
     private String scriptNameToLoad; // ??
     EditText scriptName; //Edit text field with script name
-    TextView TVDaysCyclocal;
+    TextView TVDaysCyclical;
 
     private ListView listDays;
     private ListView listTime;
@@ -184,10 +175,12 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         listDays.setAdapter(daysAdapter);
         ListUtils.setDynamicHeight(listDays);
 
+        /*
         times = new ArrayList<TimeItem>();
         for(int i=0;i<3;i++){
             times.add(new TimeItem(i,i));
         }
+        */
         timeAdapter = new TimesArrayAdapter(this, times);
         listTime.setAdapter(timeAdapter);
         ListUtils.setDynamicHeight(listTime);
@@ -201,10 +194,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         ListUtils.setDynamicHeight(listLocation);
 
         actions = new ArrayList<ActionItem>();
+        /*
         for(int i=0;i<3;i++){
             actions.add(new ActionItem("","",i));
         }
-
+        */
         actionsAdapter = new ActionsArrayAdapter(this, actions);
         listAction.setAdapter(actionsAdapter);
         ListUtils.setDynamicHeight(listAction);
@@ -212,19 +206,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
 
-        TVDaysCyclocal = (TextView) findViewById(R.id.es_repeating_days);
+        TVDaysCyclical = (TextView) findViewById(R.id.es_repeating_days);
 
-        hour = -1;
-        minute = -1;
-        time = -1;
-        latitude = null;
-        longitude = null;
+
         notificationNumber = "";
-        notificationTitle = "tytul test";
-        notificationMessage = "zobaczymy czy dziala"; //TODO
         smsNumber = "";
-        smsPhoneNumber = "";
-        smsMessage = ""; // TODO
         //if we are creating new model
         if(scriptNameToEdit.isEmpty()) {
             Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
@@ -243,35 +229,56 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             ModelCreator loadedModel = ModelCreator.loadModel(scriptNameToLoad);
 
             //reading values of previus attributes from model
-            if(!loadedModel.getAttribute("minute").getValues().isEmpty()) {
-                minute = Integer.valueOf(loadedModel.getAttribute("minute").getValues().getFirst());
-            }
             if(!loadedModel.getAttribute("hour").getValues().isEmpty()){
-                hour = Integer.valueOf(loadedModel.getAttribute("hour").getValues().getFirst());
-            }
-            if(!loadedModel.getAttribute("time").getValues().isEmpty()){
-                time = Double.valueOf(loadedModel.getAttribute("time").getValues().getFirst());
+                LinkedList<String> hoursList = loadedModel.getAttribute("hour").getValues();
+                LinkedList<String> minutesList = loadedModel.getAttribute("minute").getValues();
+                for(int i = 0; i < hoursList.size();++i ){
+                    times.add(new TimeItem(Integer.valueOf(hoursList.get(i)),Integer.valueOf(minutesList.get(i))));
+                }
             }
             if(!loadedModel.getAttribute("latitude").getValues().isEmpty()){
-                latitude = Double.valueOf(loadedModel.getAttribute("latitude").getValues().getFirst());
-            }
-            if(!loadedModel.getAttribute("longitude").getValues().isEmpty()){
-                longitude = Double.valueOf(loadedModel.getAttribute("longitude").getValues().getFirst());
+                LinkedList<String> latitudesList = loadedModel.getAttribute("latitude").getValues();
+                LinkedList<String> longitudesList = loadedModel.getAttribute("longitude").getValues();
+                for(int i = 0; i < latitudesList.size();++i){
+                    locations.add(new LocationItem(Double.valueOf(latitudesList.get(i)),Double.valueOf(longitudesList.get(i))));
+                }
             }
 
-            if(!loadedModel.getAttribute("notification").getValues().isEmpty()){ // TODO
-                notificationNumber = loadedModel.getAttribute("notificationNumber").getValues().pop();
-                notificationTitle = loadedModel.getAttribute("notification").getValues().getFirst();
-                notificationMessage = loadedModel.getAttribute("notification").getValues().getLast();
+            final String[] argumentsArray = {"bluetooth","wifi","sound"};
+            final String[] stateArray = {"on", "off", "vibration"};
+            for(int i = 0; i < argumentsArray.length; ++i) {
+                for (String action : loadedModel.getAttribute(argumentsArray[i]).getValues()) {
+                    for (int j = 0; j < stateArray.length; ++j) {
+                        if (stateArray[j].equals(action)) {
+                            actions.add(new ActionItem("","",i*2 + j));
+                        }
+                    }
+                }
             }
-            if(!loadedModel.getAttribute("sms").getValues().isEmpty()){ // TODO
+
+            if(!loadedModel.getAttribute("notification").getValues().isEmpty()){
+                notificationNumber = loadedModel.getAttribute("notificationNumber").getValues().pop();
+                LinkedList<String>  notificationsList = loadedModel.getAttribute("notification").getValues();
+                for(int i = 0; i < notificationsList.size(); i+=2){
+                    ActionItem action = new ActionItem("",notificationsList.get(i) + "\n" + notificationsList.get(i+1),ActionItem.ACTION_SEND_NOTIFICATION);
+                    action.setNotificationMessage(notificationsList.get(i));
+                    action.setNotificationMessage(notificationsList.get(i+1));
+                    actions.add(action);
+                }
+            }
+
+            if(!loadedModel.getAttribute("sms").getValues().isEmpty()){
                 smsNumber = loadedModel.getAttribute("smsNumber").getValues().pop();
-                smsPhoneNumber = loadedModel.getAttribute("sms").getValues().getFirst();
-                smsMessage = loadedModel.getAttribute("sms").getValues().getLast();
+                LinkedList<String>  smsList = loadedModel.getAttribute("sms").getValues();
+                for(int i = 0; i < smsList.size(); i+=2){
+                    ActionItem action = new ActionItem("",smsList.get(i) + "\n" + smsList.get(i+1),ActionItem.ACTION_SEND_SMS);
+                    action.setSmsPhoneNumber(smsList.get(i));
+                    action.setSmsMessage(smsList.get(i+1));
+                    actions.add(action);
+                }
             }
 
             final String[] daysOfWeekArray = this.getResources().getStringArray(R.array.days_short);
-
             for (String day : loadedModel.getAttribute("day").getValues()){
                 for(int i = 0; i<daysOfWeekArray.length;++i){
                     if(daysOfWeekArray[i].equals(day)){
@@ -280,92 +287,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
             }
 
-            /* TODO
-            final String[] argumentsArray = {"bluetooth","wifi","sound","notification","sms"}; //TODO message, it will be different when we implement setting action differently
-            final String[] stateArray = {"off", "on", "vibration"};
-            for(int j = 0; j < argumentsArray.length; ++j) {
-                for (String action : loadedModel.getAttribute(argumentsArray[j]).getValues()) {
-                    for (int i = 0; i < stateArray.length; ++i) {
-                        if (stateArray[i].equals(action)) {
-                            actions.add(i + j*2);
-                        }
-                    }
-                    if (j == 3) {
-                        actions.add(7); //TODO
-                        break;
-                    }
-                    else if (j == 4){
-                        actions.add(8); //TODO
-                        break;
-                    }
-                }
-            }
-        */
+
             Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
-
-
-
-            //filling fields with loaded attributes
-            scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
-            scriptName.setText(scriptNameToEdit);
-            TextView timeTV = (TextView) this.findViewById(R.id.es_set_time_sub);
-            if(time == -1) {
-                timeTV.setText("---");
-            }
-            else{
-                timeTV.setText(hour + ":" + minute);
-            }
-
-            TextView daysTV = (TextView) this.findViewById(R.id.es_set_day_sub);
-            daysTV.setText("");
-            if(daysCyclical.isEmpty()){
-                daysTV.setText("---");
-            }
-            else {
-                for (int i = 0; i < daysCyclical.size(); i++) {
-                    Resources res = this.getResources();
-                    daysTV.setText(daysTV.getText().toString() + res.getStringArray(R.array.days)[daysCyclical.get(i)] + ",");
-                }
-            }
-
-            TextView LocSubTV = (TextView) findViewById(R.id.es_set_location_sub);
-            if(latitude == null){
-                LocSubTV.setText("---");
-            }
-            else{
-                LocSubTV.setText( Double.toString(latitude) + "  " + Double.toString(longitude));
-            }
-
-            TextView actionsTV = (TextView) this.findViewById(R.id.es_set_action_sub);
-            /* TODO
-            actionsTV.setText("");
-            if(actions.isEmpty()){
-                actionsTV.setText("---");
-            }
-            else {
-                for (int i = 0; i < actions.size(); i++) {
-                    Resources res = this.getResources();
-                    actionsTV.setText(actionsTV.getText().toString() + res.getStringArray(R.array.actions)[actions.get(i)] + ",");
-                }
-            }*/
-            //TODO!!!
-            if(notificationMessage.equals("")){
-                //notificationTitleTV.setText("");
-                //notificationMessageTV.setText("");
-            }
-            else {
-                //notificationTitleTV.setText(notificationTitle);
-                //notificationMessageTV.setText(notificationMessage);
-            }
-            if(smsMessage.equals("")){
-                //smsNumberTV.setText("");
-                //smsMessageTV.setText("");
-            }
-            else {
-                //smsNumberTV.setText(smsNumber);
-                //smsNumberTV.setText(smsMessage);
-            }
-
 
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -520,7 +443,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         if(!smsNumber.equals("")){
                             FilesOperations.deleteSMS(this,smsNumber); //deleting old notification before we create new one
                         }
-                        smsNumber = FilesOperations.createNotification(this,newModel.getAttribute("sms").getValues());
+                        smsNumber = FilesOperations.createSMS(this,newModel.getAttribute("sms").getValues());
                         newModel.getAttribute("smsNumber").addValue(smsNumber);
                         decisionExpression = new DecisionExpression(newModel.getAttribute("smsNumber"), smsNumber);
                         decisionList.add(decisionExpression);
@@ -640,10 +563,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public void onDialogDOWPFPositiveClick(DialogFragment dialog) {
         String [] daysStr = this.getResources().getStringArray(R.array.days_short);
         daysCyclical = ((DayOfWeekPickerFragment) dialog).getDays();
-        TVDaysCyclocal.setText("");
+        TVDaysCyclical.setText("");
         for(int i=0;i<daysCyclical.size();i++){
-            if(TVDaysCyclocal.getText().equals("")) TVDaysCyclocal.setText(daysStr[i]);
-            else TVDaysCyclocal.setText(TVDaysCyclocal.getText()+","+daysStr[i]);
+            if(TVDaysCyclical.getText().equals("")) TVDaysCyclical.setText(daysStr[i]);
+            else TVDaysCyclical.setText(TVDaysCyclical.getText()+","+daysStr[i]);
         }
 
     }
