@@ -247,6 +247,23 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     times.add(new TimeItem(Integer.valueOf(hoursList.get(i)),Integer.valueOf(minutesList.get(i))));
                 }
             }
+
+            final String[] daysOfWeekArray = this.getResources().getStringArray(R.array.days_short);
+            for (String day : loadedModel.getAttribute("day").getValues()){
+                for(int i = 0; i<daysOfWeekArray.length;++i){
+                    if(daysOfWeekArray[i].equals(day)){
+                        daysCyclical.add(i);
+                    }
+                }
+            }
+
+            if(!loadedModel.getAttribute("dayFromCalendar").getValues().isEmpty()){
+                LinkedList<String> datesList = loadedModel.getAttribute("dayFromCalendar").getValues();
+                for(String day : datesList){
+                    days.add(new DayItem(Integer.valueOf(day.substring(6,8)),Integer.valueOf(day.substring(4,6)),Integer.valueOf(day.substring(0,4))));
+                }
+            }
+
             if(!loadedModel.getAttribute("latitude").getValues().isEmpty()){
                 LinkedList<String> latitudesList = loadedModel.getAttribute("latitude").getValues();
                 LinkedList<String> longitudesList = loadedModel.getAttribute("longitude").getValues();
@@ -286,15 +303,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     action.setSmsPhoneNumber(smsList.get(i));
                     action.setSmsMessage(smsList.get(i+1));
                     actions.add(action);
-                }
-            }
-
-            final String[] daysOfWeekArray = this.getResources().getStringArray(R.array.days_short);
-            for (String day : loadedModel.getAttribute("day").getValues()){
-                for(int i = 0; i<daysOfWeekArray.length;++i){
-                    if(daysOfWeekArray[i].equals(day)){
-                        daysCyclical.add(i);
-                    }
                 }
             }
 

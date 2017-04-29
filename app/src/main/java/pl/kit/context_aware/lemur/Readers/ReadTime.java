@@ -42,7 +42,7 @@ public class ReadTime {
      */
     public static String ReadDate(){
         Calendar c = Calendar.getInstance();
-        return String.format("%4d",c.get(Calendar.YEAR)) + String.format("%02d",c.get(Calendar.MONTH )) + String.format("%02d",c.get(Calendar.DAY_OF_MONTH));
+        return String.format("%4d",c.get(Calendar.YEAR)) + String.format("%02d",c.get(Calendar.MONTH )+1) + String.format("%02d",c.get(Calendar.DAY_OF_MONTH));
 
     }
 
