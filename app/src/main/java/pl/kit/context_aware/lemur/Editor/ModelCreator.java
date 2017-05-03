@@ -201,6 +201,10 @@ public class ModelCreator implements Serializable {
         final Xattr smsNumber = new Xattr(message_number_type,"smsNumber","smsNumber1","inter", "");
         final Xattr dayFromCalendar = new Xattr(day_from_calendar_type,"dayFromCalendar","dayFromCalendar1","in","pl.kit.context_aware.lemur.HeartDROID.callbacks.GetDayFromCalendar");
 
+        // these two arguments are only use to keep info about time ranges, they aren't used in inference
+        final Xattr hourRange = new Xattr(hour_type, "hourRange", "hourRange1", "inter", "");
+        final Xattr minuteRange = new Xattr(minute_type, "minuteRange", "minuteRange1", "inter", "");
+
         // Creating model by adding everything into ModelCreator and saving it
         ModelCreator model = new ModelCreator(modelName,mContext.getFilesDir().toString());
 
@@ -230,7 +234,8 @@ public class ModelCreator implements Serializable {
         model.addAttribute(sms);
         model.addAttribute(smsNumber);
         model.addAttribute(dayFromCalendar);
-
+        model.addAttribute(hourRange);
+        model.addAttribute(minuteRange);
         return model;
     }
 }

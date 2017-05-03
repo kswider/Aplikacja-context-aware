@@ -239,12 +239,20 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             scriptNameToLoad = this.getFilesDir() + "/" + scriptNameToEdit +".ser";
             ModelCreator loadedModel = ModelCreator.loadModel(scriptNameToLoad);
 
-            //reading values of previus attributes from model
+            //reading values of previous attributes from model
             if(!loadedModel.getAttribute("hour").getValues().isEmpty()){
                 LinkedList<String> hoursList = loadedModel.getAttribute("hour").getValues();
                 LinkedList<String> minutesList = loadedModel.getAttribute("minute").getValues();
                 for(int i = 0; i < hoursList.size();++i ){
                     times.add(new TimeItem(Integer.valueOf(hoursList.get(i)),Integer.valueOf(minutesList.get(i))));
+                }
+            }
+
+            if(!loadedModel.getAttribute("hourRange").getValues().isEmpty()){
+                LinkedList<String> hoursList = loadedModel.getAttribute("hourRange").getValues();
+                LinkedList<String> minutesList = loadedModel.getAttribute("minuteRange").getValues();
+                for(int i = 0; i < hoursList.size();i+=2 ){
+                    times.add(new TimeItem(Integer.valueOf(hoursList.get(i)),Integer.valueOf(minutesList.get(i)),Integer.valueOf(hoursList.get(i+1)),Integer.valueOf(minutesList.get(i+1))));
                 }
             }
 
@@ -289,7 +297,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 LinkedList<String>  notificationsList = loadedModel.getAttribute("notification").getValues();
                 for(int i = 0; i < notificationsList.size(); i+=2){
                     ActionItem action = new ActionItem("",notificationsList.get(i) + "\n" + notificationsList.get(i+1),ActionItem.ACTION_SEND_NOTIFICATION);
-                    action.setNotificationMessage(notificationsList.get(i));
+                    action.setNotificationTitle(notificationsList.get(i));
                     action.setNotificationMessage(notificationsList.get(i+1));
                     actions.add(action);
                 }
@@ -477,14 +485,23 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     LinkedList<String> timesList = new LinkedList<>();
 
                     for(TimeItem time : times){
-                        newModel.getAttribute("hour").addValue(String.valueOf(time.getHours()));
-                        newModel.getAttribute("minute").addValue(String.valueOf(time.getMinutes()));
-                        String timeString =  String.valueOf(((double)time.getHours() + ((double)time.getMinutes() / 60)));
-                        newModel.getAttribute("time").addValue(timeString);
+                        if(!time.isIntervalType()) {
+                            newModel.getAttribute("hour").addValue(String.valueOf(time.getHours()));
+                            newModel.getAttribute("minute").addValue(String.valueOf(time.getMinutes()));
+                            String timeString = String.valueOf(((double) time.getHours() + ((double) time.getMinutes() / 60)));
 
-                        timesList.add(timeString); // Adding times to list, which will be used in ALSV expression
+                            timesList.add(timeString); // Adding times to list, which will be used in ALSV
+                        }
+                        else{
+                            newModel.getAttribute("hourRange").addValue(String.valueOf(time.getHours()));
+                            newModel.getAttribute("hourRange").addValue(String.valueOf(time.getHoursEnd()));
+                            newModel.getAttribute("minuteRange").addValue(String.valueOf(time.getMinutes()));
+                            newModel.getAttribute("minuteRange").addValue(String.valueOf(time.getMinutesEnd()));
+                            String timeString = String.valueOf((double) time.getHours() + ((double) time.getMinutes() / 60)) + " to " + String.valueOf((double) time.getHoursEnd() + ((double) time.getMinutesEnd() / 60));
+
+                            timesList.add(timeString); // Adding times to list, which will be used in ALSV
+                        }
                     }
-
                     alsvExpression = new ALSVExpression(newModel.getAttribute("time"), timesList);
                     ALSVList.add(alsvExpression);
                 }

@@ -75,5 +75,7 @@ public class TimeItem {
     public TimeItem(int hours, int minutes) {
         this.hours = hours;
         this.minutes = minutes;
+        this.hoursEnd = hours;
+        this.minutesEnd = minutes;
     }
 }
