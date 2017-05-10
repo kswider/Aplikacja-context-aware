@@ -69,8 +69,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private LinkedList<Integer> daysCyclical = new LinkedList<>(); //list of daysCyclical selected or loaded from file
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
     private String scriptNameToLoad; // ??
-    EditText scriptName; //Edit text field with script name
-    TextView TVDaysCyclical;
+    private EditText ETScriptName; //Edit text field with script name
+    private TextView TVDaysCyclical;
     private TimeItem tmpTimeInterval;
 
     private ListView listDays;
@@ -187,37 +187,14 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         setContentView(R.layout.activity_edit_script);
         Intent intent = getIntent();
 
-        listDays = (ListView)findViewById(R.id.es_lv_days);
-        listTime = (ListView)findViewById(R.id.es_lv_time);
-        listLocation = (ListView)findViewById(R.id.es_lv_location);
-        listAction = (ListView)findViewById(R.id.es_lv_actions);
-
-
-
         days = new ArrayList<DayItem>();
-        daysAdapter = new DaysArrayAdapter(this, days);
-        listDays.setAdapter(daysAdapter);
-        ListUtils.setDynamicHeight(listDays);
-
         times = new ArrayList<TimeItem>();
-        timeAdapter = new TimesArrayAdapter(this, times);
-        listTime.setAdapter(timeAdapter);
-        ListUtils.setDynamicHeight(listTime);
-
         locations = new ArrayList<LocationItem>();
-        locationsAdapter = new LocationsArrayAdapter(this,locations);
-        listLocation.setAdapter(locationsAdapter);
-        ListUtils.setDynamicHeight(listLocation);
-
         actions = new ArrayList<ActionItem>();
-        actionsAdapter = new ActionsArrayAdapter(this, actions);
-        listAction.setAdapter(actionsAdapter);
-        ListUtils.setDynamicHeight(listAction);
+
 
         String scriptNameToEdit = intent.getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
-
-        TVDaysCyclical = (TextView) findViewById(R.id.es_repeating_days);
 
 
         notificationNumber = "";
@@ -225,7 +202,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         //if we are creating new model
         if(scriptNameToEdit.isEmpty()) {
             Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
-            scriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
             //toolbar.setTitle(getResources().getString(R.string.es_Script));
             setSupportActionBar(toolbar);
 
@@ -324,6 +300,33 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         }
+
+        //initializing layout objects
+        listDays = (ListView)findViewById(R.id.es_lv_days);
+        listTime = (ListView)findViewById(R.id.es_lv_time);
+        listLocation = (ListView)findViewById(R.id.es_lv_location);
+        listAction = (ListView)findViewById(R.id.es_lv_actions);
+        TVDaysCyclical = (TextView) findViewById(R.id.es_repeating_days);
+        ETScriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
+
+        //connecting adapters with lists and lists with listViews
+        //refreshing height of the listViewx
+        daysAdapter = new DaysArrayAdapter(this, days);
+        listDays.setAdapter(daysAdapter);
+        ListUtils.setDynamicHeight(listDays);
+        locationsAdapter = new LocationsArrayAdapter(this,locations);
+        listLocation.setAdapter(locationsAdapter);
+        ListUtils.setDynamicHeight(listLocation);
+        actionsAdapter = new ActionsArrayAdapter(this, actions);
+        listAction.setAdapter(actionsAdapter);
+        ListUtils.setDynamicHeight(listAction);
+        timeAdapter = new TimesArrayAdapter(this, times);
+        listTime.setAdapter(timeAdapter);
+        ListUtils.setDynamicHeight(listTime);
+
+        //setting other layout pools
+        ETScriptName.setText(scriptNameToLoad);
+
     }
 
 
@@ -350,7 +353,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             case R.id.action_save_script:
                 
                 //Creating basic model containing all needed types and attributes
-                ModelCreator newModel = ModelCreator.createBasicModel(scriptName.getText().toString(), this);
+                ModelCreator newModel = ModelCreator.createBasicModel(ETScriptName.getText().toString(), this);
 
                 //Creating lists which are needed in Scheme
                 LinkedList<Xattr> attributesList = new LinkedList<>();
@@ -573,7 +576,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 newModel.saveModel();
 
                 //deleting old models
-                if(!rememberedModelName.equals(scriptName.getText().toString())){
+                if(!rememberedModelName.equals(ETScriptName.getText().toString())){
                     File fileSer = new File(this.getFilesDir() + "/" + rememberedModelName +".ser");
                     File fileHmr = new File(this.getFilesDir() + "/" + rememberedModelName +".hmr");
                     fileSer.delete();
