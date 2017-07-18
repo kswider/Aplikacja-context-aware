@@ -3,6 +3,7 @@ package pl.kit.context_aware.lemur.Activities;
         import android.Manifest;
         import android.app.AlarmManager;
         import android.app.DialogFragment;
+        import android.app.Notification;
         import android.app.PendingIntent;
         import android.content.Intent;
         import android.content.pm.PackageManager;
@@ -39,6 +40,7 @@ package pl.kit.context_aware.lemur.Activities;
         import pl.kit.context_aware.lemur.R;
         import pl.kit.context_aware.lemur.Readers.ReadLocation;
         import pl.kit.context_aware.lemur.Readers.ReadTime;
+        import pl.kit.context_aware.lemur.Services.MainForegroundService;
         import pl.kit.context_aware.lemur.TmpTests.TestService;
 
 public class MainActivity extends AppCompatActivity
@@ -223,7 +225,7 @@ public class MainActivity extends AppCompatActivity
      */
     public void sheduleHeartEvery5MinutesOnClick(View v){
 
-        int i = 60;
+        int i = 30;
         Intent intent = new Intent(this, HeartAlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 this.getApplicationContext(), 234324243, intent, 0);
@@ -296,6 +298,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        startService(new Intent(getBaseContext(), MainForegroundService.class));
 
         ScriptsList sl = new ScriptsList();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
