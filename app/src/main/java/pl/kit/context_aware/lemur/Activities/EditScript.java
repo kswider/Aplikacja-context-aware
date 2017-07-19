@@ -325,7 +325,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         ListUtils.setDynamicHeight(listTime);
 
         //setting other layout pools
-        ETScriptName.setText(scriptNameToLoad);
+        ETScriptName.setText(scriptNameToEdit);
 
     }
 
