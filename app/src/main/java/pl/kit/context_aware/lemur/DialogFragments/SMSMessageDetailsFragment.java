@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
@@ -121,6 +122,10 @@ public class SMSMessageDetailsFragment extends DialogFragment {
                     startActivityForResult(contactPickerIntent, REQUEST_CONTACT_NUMBER);
                 }else{
                     Toast.makeText(getActivity().getBaseContext(),getActivity().getBaseContext().getResources().getString(R.string.pl_read_contacts),Toast.LENGTH_SHORT).show();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        requestPermissions(new String[] {Manifest.permission.READ_CONTACTS},
+                                1);
+                    }
                 }
             }
         });
@@ -160,7 +165,6 @@ public class SMSMessageDetailsFragment extends DialogFragment {
                     if(cursor.getCount() > 0) {
                         cursor.moveToFirst();
                         phoneNo = cursor.getString( cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER) );
-                        Log.d("TestActivity", String.format("The selected phone number is: %s", phoneNo));
                         et_phoneNo.setText(phoneNo);
                     }
                     cursor.close();

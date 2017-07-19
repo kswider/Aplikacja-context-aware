@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -101,6 +102,10 @@ public class ActionPickerFragment extends DialogFragment {
                                     newFragment.show(getActivity().getFragmentManager(), "SendSMSExtended");
                                 } else {
                                     Toast.makeText(getActivity().getBaseContext(), getActivity().getBaseContext().getResources().getString(R.string.pl_send_sms), Toast.LENGTH_SHORT).show();
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        requestPermissions(new String[] {Manifest.permission.SEND_SMS},
+                                                1);
+                                    }
                                 }
                         }else if(actions == ActionItem.ACTION_SEND_NOTIFICATION){
                             DialogFragment newFragment = new NotificationMessageDetailsFragment();

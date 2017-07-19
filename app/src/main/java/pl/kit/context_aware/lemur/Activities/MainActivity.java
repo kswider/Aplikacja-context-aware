@@ -5,12 +5,16 @@ package pl.kit.context_aware.lemur.Activities;
         import android.app.DialogFragment;
         import android.app.Notification;
         import android.app.PendingIntent;
+        import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.pm.PackageManager;
         import android.net.Uri;
+        import android.os.Build;
         import android.os.Bundle;
         import android.provider.Settings;
+        import android.support.v4.app.ActivityCompat;
         import android.support.v4.content.ContextCompat;
+        import android.util.Log;
         import android.view.View;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -21,7 +25,9 @@ package pl.kit.context_aware.lemur.Activities;
         import android.view.MenuItem;
         import android.widget.Toast;
 
+        import java.util.ArrayList;
         import java.util.LinkedList;
+        import java.util.List;
 
         import pl.kit.context_aware.lemur.DialogFragments.DeleteScriptFragment;
         import pl.kit.context_aware.lemur.DialogFragments.ImportExportFragment;
@@ -251,6 +257,10 @@ public class MainActivity extends AppCompatActivity
         }
         else{
             Toast.makeText(this,this.getResources().getString(R.string.pl_write_external),Toast.LENGTH_SHORT).show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        1);
+            }
         }
     }
 
@@ -269,6 +279,10 @@ public class MainActivity extends AppCompatActivity
         }
         else{
             Toast.makeText(this,this.getResources().getString(R.string.pl_write_external),Toast.LENGTH_SHORT).show();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        1);
+            }
         }
     }
 
@@ -298,6 +312,39 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ArrayList<String> permissionsNeeded = new ArrayList<String>();
+
+        if (ContextCompat.checkSelfPermission(this.getApplication(),
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED){
+
+            permissionsNeeded.add(Manifest.permission.READ_CONTACTS);
+        }
+        if (ContextCompat.checkSelfPermission(this.getApplication(),
+                Manifest.permission.SEND_SMS)
+                != PackageManager.PERMISSION_GRANTED){
+
+            permissionsNeeded.add(Manifest.permission.SEND_SMS);
+        }
+        if (ContextCompat.checkSelfPermission(this.getApplication(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED){
+
+            permissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (ContextCompat.checkSelfPermission(this.getApplication(),
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED){
+
+            permissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+
+        if(permissionsNeeded.size() > 0) {
+            ActivityCompat.requestPermissions(this,
+                    permissionsNeeded.toArray((new String[permissionsNeeded.size()])),
+                    1);
+        }
 
         startService(new Intent(getBaseContext(), MainForegroundService.class));
 
@@ -360,7 +407,11 @@ public class MainActivity extends AppCompatActivity
              fragmentTransaction.replace(R.id.fragment_container,ief);
              fragmentTransaction.commit();
          } else if (id == R.id.Settings){
-             startActivity(new Intent(Settings.ACTION_MANAGE_ALL_APPLICATIONS_SETTINGS));
+             Intent intent = new Intent();
+             intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+             Uri uri = Uri.fromParts("package", getPackageName(), null);
+             intent.setData(uri);
+             startActivity(intent);
          } else if (id == R.id.AboutApp){
              AboutApp aa = new AboutApp();
              android.support.v4.app.FragmentTransaction fragmentTransaction =
