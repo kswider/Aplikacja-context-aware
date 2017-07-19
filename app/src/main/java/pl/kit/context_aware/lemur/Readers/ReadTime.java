@@ -54,4 +54,19 @@ public class ReadTime {
         Calendar c = Calendar.getInstance();
         return c.get(Calendar.DAY_OF_WEEK);
     }
+
+    public  static int ReadDayofMonth(){
+        Calendar c = Calendar.getInstance();
+        return c.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public  static int ReadMonth(){
+        Calendar c = Calendar.getInstance();
+        return c.get(Calendar.MONTH);
+    }
+
+    public  static int ReadYear(){
+        Calendar c = Calendar.getInstance();
+        return c.get(Calendar.YEAR);
+    }
 }

@@ -58,6 +58,7 @@ import pl.kit.context_aware.lemur.ListItems.DayItem;
 import pl.kit.context_aware.lemur.ListItems.LocationItem;
 import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.ListItems.TimeItem;
+import pl.kit.context_aware.lemur.Readers.ReadTime;
 
 public class EditScript extends AppCompatActivity implements DayOfWeekPickerFragment.NoticeDialogDOWPFListener
         , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener
@@ -102,6 +103,8 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public void SetTimeOnClick(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         ((TimePickerFragment) newFragment).setPosition(-1);
+        ((TimePickerFragment) newFragment).setHour(ReadTime.ReadHour());
+        ((TimePickerFragment) newFragment).setMinute(ReadTime.ReadMinute());
         newFragment.show(getFragmentManager(), "Time Picker");
 
     }
@@ -149,6 +152,9 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public void SetDateOnClick(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         ((DatePickerFragment)newFragment).setPosition(-1);
+        ((DatePickerFragment) newFragment).setDay(ReadTime.ReadDayofMonth());
+        ((DatePickerFragment) newFragment).setMonth(ReadTime.ReadMonth());
+        ((DatePickerFragment) newFragment).setYear(ReadTime.ReadYear());
         newFragment.show(getFragmentManager(), "Date Picker");
     }
 
