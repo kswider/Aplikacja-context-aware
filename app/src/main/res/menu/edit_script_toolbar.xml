@@ -5,8 +5,8 @@
 
     <item
         android:id="@+id/action_save_script"
-        android:icon="@drawable/ic_menu_send"
+        android:icon="@android:drawable/ic_menu_save"
         android:title="@string/es_Save"
-        app:showAsAction="always|withText"/>
+        app:showAsAction="always|withText" />
 
 </menu>

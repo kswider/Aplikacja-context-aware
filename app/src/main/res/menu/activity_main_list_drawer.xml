@@ -11,8 +11,8 @@
             android:id="@+id/IEScripts"
             android:title="@string/ld_IEScripts" />
     </group>
-
-    <item android:title="@string/ld_others">
+    <item
+        android:title="@string/ld_others">
         <menu>
             <item
                 android:id="@+id/Settings"
@@ -28,19 +28,25 @@
         </menu>
     </item>
 
-    <item android:title="@string/ld_tests">
+
+    <item
+        android:title="@string/ld_tests"
+        android:visible="false">
         <menu>
         <item
             android:id="@+id/Readers"
-            android:title="@string/ld_readers_tests" />
+            android:title="@string/ld_readers_tests"
+            android:visible="false"/>
 
             <item
                 android:id="@+id/Actions"
-                android:title="@string/ld_actions_tests" />
+                android:title="@string/ld_actions_tests"
+                android:visible="false"/>
 
             <item
                 android:id="@+id/Others"
-                android:title="@string/ld_other_tests" />
+                android:title="@string/ld_other_tests"
+                android:visible="false"/>
         </menu>
     </item>
 

@@ -51,6 +51,7 @@
     <string name="AppVersion" translatable="false">Lemur v1.0</string>
     <string name="AppWarning">This is the dev version of the App. Release version is still in progress.</string>
     <string name="AppInfos">This App was created by Tomasz Borowicz and Krzysztof Swider as the final project for objective programming.</string>
+    <string name="AppLogoInfos">App Icon made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></string>
 
     <!--EditScript-->
     <string name="es_Save">Save</string>

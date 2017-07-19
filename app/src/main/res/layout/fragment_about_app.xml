@@ -34,4 +34,14 @@
         android:layout_marginTop="10dp"
         android:textAlignment="center"/>
 
+    <TextView
+        android:text="@string/AppLogoInfos"
+        android:id="@+id/AppLogoInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/AppInfo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textAlignment="center"/>
+
 </RelativeLayout>

@@ -26,7 +26,7 @@ public class SendNotification {
     public static void sendNotification(Context mContext, int id, String title, String text){
         android.support.v4.app.NotificationCompat.Builder mBuilder =
                 new android.support.v4.app.NotificationCompat.Builder(mContext)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_lemur_notify)
                         .setContentTitle(title)
                         .setContentText(text);
 
