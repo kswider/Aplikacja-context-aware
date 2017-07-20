@@ -100,4 +100,10 @@
     <string name="sms_phoneNo">Numer telefonu</string>
     <string name="sms_phone_book">Książka telefoniczna</string>
     <string name="at_SendNotifyExtended">Wyślij powiadomienie</string>
+    <string name="AppLogoInfos">Logo aplikacji stworzone przez <a href="http://www.freepik.com" title="Freepik">Freepik</a> z <a href="http://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> na licencji <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></string>
+    <string name="es_AddInterval">Dodaj przedział czasu</string>
+    <string name="es_SetRepeating">Ustaw cyklicznie</string>
+    <string name="es_SetTime1">Dodaj czas startu</string>
+    <string name="es_SetTime2">Dodaj czas zatrzymania</string>
+    <string name="es_WrongInterval">To nie jest poprawny przedział czasu</string>
 </resources>
