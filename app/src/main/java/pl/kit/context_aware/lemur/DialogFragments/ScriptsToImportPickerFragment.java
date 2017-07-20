@@ -35,7 +35,6 @@ public class ScriptsToImportPickerFragment extends DialogFragment {
      */
     public interface NoticeDialogSTIFListener {
         public void onDialogSTIFPositiveClick(DialogFragment dialog);
-        public void onDialogSTIFNegativeClick(DialogFragment dialog);
     }
 
     /**
@@ -87,12 +86,6 @@ public class ScriptsToImportPickerFragment extends DialogFragment {
                         }
                         mListener.onDialogSTIFPositiveClick(ScriptsToImportPickerFragment.this);
 
-                    }
-                })
-                .setNegativeButton(R.string.tp_cancel, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mListener.onDialogSTIFNegativeClick(ScriptsToImportPickerFragment.this);
                     }
                 });
         return builder.create();

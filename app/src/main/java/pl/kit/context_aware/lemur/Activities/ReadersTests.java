@@ -16,6 +16,10 @@ import pl.kit.context_aware.lemur.R;
  * Fragment contains buttons used to test if readers are working properly
  */
 public class ReadersTests extends Fragment {
+
+    /**
+     * Required empty public constructor
+     */
     public ReadersTests() {
         // Required empty public constructor
     }

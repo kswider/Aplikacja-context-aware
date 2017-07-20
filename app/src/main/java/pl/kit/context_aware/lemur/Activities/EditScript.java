@@ -1,18 +1,15 @@
 package pl.kit.context_aware.lemur.Activities;
 
 import android.Manifest;
-import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +19,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -31,7 +27,6 @@ import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -70,21 +65,22 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private String smsNumber; //used in deleting old files, when we edit model
     private LinkedList<Integer> daysCyclical = new LinkedList<>(); //list of daysCyclical selected or loaded from file
     private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
-    private String scriptNameToLoad; // ??
-    private EditText ETScriptName; //Edit text field with script name
+    private String scriptNameToLoad; // name of the loading script
+
+    //Layout pools variables
+    private EditText ETScriptName;
     private TextView TVDaysCyclical;
     private TimeItem tmpTimeInterval;
-
     private ListView listDays;
     private ListView listTime;
     private ListView listLocation;
     private ListView listAction;
 
+    //Lists and adapters
     ArrayList<TimeItem> times;
     ArrayList<DayItem> days;
     ArrayList<LocationItem> locations;
     ArrayList<ActionItem> actions;
-
     TimesArrayAdapter timeAdapter;
     DaysArrayAdapter daysAdapter;
     LocationsArrayAdapter locationsAdapter;
@@ -98,7 +94,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     /**
      * Action for the Set Time Clicked
-     * Opens TimePickerFragment with previously selected items checked
+     * Opens TimePickerFragment with previously selected items checked or current time if ocreating new one
      * @param v current View
      */
     public void SetTimeOnClick(View v) {
@@ -150,6 +146,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         newFragment.show(getFragmentManager(), "Action Picker");
     }
 
+    /**
+     * Action for Set Date Clicked
+     * Opens DataPickerFragment with previously selected date or current date if adding new one
+     * @param v current view
+     */
     public void SetDateOnClick(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         ((DatePickerFragment)newFragment).setPosition(-1);
@@ -189,25 +190,57 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     }
 
     /**
-     * Method running at Activity start
+     * Method running when Activity start
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_script);
-        Intent intent = getIntent();
 
+        //initializing lists
         days = new ArrayList<DayItem>();
         times = new ArrayList<TimeItem>();
         locations = new ArrayList<LocationItem>();
         actions = new ArrayList<ActionItem>();
 
+        //loading data from model to variables
+        this.loadDataFromModel();
 
-        String scriptNameToEdit = intent.getExtras().getString("eFileName");
+        //initializing layout objects
+        listDays = (ListView)findViewById(R.id.es_lv_days);
+        listTime = (ListView)findViewById(R.id.es_lv_time);
+        listLocation = (ListView)findViewById(R.id.es_lv_location);
+        listAction = (ListView)findViewById(R.id.es_lv_actions);
+        TVDaysCyclical = (TextView) findViewById(R.id.es_repeating_days);
+        ETScriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
+
+        //connecting adapters with lists and lists with listViews
+        //refreshing height of the listViewx
+        daysAdapter = new DaysArrayAdapter(this, days);
+        listDays.setAdapter(daysAdapter);
+        ListUtils.setDynamicHeight(listDays);
+        locationsAdapter = new LocationsArrayAdapter(this,locations);
+        listLocation.setAdapter(locationsAdapter);
+        ListUtils.setDynamicHeight(listLocation);
+        actionsAdapter = new ActionsArrayAdapter(this, actions);
+        listAction.setAdapter(actionsAdapter);
+        ListUtils.setDynamicHeight(listAction);
+        timeAdapter = new TimesArrayAdapter(this, times);
+        listTime.setAdapter(timeAdapter);
+        ListUtils.setDynamicHeight(listTime);
+
+        //setting other layout pools
+        ETScriptName.setText(rememberedModelName);
+
+    }
+
+    /**
+     * Function loading data from Heart model to variables
+     */
+    public void loadDataFromModel(){
+        String scriptNameToEdit = getIntent().getExtras().getString("eFileName");
         rememberedModelName = scriptNameToEdit;
-
-
         notificationNumber = "";
         smsNumber = "";
         //if we are creating new model
@@ -311,33 +344,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
         }
-
-        //initializing layout objects
-        listDays = (ListView)findViewById(R.id.es_lv_days);
-        listTime = (ListView)findViewById(R.id.es_lv_time);
-        listLocation = (ListView)findViewById(R.id.es_lv_location);
-        listAction = (ListView)findViewById(R.id.es_lv_actions);
-        TVDaysCyclical = (TextView) findViewById(R.id.es_repeating_days);
-        ETScriptName = (EditText) findViewById(R.id.es_set_tiitle_sub);
-
-        //connecting adapters with lists and lists with listViews
-        //refreshing height of the listViewx
-        daysAdapter = new DaysArrayAdapter(this, days);
-        listDays.setAdapter(daysAdapter);
-        ListUtils.setDynamicHeight(listDays);
-        locationsAdapter = new LocationsArrayAdapter(this,locations);
-        listLocation.setAdapter(locationsAdapter);
-        ListUtils.setDynamicHeight(listLocation);
-        actionsAdapter = new ActionsArrayAdapter(this, actions);
-        listAction.setAdapter(actionsAdapter);
-        ListUtils.setDynamicHeight(listAction);
-        timeAdapter = new TimesArrayAdapter(this, times);
-        listTime.setAdapter(timeAdapter);
-        ListUtils.setDynamicHeight(listTime);
-
-        //setting other layout pools
-        ETScriptName.setText(scriptNameToEdit);
-
     }
 
 
@@ -383,6 +389,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 //Creatung list of rules
                 LinkedList<Xrule> rulesList = new LinkedList<>();
 
+                //TODO: Devide into smoller functions and add some comments
                 if(!actions.isEmpty()){
                     boolean notificationToSend = false;
                     boolean smsToSend = false;
@@ -622,16 +629,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     }
 
     /**
-     * DayOfWeekPickerFragment listener for negative button clicked
-     * Saves selected items to private linked list.
-     * @param dialog DayOfWeekPickerFragment dialog object
-     */
-    @Override
-    public void onDialogDOWPFNegativeClick(DialogFragment dialog) {
-
-    }
-
-    /**
      * ActionPickerFragment listener for positive button clicked
      * Saves selected items to private linked list.
      * @param dialog ActionPickerFragment dialog object
@@ -645,16 +642,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         }
         actionsAdapter.notifyDataSetChanged();
         ListUtils.setDynamicHeight(listAction);
-    }
-
-    /**
-     * ActionPickerFragment listener for negative button clicked
-     * Saves selected items to private linked list.
-     * @param dialog ActionPickerFragment dialog object
-     */
-    @Override
-    public void onDialogAPFNegativeClick(DialogFragment dialog) {
-
     }
 
     /**
@@ -702,17 +689,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         ListUtils.setDynamicHeight(listTime);
     }
 
-    /**
-     * TimePickerFragment listener for negative button clicked
-     * Saves selected items to private linked list.
-     * @param dialog TimePickerFragment dialog object
-     */
-    @Override
-    public void onDialogTPFNegativeClick(DialogFragment dialog) {
-        if(((TimePickerFragment)dialog).getTypeInterval() != 0){
-            times.remove(times.size()-1);
-        }
-    }
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -775,6 +751,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
     }
 
+    /**
+     * SMSMessageDetails listener for positive button clicked
+     * saves number and message and refreshes list
+     * @param dialog SMSMessageDetailsFragment object
+     */
     @Override
     public void onSMSMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
         if(((SMSMessageDetailsFragment)dialog).getPosition() == -1){
@@ -793,11 +774,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         ListUtils.setDynamicHeight(listAction);
     }
 
-    @Override
-    public void onSMSMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
-
-    }
-
+    /**
+     * NotificationMessageDetails listener for positive button clicked
+     * Saves title and message and refreshes the list
+     * @param dialog NotificationMessageDetailsFragment object
+     */
     @Override
     public void onNotificationMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
         if(((NotificationMessageDetailsFragment)dialog).getPosition() == -1){
@@ -816,11 +797,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         ListUtils.setDynamicHeight(listAction);
     }
 
-    @Override
-    public void onNotificationMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
-
-    }
-
+    /**
+     * DataPicker listner for positive button clicked
+     * Saves selected data and refreshes list
+     * @param dialog DPF Fragment
+     */
     @Override
     public void onDialogDPFPositiveClick(DialogFragment dialog) {
         if(((DatePickerFragment)dialog).getPosition() == -1){
@@ -834,12 +815,15 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         ListUtils.setDynamicHeight(listDays);
     }
 
-    @Override
-    public void onDialogDPFNegativeClick(DialogFragment dialog) {
 
-    }
-
+    /**
+     * Inner class used to refresh height of listViews
+     */
     public static class ListUtils {
+        /**
+         * Calculates height of the list view
+         * @param mListView ListView to calculate height
+         */
         public static void setDynamicHeight(ListView mListView) {
             ListAdapter mListAdapter = mListView.getAdapter();
             if (mListAdapter == null) {

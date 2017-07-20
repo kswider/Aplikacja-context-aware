@@ -27,30 +27,18 @@ import pl.kit.context_aware.lemur.R;
 
 public class ActionPickerFragment extends DialogFragment {
     private int actions; //List containing int numbers of picked actions
-    private int position;
+    private int position; //position on the list in EditScript activity
     NoticeDialogAPFListener mListener; //Object of inner inference used to communicate between dialog and activity
 
     public void setPosition(int position) {
         this.position = position;
     }
-
-
     public int getPosition() {
-
         return position;
     }
-
-    /**
-     * Setter used to setting values checked on dialog window opened
-     */
     public void setActions(int actions) {
         this.actions = actions;
     }
-
-    /**
-     * Getter returning list of picked actions
-     * @return Linked list with picked actions
-     */
     public int getActions() {
         return actions;
     }
@@ -60,7 +48,6 @@ public class ActionPickerFragment extends DialogFragment {
      */
     public interface NoticeDialogAPFListener {
         public void onDialogAPFPositiveClick(DialogFragment dialog);
-        public void onDialogAPFNegativeClick(DialogFragment dialog);
     }
 
     /**

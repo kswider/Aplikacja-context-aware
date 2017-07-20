@@ -35,7 +35,6 @@ public class ScriptsToExportPickerFragment extends DialogFragment {
      */
     public interface NoticeDialogSTEFListener {
         public void onDialogSTEFPositiveClick(DialogFragment dialog);
-        public void onDialogSTEFNegativeClick(DialogFragment dialog);
     }
 
     /**
@@ -87,12 +86,6 @@ public class ScriptsToExportPickerFragment extends DialogFragment {
                         }
                         mListener.onDialogSTEFPositiveClick(ScriptsToExportPickerFragment.this);
 
-                    }
-                })
-                .setNegativeButton(R.string.tp_cancel, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mListener.onDialogSTEFNegativeClick(ScriptsToExportPickerFragment.this);
                     }
                 });
         return builder.create();

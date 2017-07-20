@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ScriptsToExportPickerFragment.NoticeDialogSTEFListener,
         ScriptsToImportPickerFragment.NoticeDialogSTIFListener, DeleteScriptFragment.NoticeDialogDSFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener,NotificationMessageDetailsFragment.NoticeNotificationMessageDetailsFragmentListener  {
 
-    LinkedList<String> ScriptsToExport = null; //List of scripts to export after appropriate buuton clicked
-    LinkedList<String> ScriptsToImport = null; //List of scripts to import after appropriate buuton clicked
+    LinkedList<String> ScriptsToExport = null; //List of scripts to export after appropriate button clicked
+    LinkedList<String> ScriptsToImport = null; //List of scripts to import after appropriate button clicked
 
     /**
      * Action for Silent Button Clicked (part of ActionsTests Fragment)
@@ -303,6 +303,7 @@ public class MainActivity extends AppCompatActivity
 
     /**
      * Method called always when this Activity is created (= when app start)
+     * Checks permissions and ask for missing
      * Loads default fragment to the main container (ScriptsLists)
      * Loads toolbar
      * Loads NavigationView
@@ -313,8 +314,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //list of missing permissions
         ArrayList<String> permissionsNeeded = new ArrayList<String>();
 
+        //checks for permissions and adds them to the list if missing
         if (ContextCompat.checkSelfPermission(this.getApplication(),
                 Manifest.permission.READ_CONTACTS)
                 != PackageManager.PERMISSION_GRANTED){
@@ -340,30 +343,29 @@ public class MainActivity extends AppCompatActivity
             permissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
         }
 
+        //Asks for missing premissions
         if(permissionsNeeded.size() > 0) {
             ActivityCompat.requestPermissions(this,
                     permissionsNeeded.toArray((new String[permissionsNeeded.size()])),
                     1);
         }
 
+        //starts background service if not already running
         startService(new Intent(getBaseContext(), MainForegroundService.class));
 
+        //loads layout objects
         ScriptsList sl = new ScriptsList();
         android.support.v4.app.FragmentTransaction fragmentTransaction =
                 getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container,sl);
         fragmentTransaction.commit();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
@@ -466,16 +468,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * method called after negative button is clicked in ScriptsToExportFragment
-     * Implemented because required
-     * @param dialog dialog in which button was clicked
-     */
-    @Override
-    public void onDialogSTEFNegativeClick(DialogFragment dialog) {
-        ScriptsToExport = null;
-    }
-
-    /**
      * method called after positive button is clicked in ScriptsToImportFragment
      * Imports selected scripts to internal storage.
      * @param dialog dialog in which button was clicked
@@ -488,16 +480,6 @@ public class MainActivity extends AppCompatActivity
         }
         Toast.makeText(this, getResources().getString(R.string.imported),
                 Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * method called after negative button is clicked in ScriptsToImportFragment
-     * Implemented because required
-     * @param dialog dialog in which button was clicked
-     */
-    @Override
-    public void onDialogSTIFNegativeClick(DialogFragment dialog) {
-        ScriptsToImport = null;
     }
 
     /**
@@ -515,33 +497,23 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * method called after negative button is clicked in DeleteScriptFragment
-     * Implemented because required
-     * @param dialog dialog in which button was clicked
+     * SMSMessageDetails listener for positive button clicked
+     * saves number and message and refreshes list
+     * @param dialog SMSMessageDetailsFragment object
      */
-    @Override
-    public void onDialogDSFNegativeClick(DialogFragment dialog) {
-
-    }
-
     @Override
     public void onSMSMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
         SendSMS.sendMessage(this,((SMSMessageDetailsFragment)dialog).getPhoneNo(),((SMSMessageDetailsFragment)dialog).getMessage());
     }
 
-    @Override
-    public void onSMSMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
-
-    }
-
+    /**
+     * NotificationMessageDetails listener for positive button clicked
+     * Saves title and message and refreshes the list
+     * @param dialog NotificationMessageDetailsFragment object
+     */
     @Override
     public void onNotificationMessageDetailsFragmentPositiveClick(DialogFragment dialog) {
         SendNotification.sendNotification(this,7,((NotificationMessageDetailsFragment)dialog).getnotiTitle(),((NotificationMessageDetailsFragment)dialog).getMessage());
-    }
-
-    @Override
-    public void onNotificationMessageDetailsFragmentNegativeClick(DialogFragment dialog) {
-
     }
 
 }

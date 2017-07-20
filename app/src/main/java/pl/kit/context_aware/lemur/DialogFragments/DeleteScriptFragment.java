@@ -38,7 +38,6 @@ public class DeleteScriptFragment extends DialogFragment {
      */
     public interface NoticeDialogDSFListener {
         public void onDialogDSFPositiveClick(DialogFragment dialog);
-        public void onDialogDSFNegativeClick(DialogFragment dialog);
     }
 
     /**
@@ -86,12 +85,6 @@ public class DeleteScriptFragment extends DialogFragment {
                         fileSer.delete();
                         fileHmr.delete();
                         mListener.onDialogDSFPositiveClick(DeleteScriptFragment.this);
-                    }
-                })
-                .setNegativeButton(R.string.tp_cancel, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mListener.onDialogDSFNegativeClick(DeleteScriptFragment.this);
                     }
                 });
         return builder.create();

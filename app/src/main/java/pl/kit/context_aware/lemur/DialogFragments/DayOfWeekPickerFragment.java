@@ -23,30 +23,18 @@ public class DayOfWeekPickerFragment extends DialogFragment {
     private LinkedList<Integer> daysOfWeek = new LinkedList<>(); //List containing int numbers of picked days
     boolean[] checkedValues; //List containing list of all actions. If true action which number is array number is checked
     NoticeDialogDOWPFListener mListener; //Object of inner inference used to communicate between dialog and activity
-    private int position;
+    private int position; //position on the list in EditScript activity
 
     public void setPosition(int position) {
         this.position = position;
     }
-
-
     public int getPosition() {
 
         return position;
     }
-
-
-    /**
-     * Setter used to setting values checked on dialog window opened
-     */
     public void setDaysOfWeek(LinkedList<Integer> daysOfWeek) {
         this.daysOfWeek = (LinkedList)daysOfWeek.clone();
     }
-
-    /**
-     * Getter returning list of picked days
-     * @return Linked list with picked days
-     */
     public LinkedList<Integer> getDays() {
         return daysOfWeek;
     }
@@ -57,7 +45,6 @@ public class DayOfWeekPickerFragment extends DialogFragment {
      */
     public interface NoticeDialogDOWPFListener {
         public void onDialogDOWPFPositiveClick(DialogFragment dialog);
-        public void onDialogDOWPFNegativeClick(DialogFragment dialog);
     }
 
     /**
@@ -114,12 +101,6 @@ public class DayOfWeekPickerFragment extends DialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         mListener.onDialogDOWPFPositiveClick(DayOfWeekPickerFragment.this);
 
-                    }
-                })
-                .setNegativeButton(R.string.tp_cancel, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        mListener.onDialogDOWPFNegativeClick(DayOfWeekPickerFragment.this);
                     }
                 });
         return builder.create();

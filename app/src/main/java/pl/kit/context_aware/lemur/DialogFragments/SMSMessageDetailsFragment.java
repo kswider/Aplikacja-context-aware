@@ -34,7 +34,10 @@ public class SMSMessageDetailsFragment extends DialogFragment {
     private String phoneNo;
     private String message;
     private static final int REQUEST_CONTACT_NUMBER = 1;
-    private int position;
+    private int position; //position on the list in EditScript activity
+    private EditText et_phoneNo;
+    private EditText et_message;
+    private Button clickButton;
 
     public SMSMessageDetailsFragment() {
         this.position = -1;
@@ -43,44 +46,35 @@ public class SMSMessageDetailsFragment extends DialogFragment {
     public void setPosition(int position) {
         this.position = position;
     }
-
     public int getPosition() {
-
         return position;
     }
-
-    private EditText et_phoneNo;
-    private EditText et_message;
-    private Button clickButton;
-
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
-
     public void setMessage(String message) {
         this.message = message;
     }
-
     public String getPhoneNo() {
         return phoneNo;
     }
-
     public String getMessage() {
         return message;
     }
 
-    /* The activity that creates an instance of this dialog fragment must
-            * implement this interface in order to receive event callbacks.
-            * Each method passes the DialogFragment in case the host needs to query it. */
+    /**
+     * Inference used to communication between this dialog and activity in which it was called
+     */
     public interface NoticeSMSMessageDetailsFragmentListener {
         public void onSMSMessageDetailsFragmentPositiveClick(DialogFragment dialog);
-        public void onSMSMessageDetailsFragmentNegativeClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
     NoticeSMSMessageDetailsFragmentListener mListener;
 
-    // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
+    /**
+     * Method needed for communication between activity and dialog
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -96,6 +90,9 @@ public class SMSMessageDetailsFragment extends DialogFragment {
     }
 
 
+    /**
+     * Method building dialog window
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -142,16 +139,13 @@ public class SMSMessageDetailsFragment extends DialogFragment {
                                 message = et_message.getText().toString();
                                 mListener.onSMSMessageDetailsFragmentPositiveClick(SMSMessageDetailsFragment.this);
                             }
-                        })
-                        .setNegativeButton(R.string.tp_cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                mListener.onSMSMessageDetailsFragmentNegativeClick(SMSMessageDetailsFragment.this);
-                                SMSMessageDetailsFragment.this.getDialog().cancel();
-                            }
                         });
         return builder.create();
     }
 
+    /**
+     *Method used to call phone book
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to

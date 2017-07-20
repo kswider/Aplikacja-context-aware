@@ -19,38 +19,32 @@ public class DatePickerFragment extends DialogFragment
     private int day;
     private int month;
     private int year;
-    private int position;
+    private int position; //position on the list in EditScript activity
 
+    /**
+     * Setters and getters
+     */
     public int getPosition() {
         return position;
     }
-
     public void setPosition(int position) {
         this.position = position;
     }
-
-    private NoticeDialogDPFListener mListener; //Object of inner inference used to communicate between dialog and activity
-
     public int getDay() {
         return day;
     }
-
     public void setDay(int day) {
         this.day = day;
     }
-
     public int getMonth() {
         return month;
     }
-
     public void setMonth(int month) {
         this.month = month;
     }
-
     public int getYear() {
         return year;
     }
-
     public void setYear(int year) {
         this.year = year;
     }
@@ -60,8 +54,8 @@ public class DatePickerFragment extends DialogFragment
      */
     public interface NoticeDialogDPFListener {
         public void onDialogDPFPositiveClick(DialogFragment dialog);
-        public void onDialogDPFNegativeClick(DialogFragment dialog);
     }
+    private NoticeDialogDPFListener mListener; //Object of inner inference used to communicate between dialog and activity
 
     /**
      * Method needed for communication between activity and dialog
@@ -80,6 +74,11 @@ public class DatePickerFragment extends DialogFragment
         }
     }
 
+    /**
+     * Method building dialog fragment
+     * @param savedInstanceState
+     * @return created fragment
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -88,6 +87,13 @@ public class DatePickerFragment extends DialogFragment
         return dpf;
     }
 
+    /**
+     * Method called when date selected
+     * @param view current view
+     * @param year selected year
+     * @param month selected month
+     * @param day selected day
+     */
     public void onDateSet(DatePicker view, int year, int month, int day) {
         this.year = year;
         this.month = month+1;

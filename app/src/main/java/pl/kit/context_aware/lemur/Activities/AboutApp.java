@@ -16,10 +16,10 @@ import pl.kit.context_aware.lemur.R;
  */
 public class AboutApp extends Fragment {
 
-
-    public AboutApp() {
-        // Required empty public constructor
-    }
+    /**
+     * Required empty public constructor
+     */
+    public AboutApp() {}
 
     /**
      * method called always when fragment is being drawn

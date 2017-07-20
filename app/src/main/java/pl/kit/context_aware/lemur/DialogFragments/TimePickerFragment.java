@@ -30,50 +30,25 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     public void setTypeInterval(int typeInterval) {
         this.typeInterval = typeInterval;
     }
-
     public int getTypeInterval() {
         return typeInterval;
     }
-
     public void setPosition(int position) {
         this.position = position;
     }
-
     public int getPosition() {
-
         return position;
     }
-
-    /**
-     * Getter returning picked minutes
-     * @return picked minutes
-     */
     public int getMinute() {
         return minute;
     }
-
-    /**
-     * Getter returning picked hours
-     * @return picked mhours
-     */
     public int getHour() {
         return hour;
     }
-
-    /**
-     *
-     * @param minute
-     */
     public void setMinute(int minute) {
         if (minute >=0) this.minute = minute;
     }
-
-    /**
-     *
-     * @param hour
-     */
     public void setHour(int hour) {
-
         if(hour>=0) this.hour = hour;
     }
 
@@ -82,7 +57,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
      */
     public interface NoticeDialogTPFListener {
         public void onDialogTPFPositiveClick(DialogFragment dialog);
-        public void onDialogTPFNegativeClick(DialogFragment dialog);
     }
 
     /**

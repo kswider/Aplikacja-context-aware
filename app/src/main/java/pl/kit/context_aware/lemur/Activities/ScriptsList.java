@@ -29,9 +29,10 @@ import pl.kit.context_aware.lemur.ListItems.ListItem;
 public class ScriptsList extends ListFragment {
     ArrayList<ListItem> ItemList; //list of scripts in internal storage
 
-    public ScriptsList() {
-        // Required empty public constructor
-    }
+    /**
+     * Required empty public constructor
+     */
+    public ScriptsList() {}
 
 
     /**

@@ -21,53 +21,45 @@ public class NotificationMessageDetailsFragment extends DialogFragment {
     private String notiTitle;
     private String message;
     private int position;
-
-    public NotificationMessageDetailsFragment() {
-        position = -1;
-    }
-
-    public void setPosition(int position) {
-
-        this.position = position;
-    }
-
-    public int getPosition() {
-
-        return position;
-    }
-
     private static final int REQUEST_CONTACT_NUMBER = 1;
     private EditText et_notiTitle;
     private EditText et_message;
 
+    public NotificationMessageDetailsFragment() {
+        position = -1;
+    }
+    public void setPosition(int position) {
+        this.position = position;
+    }
+    public int getPosition() {
+        return position;
+    }
     public void setnotiTitle(String notiTitle) {
         this.notiTitle = notiTitle;
     }
-
     public void setMessage(String message) {
         this.message = message;
     }
-
     public String getnotiTitle() {
         return notiTitle;
     }
-
     public String getMessage() {
         return message;
     }
 
-    /* The activity that creates an instance of this dialog fragment must
-            * implement this interface in order to receive event callbacks.
-            * Each method passes the DialogFragment in case the host needs to query it. */
+    /**
+     * Inference used to communication between this dialog and activity in which it was called
+     */
     public interface NoticeNotificationMessageDetailsFragmentListener {
         public void onNotificationMessageDetailsFragmentPositiveClick(DialogFragment dialog);
-        public void onNotificationMessageDetailsFragmentNegativeClick(DialogFragment dialog);
     }
 
     // Use this instance of the interface to deliver action events
     NoticeNotificationMessageDetailsFragmentListener mListener;
 
-    // Override the Fragment.onAttach() method to instantiate the NoticeDialogListener
+    /**
+     * Method needed for communication between activity and dialog
+     */
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -83,6 +75,9 @@ public class NotificationMessageDetailsFragment extends DialogFragment {
     }
 
 
+    /**
+     * Method building dialog window
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -107,12 +102,6 @@ public class NotificationMessageDetailsFragment extends DialogFragment {
                         notiTitle = et_notiTitle.getText().toString();
                         message = et_message.getText().toString();
                         mListener.onNotificationMessageDetailsFragmentPositiveClick(NotificationMessageDetailsFragment.this);
-                    }
-                })
-                .setNegativeButton(R.string.tp_cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        mListener.onNotificationMessageDetailsFragmentNegativeClick(NotificationMessageDetailsFragment.this);
-                        NotificationMessageDetailsFragment.this.getDialog().cancel();
                     }
                 });
         return builder.create();

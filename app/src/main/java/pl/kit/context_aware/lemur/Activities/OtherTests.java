@@ -17,9 +17,10 @@ import pl.kit.context_aware.lemur.R;
  */
 public class OtherTests extends Fragment {
 
-    public OtherTests() {
-        // Required empty public constructor
-    }
+    /**
+     * Required empty public constructor
+     */
+    public OtherTests() {}
 
     /**
      * method called always when fragment is being drawn
