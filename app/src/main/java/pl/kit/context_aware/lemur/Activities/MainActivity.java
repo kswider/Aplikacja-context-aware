@@ -1,10 +1,12 @@
 package pl.kit.context_aware.lemur.Activities;
 
         import android.Manifest;
+        import android.app.ActivityManager;
         import android.app.AlarmManager;
         import android.app.DialogFragment;
         import android.app.Notification;
         import android.app.PendingIntent;
+        import android.content.Context;
         import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.pm.PackageManager;
@@ -350,8 +352,17 @@ public class MainActivity extends AppCompatActivity
                     1);
         }
 
-        //starts background service if not already running
-        startService(new Intent(getBaseContext(), MainForegroundService.class));
+        //Checks if foreground service is already working and if not, starts it
+        ActivityManager manager = (ActivityManager)this.getSystemService(Context.ACTIVITY_SERVICE);
+        Boolean isAlreadyRunning = false;
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE))
+        {
+            if (MainForegroundService.class.getName().equals(service.service.getClassName())) {
+                isAlreadyRunning = true;
+            }
+        }
+        if(!isAlreadyRunning) startService(new Intent(getBaseContext(), MainForegroundService.class));
+
 
         //loads layout objects
         ScriptsList sl = new ScriptsList();
