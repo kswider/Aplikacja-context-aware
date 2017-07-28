@@ -4,12 +4,12 @@ import android.Manifest;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,18 +19,14 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
+
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
-
 import pl.kit.context_aware.lemur.ArrayAdapters.ActionsArrayAdapter;
 import pl.kit.context_aware.lemur.ArrayAdapters.DaysArrayAdapter;
 import pl.kit.context_aware.lemur.ArrayAdapters.LocationsArrayAdapter;
@@ -56,6 +52,7 @@ import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.ListItems.TimeItem;
 import pl.kit.context_aware.lemur.Readers.ReadTime;
 
+
 public class EditScript extends AppCompatActivity implements DayOfWeekPickerFragment.NoticeDialogDOWPFListener
         , ActionPickerFragment.NoticeDialogAPFListener, TimePickerFragment.NoticeDialogTPFListener, SMSMessageDetailsFragment.NoticeSMSMessageDetailsFragmentListener
         , NotificationMessageDetailsFragment.NoticeNotificationMessageDetailsFragmentListener, DatePickerFragment.NoticeDialogDPFListener{
@@ -64,7 +61,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private String notificationNumber; //used in deleting old files, when we edit model
     private String smsNumber; //used in deleting old files, when we edit model
     private LinkedList<Integer> daysCyclical = new LinkedList<>(); //list of daysCyclical selected or loaded from file
-    private static final int PLACE_PICKER_REQUEST = 1; //variable needed for place picker
     private String scriptNameToLoad; // name of the loading script
 
     //Layout pools variables
@@ -76,6 +72,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     private ListView listLocation;
     private ListView listAction;
 
+
     //Lists and adapters
     ArrayList<TimeItem> times;
     ArrayList<DayItem> days;
@@ -86,11 +83,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     LocationsArrayAdapter locationsAdapter;
     ActionsArrayAdapter actionsAdapter;
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    int PLACE_PICKER_REQUEST = -1;
 
     /**
      * Action for the Set Time Clicked
@@ -169,16 +162,18 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            int PLACE_PICKER_REQUEST = -1;
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
             try {
-                startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
+                startActivityForResult(builder.build(this), 1);
             } catch (GooglePlayServicesRepairableException e) {
+                Log.i("Lemur","9");
                 e.printStackTrace();
             } catch (GooglePlayServicesNotAvailableException e) {
+                Log.i("Lemur","8");
                 e.printStackTrace();
             }
+            Toast.makeText(this,"Click",Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(this,this.getResources().getString(R.string.pl_fine_location),Toast.LENGTH_SHORT).show();
@@ -250,9 +245,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             setSupportActionBar(toolbar);
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            // ATTENTION: This was auto-generated to implement the App Indexing API.
-            // See https://g.co/AppIndexing/AndroidStudio for more information.
-            client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         }
         //if we are editing already existing model
         else {
@@ -339,10 +331,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
 
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            // ATTENTION: This was auto-generated to implement the App Indexing API.
-            // See https://g.co/AppIndexing/AndroidStudio for more information.
-            client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
         }
     }
 
@@ -690,40 +678,14 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     }
 
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("EditScript Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
     }
 
     /**
@@ -734,16 +696,16 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             if (resultCode == RESULT_OK) {
                 double latitude,longitude;
-                Place place = PlacePicker.getPlace(data, this);
-                latitude = place.getLatLng().latitude;
+
+                latitude = PlacePicker.getPlace(this,data).getLatLng().latitude;
                 latitude = ((double)Math.round(latitude*1000)) / 1000;
-                longitude = place.getLatLng().longitude;
+                longitude = PlacePicker.getPlace(this,data).getLatLng().longitude;
                 longitude = ((double)Math.round(longitude*1000)) / 1000;
 
-                if(requestCode == -1) locations.add(new LocationItem(latitude,longitude));
-                if(requestCode != -1){
-                    locations.get(requestCode).setLatitude(latitude);
-                    locations.get(requestCode).setLongitude(longitude);
+                if(requestCode == 1) locations.add(new LocationItem(latitude,longitude));
+                if(requestCode != 1){
+                    locations.get(requestCode-2).setLatitude(latitude);
+                    locations.get(requestCode-2).setLongitude(longitude);
                 }
                 locationsAdapter.notifyDataSetChanged();
                 ListUtils.setDynamicHeight(listLocation);

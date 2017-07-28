@@ -75,11 +75,10 @@ public class LocationsArrayAdapter extends ArrayAdapter<LocationItem>  {
                 if (ContextCompat.checkSelfPermission(mContext,
                         Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
-                    int PLACE_PICKER_REQUEST = position;
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
                     try {
-                        ((Activity)mContext).startActivityForResult(builder.build((Activity)mContext), PLACE_PICKER_REQUEST);
+                        ((Activity)mContext).startActivityForResult(builder.build((Activity)mContext), position+2);
                     } catch (GooglePlayServicesRepairableException e) {
                         e.printStackTrace();
                     } catch (GooglePlayServicesNotAvailableException e) {

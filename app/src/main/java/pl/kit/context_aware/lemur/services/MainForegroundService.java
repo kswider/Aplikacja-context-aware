@@ -10,10 +10,8 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
-import pl.kit.context_aware.lemur.Activities.MainActivity;
-import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
+import pl.kit.context_aware.lemur.activities.MainActivity;
 import pl.kit.context_aware.lemur.HeartDROID.HeartService;
-import pl.kit.context_aware.lemur.HeartDROID.Inference;
 import pl.kit.context_aware.lemur.R;
 import pl.kit.context_aware.lemur.Readers.ReadTime;
 
