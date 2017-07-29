@@ -65,7 +65,7 @@
     <string name="tp_cancel">Anuluj</string>
     <string name="tp_setTime">Ustaw Czas</string>
     <string name="action_1">Wyłącz bluetooth</string>
-    <string name="action_2">Wyłącz bluetooth</string>
+    <string name="action_2">Włącz bluetooth</string>
     <string name="action_3">Wyłącz WiFi</string>
     <string name="action_4">Włącz WiFi</string>
     <string name="action_5">Wyłącz dźwięk</string>
@@ -106,4 +106,10 @@
     <string name="es_SetTime1">Dodaj czas startu</string>
     <string name="es_SetTime2">Dodaj czas zatrzymania</string>
     <string name="es_WrongInterval">To nie jest poprawny przedział czasu</string>
+    <string name="es_BloutoothError">Istnieją już akcje dotyczące bluetooth</string>
+    <string name="es_EmptyScriptError1">Twój skrypt musi posiadać jakieś akcje</string>
+    <string name="es_EmptyScriptError2">Twój skrypt musi posiadać jakieś warunki</string>
+    <string name="es_NameError">Twój skrypt musi posiadać nazwę</string>
+    <string name="es_SoundError">Istnieja już akcje dotyczące dżwięku</string>
+    <string name="es_WiFiError">Istnieją już akcje dotyczące WiFi</string>
 </resources>

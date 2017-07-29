@@ -74,6 +74,12 @@
     <string name="es_AddAction">Add action</string>
     <string name="es_AddInterval">Add time division</string>
     <string name="es_WrongInterval">This is not a proper time interval</string>
+    <string name="es_BloutoothError">You have already added some bluetooth action</string>
+    <string name="es_WiFiError">You have already added some WiFi action</string>
+    <string name="es_SoundError">You have already added some sound action</string>
+    <string name="es_NameError">Your script needs a name</string>
+    <string name="es_EmptyScriptError1">You need to add some actions to the script</string>
+    <string name="es_EmptyScriptError2">You need to add some conditions to the script</string>
 
     <!--Time Picker-->
     <string name="tp_cancel">Cancel</string>

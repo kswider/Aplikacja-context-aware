@@ -24,6 +24,25 @@ public class ActionItem {
     public static final int ACTION_SEND_NOTIFICATION = 7;
     public static final int ACTION_SEND_SMS =8;
 
+    @Override
+    public int hashCode() {
+        return actionType;
+    }
+
+    @Override
+    public boolean equals(final Object obj){
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+
+        ActionItem other = (ActionItem) obj;
+        if(this.getActionType() == ((ActionItem) obj).getActionType()) return true;
+        return false;
+    }
+
     public ActionItem(){
         mainText = "";
         subText = "";

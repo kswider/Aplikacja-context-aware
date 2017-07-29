@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,8 +81,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     DaysArrayAdapter daysAdapter;
     LocationsArrayAdapter locationsAdapter;
     ActionsArrayAdapter actionsAdapter;
-
-    int PLACE_PICKER_REQUEST = -1;
 
     /**
      * Action for the Set Time Clicked
@@ -163,14 +160,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
             try {
                 startActivityForResult(builder.build(this), 1);
             } catch (GooglePlayServicesRepairableException e) {
-                Log.i("Lemur","9");
                 e.printStackTrace();
             } catch (GooglePlayServicesNotAvailableException e) {
-                Log.i("Lemur","8");
                 e.printStackTrace();
             }
             Toast.makeText(this,"Click",Toast.LENGTH_SHORT).show();
@@ -356,7 +350,20 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save_script:
-                
+
+                if(ETScriptName.getText().toString().isEmpty()){
+                    Toast.makeText(this,getText(R.string.es_NameError),Toast.LENGTH_LONG).show();
+                    return false;
+                }
+                if(actions.isEmpty()){
+                    Toast.makeText(this,getText(R.string.es_EmptyScriptError1),Toast.LENGTH_LONG).show();
+                    return false;
+                }
+                if(days.isEmpty() && daysCyclical.isEmpty()){
+                    Toast.makeText(this,getText(R.string.es_EmptyScriptError2),Toast.LENGTH_LONG).show();
+                    return false;
+                }
+
                 //Creating basic model containing all needed types and attributes
                 ModelCreator newModel = ModelCreator.createBasicModel(ETScriptName.getText().toString(), this);
 
@@ -623,6 +630,26 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
      */
     @Override
     public void onDialogAPFPositiveClick(DialogFragment dialog) {
+
+        int tmpAction = ((ActionPickerFragment)dialog).getActions();
+        if((actions.contains(new ActionItem("","",ActionItem.ACTION_BLUETOOTH_ON)) || actions.contains(new ActionItem("","",ActionItem.ACTION_BLUETOOTH_OFF)))
+            && (tmpAction == ActionItem.ACTION_BLUETOOTH_ON || tmpAction == ActionItem.ACTION_BLUETOOTH_OFF)){
+            Toast.makeText(this,getText(R.string.es_BloutoothError),Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if((actions.contains(new ActionItem("","",ActionItem.ACTION_WIFI_OFF)) || actions.contains(new ActionItem("","",ActionItem.ACTION_WIFI_ON)))
+                && (tmpAction == ActionItem.ACTION_WIFI_OFF || tmpAction == ActionItem.ACTION_WIFI_ON)){
+            Toast.makeText(this,getText(R.string.es_WiFiError),Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if((actions.contains(new ActionItem("","",ActionItem.ACTION_SOUND_ON)) || actions.contains(new ActionItem("","",ActionItem.ACTION_SOUND_OFF)) || actions.contains(new ActionItem("","",ActionItem.ACTION_VIBRATIONS_MODE))
+                && (tmpAction == ActionItem.ACTION_SOUND_ON || tmpAction == ActionItem.ACTION_SOUND_OFF || tmpAction == ActionItem.ACTION_VIBRATIONS_MODE))){
+            Toast.makeText(this,getText(R.string.es_SoundError),Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if(((ActionPickerFragment)dialog).getPosition() == -1){
             actions.add(new ActionItem("","",((ActionPickerFragment)dialog).getActions()));
         } else{
