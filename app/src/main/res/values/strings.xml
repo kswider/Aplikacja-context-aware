@@ -171,6 +171,10 @@
     <string name="default_message_sub">You have something to do!</string>
     <string name="choose_scripts">Choose Scripts</string>
 
+    <!--MainForegroundService -->
+    <string name="mfs_main">Lemur</string>
+    <string name="mfs_sub">Lemur is working in a background</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="other_tests_ld">Others</string>

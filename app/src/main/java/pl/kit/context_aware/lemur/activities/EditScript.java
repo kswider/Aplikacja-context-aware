@@ -287,7 +287,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
             }
 
-            final String[] daysOfWeekArray = this.getResources().getStringArray(R.array.days_short);
+            final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
             for (String day : loadedModel.getAttribute("day").getValues()){
                 for(int i = 0; i<daysOfWeekArray.length;++i){
                     if(daysOfWeekArray[i].equals(day)){
@@ -542,6 +542,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
                 if (!daysCyclical.isEmpty()) {
                     attributesList.add(newModel.getAttribute("day"));
+
 
                     final String[] daysOfWeekArray = {"mon", "tue", "wed", "thu", "fri", "sat", "sun"};
                     LinkedList<String> selectedDays = new LinkedList<>();

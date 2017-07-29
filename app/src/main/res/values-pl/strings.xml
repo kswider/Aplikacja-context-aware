@@ -113,4 +113,15 @@
     <string name="es_SoundError">Istnieja już akcje dotyczące dżwięku</string>
     <string name="es_WiFiError">Istnieją już akcje dotyczące WiFi</string>
     <string name="es_Everyday">Codziennie</string>
+    <string-array name="days_short">
+        <item>Pon</item>
+        <item>Wt</item>
+        <item>Śr</item>
+        <item>Czw</item>
+        <item>Pt</item>
+        <item>Sob</item>
+        <item>Nd</item>
+    </string-array>
+    <string name="mfs_main">Lemur</string>
+    <string name="mfs_sub">"Lemur buszuje w tle "</string>
 </resources>

@@ -37,8 +37,8 @@ public class MainForegroundService extends Service {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         Notification notification = new Notification.Builder(this)
-                .setContentTitle(getText(R.string.noti_title))
-                .setContentText(getText(R.string.noti_message))
+                .setContentTitle(getText(R.string.mfs_main))
+                .setContentText(getText(R.string.mfs_sub))
                 .setSmallIcon(R.drawable.ic_lemur_notify)
                 .setContentIntent(pendingIntent)
                 .setTicker("IDK")
@@ -58,7 +58,6 @@ public class MainForegroundService extends Service {
     }
 
     public void onDestroy() {
-        Toast.makeText(this, "Service Destroyed", Toast.LENGTH_LONG).show();
         super.onDestroy();
     }
 }
