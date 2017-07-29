@@ -1,11 +1,7 @@
-package pl.kit.context_aware.lemur.PhoneActions;
+package pl.kit.context_aware.lemur.phoneActions;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.net.wifi.WifiManager;
-import android.provider.Settings;
 
 /**
  * Created by Tomek on 2017-01-17.

@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.FilesOperations;
+package pl.kit.context_aware.lemur.filesOperations;
 
 import android.content.Context;
 import android.os.Environment;
@@ -24,7 +24,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import pl.kit.context_aware.lemur.Editor.ModelCreator;
+import pl.kit.context_aware.lemur.editor.ModelCreator;
 import pl.kit.context_aware.lemur.R;
 
 /**

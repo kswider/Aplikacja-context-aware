@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.Activities;
+package pl.kit.context_aware.lemur.activities;
 
 
 import android.os.Bundle;

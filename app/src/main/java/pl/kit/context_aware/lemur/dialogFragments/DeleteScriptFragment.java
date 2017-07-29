@@ -1,20 +1,18 @@
-package pl.kit.context_aware.lemur.DialogFragments;
+package pl.kit.context_aware.lemur.dialogFragments;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
-import android.widget.TextView;
 
 import java.io.File;
 import java.util.LinkedList;
 
 
-import pl.kit.context_aware.lemur.Editor.ModelCreator;
-import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
+import pl.kit.context_aware.lemur.editor.ModelCreator;
+import pl.kit.context_aware.lemur.filesOperations.FilesOperations;
 import pl.kit.context_aware.lemur.R;
 
 /**

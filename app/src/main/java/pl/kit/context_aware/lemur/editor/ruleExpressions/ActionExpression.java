@@ -1,8 +1,8 @@
-package pl.kit.context_aware.lemur.Editor.RuleExpressions;
+package pl.kit.context_aware.lemur.editor.ruleExpressions;
 
 import java.io.Serializable;
 
-import pl.kit.context_aware.lemur.Editor.Xtypes.XTT2StringRepresentation;
+import pl.kit.context_aware.lemur.editor.xtypes.XTT2StringRepresentation;
 
 /**
  * Created by Krzysiek on 2016-12-15.

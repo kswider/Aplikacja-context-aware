@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.Editor;
+package pl.kit.context_aware.lemur.editor;
 
 
 import android.content.Context;
@@ -13,13 +13,10 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.LinkedList;
 
-import pl.kit.context_aware.lemur.Editor.RuleExpressions.ALSVExpression;
-import pl.kit.context_aware.lemur.Editor.RuleExpressions.ActionExpression;
-import pl.kit.context_aware.lemur.Editor.RuleExpressions.DecisionExpression;
-import pl.kit.context_aware.lemur.Editor.Xtypes.Xattr;
-import pl.kit.context_aware.lemur.Editor.Xtypes.Xrule;
-import pl.kit.context_aware.lemur.Editor.Xtypes.Xtype;
-import pl.kit.context_aware.lemur.Editor.Xtypes.Xschm;
+import pl.kit.context_aware.lemur.editor.xtypes.Xattr;
+import pl.kit.context_aware.lemur.editor.xtypes.Xrule;
+import pl.kit.context_aware.lemur.editor.xtypes.Xtype;
+import pl.kit.context_aware.lemur.editor.xtypes.Xschm;
 
 /**
  * Created by Krzysiek on 2016-12-16.

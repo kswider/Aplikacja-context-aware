@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.ArrayAdapters;
+package pl.kit.context_aware.lemur.arrayAdapters;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -7,17 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import pl.kit.context_aware.lemur.Activities.EditScript;
+import pl.kit.context_aware.lemur.activities.EditScript;
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.DialogFragments.TimePickerFragment;
-import pl.kit.context_aware.lemur.ListItems.TimeItem;
+import pl.kit.context_aware.lemur.dialogFragments.TimePickerFragment;
+import pl.kit.context_aware.lemur.listItems.TimeItem;
 
 /**
  * Created by Tomek on 2017-04-22.

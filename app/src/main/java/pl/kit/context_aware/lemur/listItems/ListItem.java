@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.ListItems;
+package pl.kit.context_aware.lemur.listItems;
 
 /**
  * Created by Tomek on 09.01.2017.

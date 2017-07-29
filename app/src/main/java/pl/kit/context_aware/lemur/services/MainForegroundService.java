@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.Services;
+package pl.kit.context_aware.lemur.services;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -11,9 +11,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import pl.kit.context_aware.lemur.activities.MainActivity;
-import pl.kit.context_aware.lemur.HeartDROID.HeartService;
+import pl.kit.context_aware.lemur.heartDROID.HeartService;
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.Readers.ReadTime;
+import pl.kit.context_aware.lemur.readers.ReadTime;
 
 /**
  * Created by Tomek on 2017-07-17.

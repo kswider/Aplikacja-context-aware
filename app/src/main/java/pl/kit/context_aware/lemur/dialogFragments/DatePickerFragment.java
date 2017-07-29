@@ -1,10 +1,9 @@
-package pl.kit.context_aware.lemur.DialogFragments;
+package pl.kit.context_aware.lemur.dialogFragments;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.DatePicker;
 

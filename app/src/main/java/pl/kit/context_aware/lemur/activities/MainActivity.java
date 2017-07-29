@@ -1,13 +1,11 @@
-package pl.kit.context_aware.lemur.Activities;
+package pl.kit.context_aware.lemur.activities;
 
         import android.Manifest;
         import android.app.ActivityManager;
         import android.app.AlarmManager;
         import android.app.DialogFragment;
-        import android.app.Notification;
         import android.app.PendingIntent;
         import android.content.Context;
-        import android.content.DialogInterface;
         import android.content.Intent;
         import android.content.pm.PackageManager;
         import android.net.Uri;
@@ -16,7 +14,6 @@ package pl.kit.context_aware.lemur.Activities;
         import android.provider.Settings;
         import android.support.v4.app.ActivityCompat;
         import android.support.v4.content.ContextCompat;
-        import android.util.Log;
         import android.view.View;
         import android.support.design.widget.NavigationView;
         import android.support.v4.view.GravityCompat;
@@ -29,27 +26,26 @@ package pl.kit.context_aware.lemur.Activities;
 
         import java.util.ArrayList;
         import java.util.LinkedList;
-        import java.util.List;
 
-        import pl.kit.context_aware.lemur.DialogFragments.DeleteScriptFragment;
-        import pl.kit.context_aware.lemur.DialogFragments.ImportExportFragment;
-        import pl.kit.context_aware.lemur.DialogFragments.NotificationMessageDetailsFragment;
-        import pl.kit.context_aware.lemur.DialogFragments.SMSMessageDetailsFragment;
-        import pl.kit.context_aware.lemur.DialogFragments.ScriptsToExportPickerFragment;
-        import pl.kit.context_aware.lemur.DialogFragments.ScriptsToImportPickerFragment;
-        import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
-        import pl.kit.context_aware.lemur.HeartDROID.HeartAlarmReceiver;
-        import pl.kit.context_aware.lemur.HeartDROID.Inference;
-        import pl.kit.context_aware.lemur.PhoneActions.BluetoothManager;
-        import pl.kit.context_aware.lemur.PhoneActions.ConnectionManager;
-        import pl.kit.context_aware.lemur.PhoneActions.RingModes;
-        import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
-        import pl.kit.context_aware.lemur.PhoneActions.SendSMS;
+        import pl.kit.context_aware.lemur.dialogFragments.DeleteScriptFragment;
+        import pl.kit.context_aware.lemur.dialogFragments.ImportExportFragment;
+        import pl.kit.context_aware.lemur.dialogFragments.NotificationMessageDetailsFragment;
+        import pl.kit.context_aware.lemur.dialogFragments.SMSMessageDetailsFragment;
+        import pl.kit.context_aware.lemur.dialogFragments.ScriptsToExportPickerFragment;
+        import pl.kit.context_aware.lemur.dialogFragments.ScriptsToImportPickerFragment;
+        import pl.kit.context_aware.lemur.filesOperations.FilesOperations;
+        import pl.kit.context_aware.lemur.heartDROID.HeartAlarmReceiver;
+        import pl.kit.context_aware.lemur.heartDROID.Inference;
+        import pl.kit.context_aware.lemur.phoneActions.BluetoothManager;
+        import pl.kit.context_aware.lemur.phoneActions.ConnectionManager;
+        import pl.kit.context_aware.lemur.phoneActions.RingModes;
+        import pl.kit.context_aware.lemur.phoneActions.SendNotification;
+        import pl.kit.context_aware.lemur.phoneActions.SendSMS;
         import pl.kit.context_aware.lemur.R;
-        import pl.kit.context_aware.lemur.Readers.ReadLocation;
-        import pl.kit.context_aware.lemur.Readers.ReadTime;
-        import pl.kit.context_aware.lemur.Services.MainForegroundService;
-        import pl.kit.context_aware.lemur.TmpTests.TestService;
+        import pl.kit.context_aware.lemur.readers.ReadLocation;
+        import pl.kit.context_aware.lemur.readers.ReadTime;
+        import pl.kit.context_aware.lemur.services.MainForegroundService;
+        import pl.kit.context_aware.lemur.tmpTests.TestService;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ScriptsToExportPickerFragment.NoticeDialogSTEFListener,

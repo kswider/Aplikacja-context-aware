@@ -1,12 +1,11 @@
-package pl.kit.context_aware.lemur.HeartDROID;
+package pl.kit.context_aware.lemur.heartDROID;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
-import pl.kit.context_aware.lemur.Readers.ReadTime;
+import pl.kit.context_aware.lemur.filesOperations.FilesOperations;
 
 /**
  * Created by Tomek on 2017-07-19.

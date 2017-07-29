@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.ArrayAdapters;
+package pl.kit.context_aware.lemur.arrayAdapters;
 
 import android.Manifest;
 import android.app.Activity;
@@ -20,9 +20,9 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
 
-import pl.kit.context_aware.lemur.Activities.EditScript;
+import pl.kit.context_aware.lemur.activities.EditScript;
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.ListItems.LocationItem;
+import pl.kit.context_aware.lemur.listItems.LocationItem;
 
 /**
  * Created by Tomek on 2017-04-22.

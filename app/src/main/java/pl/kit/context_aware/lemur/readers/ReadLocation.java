@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.Readers;
+package pl.kit.context_aware.lemur.readers;
 
 import android.Manifest;
 import android.content.Context;
@@ -7,9 +7,8 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
-import android.widget.Toast;
 
-import pl.kit.context_aware.lemur.PhoneActions.SendNotification;
+import pl.kit.context_aware.lemur.phoneActions.SendNotification;
 import pl.kit.context_aware.lemur.R;
 
 /**

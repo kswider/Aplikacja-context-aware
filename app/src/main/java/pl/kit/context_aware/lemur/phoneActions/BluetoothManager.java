@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.PhoneActions;
+package pl.kit.context_aware.lemur.phoneActions;
 
 import android.bluetooth.BluetoothAdapter;
 

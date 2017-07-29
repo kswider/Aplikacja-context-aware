@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.HeartDROID.callbacks;
+package pl.kit.context_aware.lemur.heartDROID.callbacks;
 
 import heart.Callback;
 import heart.Debug;
@@ -7,7 +7,7 @@ import heart.alsvfd.SimpleNumeric;
 import heart.exceptions.AttributeNotRegisteredException;
 import heart.exceptions.NotInTheDomainException;
 import heart.xtt.Attribute;
-import pl.kit.context_aware.lemur.Readers.ReadTime;
+import pl.kit.context_aware.lemur.readers.ReadTime;
 
 /**
  * Created by Krzysiek on 2016-12-27.

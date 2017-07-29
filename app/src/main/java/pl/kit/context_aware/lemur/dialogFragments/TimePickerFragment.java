@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.DialogFragments;
+package pl.kit.context_aware.lemur.dialogFragments;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.format.DateFormat;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import pl.kit.context_aware.lemur.R;

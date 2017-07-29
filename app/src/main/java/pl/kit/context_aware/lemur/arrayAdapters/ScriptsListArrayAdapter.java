@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.ArrayAdapters;
+package pl.kit.context_aware.lemur.arrayAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.ListItems.ListItem;
+import pl.kit.context_aware.lemur.listItems.ListItem;
 
 /**
  * Created by Tomek on 09.01.2017.

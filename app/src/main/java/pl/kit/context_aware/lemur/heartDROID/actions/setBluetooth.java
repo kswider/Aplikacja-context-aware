@@ -1,9 +1,8 @@
-package pl.kit.context_aware.lemur.HeartDROID.actions;
+package pl.kit.context_aware.lemur.heartDROID.actions;
 
 import heart.Action;
 import heart.State;
-import pl.kit.context_aware.lemur.HeartDROID.Inference;
-import pl.kit.context_aware.lemur.PhoneActions.BluetoothManager;
+import pl.kit.context_aware.lemur.phoneActions.BluetoothManager;
 
 /**
  * Created by Krzysiek on 2017-01-13.

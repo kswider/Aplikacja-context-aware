@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.ListItems;
+package pl.kit.context_aware.lemur.listItems;
 
 import java.sql.Time;
 

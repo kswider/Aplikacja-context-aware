@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.ArrayAdapters;
+package pl.kit.context_aware.lemur.arrayAdapters;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -13,11 +13,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import pl.kit.context_aware.lemur.Activities.EditScript;
-import pl.kit.context_aware.lemur.DialogFragments.DatePickerFragment;
-import pl.kit.context_aware.lemur.DialogFragments.DayOfWeekPickerFragment;
+import pl.kit.context_aware.lemur.activities.EditScript;
+import pl.kit.context_aware.lemur.dialogFragments.DatePickerFragment;
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.ListItems.DayItem;
+import pl.kit.context_aware.lemur.listItems.DayItem;
 
 /**
  * Created by Tomek on 2017-04-22.

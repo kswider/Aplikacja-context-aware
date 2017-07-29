@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.HeartDROID;
+package pl.kit.context_aware.lemur.heartDROID;
 
 import android.content.Context;
 import heart.*;

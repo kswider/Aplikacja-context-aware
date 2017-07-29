@@ -1,13 +1,13 @@
-package pl.kit.context_aware.lemur.Editor.Xtypes;
+package pl.kit.context_aware.lemur.editor.xtypes;
 
 
 
 import java.io.Serializable;
 import java.util.LinkedList;
 
-import pl.kit.context_aware.lemur.Editor.RuleExpressions.ALSVExpression;
-import pl.kit.context_aware.lemur.Editor.RuleExpressions.ActionExpression;
-import pl.kit.context_aware.lemur.Editor.RuleExpressions.DecisionExpression;
+import pl.kit.context_aware.lemur.editor.ruleExpressions.ALSVExpression;
+import pl.kit.context_aware.lemur.editor.ruleExpressions.ActionExpression;
+import pl.kit.context_aware.lemur.editor.ruleExpressions.DecisionExpression;
 
 /**
  * Created by Krzysiek on 2016-12-15.

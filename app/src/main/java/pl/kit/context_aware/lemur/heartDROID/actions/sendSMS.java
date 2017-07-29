@@ -1,13 +1,12 @@
-package pl.kit.context_aware.lemur.HeartDROID.actions;
+package pl.kit.context_aware.lemur.heartDROID.actions;
 
 import java.util.LinkedList;
 
 import heart.Action;
 import heart.State;
-import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
-import pl.kit.context_aware.lemur.HeartDROID.Inference;
-import pl.kit.context_aware.lemur.PhoneActions.SendSMS;
-import pl.kit.context_aware.lemur.Readers.ReadTime;
+import pl.kit.context_aware.lemur.filesOperations.FilesOperations;
+import pl.kit.context_aware.lemur.heartDROID.Inference;
+import pl.kit.context_aware.lemur.phoneActions.SendSMS;
 
 /**
  * Created by Krzysiek on 2017-04-22.

@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.DialogFragments;
+package pl.kit.context_aware.lemur.dialogFragments;
 
 
 import android.os.Bundle;

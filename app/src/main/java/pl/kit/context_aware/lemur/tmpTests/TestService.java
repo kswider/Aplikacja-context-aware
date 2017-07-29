@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.TmpTests;
+package pl.kit.context_aware.lemur.tmpTests;
 
 import android.app.Service;
 import android.content.Intent;

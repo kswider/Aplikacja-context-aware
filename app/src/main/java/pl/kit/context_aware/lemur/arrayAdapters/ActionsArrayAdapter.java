@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.ArrayAdapters;
+package pl.kit.context_aware.lemur.arrayAdapters;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,12 +17,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import pl.kit.context_aware.lemur.Activities.EditScript;
-import pl.kit.context_aware.lemur.DialogFragments.ActionPickerFragment;
-import pl.kit.context_aware.lemur.DialogFragments.NotificationMessageDetailsFragment;
-import pl.kit.context_aware.lemur.DialogFragments.SMSMessageDetailsFragment;
+import pl.kit.context_aware.lemur.activities.EditScript;
+import pl.kit.context_aware.lemur.dialogFragments.NotificationMessageDetailsFragment;
+import pl.kit.context_aware.lemur.dialogFragments.SMSMessageDetailsFragment;
 import pl.kit.context_aware.lemur.R;
-import pl.kit.context_aware.lemur.ListItems.ActionItem;
+import pl.kit.context_aware.lemur.listItems.ActionItem;
 
 /**
  * Created by Tomek on 2017-04-22.

@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.Readers;
+package pl.kit.context_aware.lemur.readers;
 import java.util.Calendar;
 
 /**

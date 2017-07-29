@@ -1,17 +1,10 @@
-package pl.kit.context_aware.lemur.HeartDROID;
+package pl.kit.context_aware.lemur.heartDROID;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
-import android.widget.Toast;
 
-import java.util.Calendar;
-import java.util.Date;
-
-import pl.kit.context_aware.lemur.FilesOperations.FilesOperations;
+import pl.kit.context_aware.lemur.filesOperations.FilesOperations;
 
 /**
  * Created by Tomek on 2017-01-12.

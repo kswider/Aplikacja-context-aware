@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.DialogFragments;
+package pl.kit.context_aware.lemur.dialogFragments;
 
 import android.Manifest;
 import android.app.Activity;
@@ -6,18 +6,13 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-import pl.kit.context_aware.lemur.ListItems.ActionItem;
+import pl.kit.context_aware.lemur.listItems.ActionItem;
 import pl.kit.context_aware.lemur.R;
 
 /**

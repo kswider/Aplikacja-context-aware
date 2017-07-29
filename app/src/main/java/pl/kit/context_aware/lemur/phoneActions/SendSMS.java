@@ -1,8 +1,7 @@
-package pl.kit.context_aware.lemur.PhoneActions;
+package pl.kit.context_aware.lemur.phoneActions;
 
 import android.content.Context;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.widget.Toast;
 
 /**

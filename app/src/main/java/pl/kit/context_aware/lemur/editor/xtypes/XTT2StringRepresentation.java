@@ -1,4 +1,4 @@
-package pl.kit.context_aware.lemur.Editor.Xtypes;
+package pl.kit.context_aware.lemur.editor.xtypes;
 
 /**
  * Created by Krzysiek on 2016-12-16.
