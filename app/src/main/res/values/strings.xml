@@ -80,6 +80,7 @@
     <string name="es_NameError">Your script needs a name</string>
     <string name="es_EmptyScriptError1">You need to add some actions to the script</string>
     <string name="es_EmptyScriptError2">You need to add some conditions to the script</string>
+    <string name="es_Everyday">Everyday</string>
 
     <!--Time Picker-->
     <string name="tp_cancel">Cancel</string>

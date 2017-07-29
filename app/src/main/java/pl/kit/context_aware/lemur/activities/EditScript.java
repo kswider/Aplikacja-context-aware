@@ -25,6 +25,7 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
 import pl.kit.context_aware.lemur.arrayAdapters.ActionsArrayAdapter;
 import pl.kit.context_aware.lemur.arrayAdapters.DaysArrayAdapter;
@@ -188,6 +189,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         setContentView(R.layout.activity_edit_script);
 
         //initializing lists
+        daysCyclical = new LinkedList<Integer>();
         days = new ArrayList<DayItem>();
         times = new ArrayList<TimeItem>();
         locations = new ArrayList<LocationItem>();
@@ -222,6 +224,25 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         //setting other layout pools
         ETScriptName.setText(rememberedModelName);
 
+        Collections.sort(daysCyclical);
+
+        if(daysCyclical.size() == 7){
+            TVDaysCyclical.setText(getText(R.string.es_Everyday));
+        }else {
+            String[] daysStr = this.getResources().getStringArray(R.array.days_short);
+            TVDaysCyclical.setText("");
+            for (int i = 0; i < daysCyclical.size(); i++) {
+                if (TVDaysCyclical.getText().equals(""))
+                    TVDaysCyclical.setText(daysStr[daysCyclical.get(i)]);
+                else
+                    TVDaysCyclical.setText(TVDaysCyclical.getText() + "," + daysStr[daysCyclical.get(i)]);
+            }
+        }
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -239,6 +260,10 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             setSupportActionBar(toolbar);
 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            for(int i=0;i<7;i++) {
+                daysCyclical.add(i);
+            }
         }
         //if we are editing already existing model
         else {
@@ -319,12 +344,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                     actions.add(action);
                 }
             }
-
-
-            Toolbar toolbar = (Toolbar) findViewById(R.id.edit_script_toolbar);
-
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 
@@ -615,10 +634,15 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     public void onDialogDOWPFPositiveClick(DialogFragment dialog) {
         String [] daysStr = this.getResources().getStringArray(R.array.days_short);
         daysCyclical = ((DayOfWeekPickerFragment) dialog).getDays();
+        Collections.sort(daysCyclical);
+        if(daysCyclical.size() == 7){
+            TVDaysCyclical.setText(getText(R.string.es_Everyday));
+            return;
+        }
         TVDaysCyclical.setText("");
         for(int i=0;i<daysCyclical.size();i++){
-            if(TVDaysCyclical.getText().equals("")) TVDaysCyclical.setText(daysStr[i]);
-            else TVDaysCyclical.setText(TVDaysCyclical.getText()+","+daysStr[i]);
+            if(TVDaysCyclical.getText().equals("")) TVDaysCyclical.setText(daysStr[daysCyclical.get(i)]);
+            else TVDaysCyclical.setText(TVDaysCyclical.getText()+","+daysStr[daysCyclical.get(i)]);
         }
 
     }
