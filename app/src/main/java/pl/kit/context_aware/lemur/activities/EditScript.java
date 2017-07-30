@@ -2,23 +2,28 @@ package pl.kit.context_aware.lemur.activities;
 
 import android.Manifest;
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.cast.CastRemoteDisplay;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.ui.PlacePicker;
@@ -168,7 +173,6 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
             } catch (GooglePlayServicesNotAvailableException e) {
                 e.printStackTrace();
             }
-            Toast.makeText(this,"Click",Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(this,this.getResources().getString(R.string.pl_fine_location),Toast.LENGTH_SHORT).show();
@@ -187,6 +191,17 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_script);
+
+        if(getFilesDir().listFiles().length == 0){
+            AlertDialog.Builder infoBuilder = new AlertDialog.Builder(this);
+            infoBuilder.setTitle(getText(R.string.es_InfoTitle))
+                    .setMessage(getText(R.string.es_InfoMess))
+                    .setPositiveButton(R.string.tp_ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked OK button
+                        }});
+            infoBuilder.show();
+        }
 
         //initializing lists
         daysCyclical = new LinkedList<Integer>();
@@ -368,6 +383,16 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_info_script:
+                AlertDialog.Builder infoBuilder = new AlertDialog.Builder(this);
+                infoBuilder.setTitle(getText(R.string.es_InfoTitle))
+                        .setMessage(getText(R.string.es_InfoMess))
+                        .setPositiveButton(R.string.tp_ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                }});
+                infoBuilder.show();
+                return true;
             case R.id.action_save_script:
 
                 if(ETScriptName.getText().toString().isEmpty()){

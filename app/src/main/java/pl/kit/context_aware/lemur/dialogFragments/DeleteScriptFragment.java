@@ -62,6 +62,10 @@ public class DeleteScriptFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(getString(R.string.ds_delete_1) + " " + fileName + " " + getString(R.string.ds_delete_2))
+                .setNegativeButton(getText(R.string.tp_cancel), new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {}
+                })
                 .setPositiveButton(R.string.tp_ok, new DialogInterface.OnClickListener(){
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

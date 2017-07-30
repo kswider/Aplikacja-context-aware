@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import pl.kit.context_aware.lemur.activities.MainActivity;
 import pl.kit.context_aware.lemur.heartDROID.HeartService;
