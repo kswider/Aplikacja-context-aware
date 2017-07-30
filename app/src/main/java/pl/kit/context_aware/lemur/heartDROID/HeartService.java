@@ -27,10 +27,8 @@ public class HeartService extends IntentService {
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         Inference inference = new Inference(this);
-        Integer x = 0;
         for(String scriptName : FilesOperations.getAllModelNames(this)) {
-            Log.d("Lemur", x.toString());
-            x++;
+            Log.d("Lemur", scriptName);
             inference.runInference(getFilesDir() + "/" + scriptName + ".hmr");
         }
     }

@@ -445,7 +445,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                                 newModel.getAttribute("bluetooth").addValue("on");
                                 decisionExpression = new DecisionExpression(newModel.getAttribute("bluetooth"), "on");
                                 decisionList.add(decisionExpression);
-                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setBluetooth");
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.heartDROID.actions.setBluetooth");
                                 actionList.add(actionExpression);
                                 break;
                             case ActionItem.ACTION_BLUETOOTH_OFF:
@@ -453,7 +453,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                                 newModel.getAttribute("bluetooth").addValue("off");
                                 decisionExpression = new DecisionExpression(newModel.getAttribute("bluetooth"), "off");
                                 decisionList.add(decisionExpression);
-                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setBluetooth");
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.heartDROID.actions.setBluetooth");
                                 actionList.add(actionExpression);
                                 break;
                             case ActionItem.ACTION_WIFI_ON:
@@ -461,7 +461,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                                 newModel.getAttribute("wifi").addValue("on");
                                 decisionExpression = new DecisionExpression(newModel.getAttribute("wifi"), "on");
                                 decisionList.add(decisionExpression);
-                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setWifi");
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.heartDROID.actions.setWifi");
                                 actionList.add(actionExpression);
                                 break;
                             case ActionItem.ACTION_WIFI_OFF:
@@ -469,7 +469,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                                 newModel.getAttribute("wifi").addValue("off");
                                 decisionExpression = new DecisionExpression(newModel.getAttribute("wifi"), "off");
                                 decisionList.add(decisionExpression);
-                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setWifi");
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.heartDROID.actions.setWifi");
                                 actionList.add(actionExpression);
                                 break;
                             case ActionItem.ACTION_SOUND_OFF:
@@ -477,7 +477,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                                 newModel.getAttribute("sound").addValue("off");
                                 decisionExpression = new DecisionExpression(newModel.getAttribute("sound"), "off");
                                 decisionList.add(decisionExpression);
-                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.heartDROID.actions.setSound");
                                 actionList.add(actionExpression);
                                 break;
                             case ActionItem.ACTION_SOUND_ON:
@@ -485,7 +485,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                                 newModel.getAttribute("sound").addValue("on");
                                 decisionExpression = new DecisionExpression(newModel.getAttribute("sound"), "on");
                                 decisionList.add(decisionExpression);
-                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.heartDROID.actions.setSound");
                                 actionList.add(actionExpression);
                                 break;
                             case ActionItem.ACTION_VIBRATIONS_MODE:
@@ -493,7 +493,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                                 newModel.getAttribute("sound").addValue("vibration");
                                 decisionExpression = new DecisionExpression(newModel.getAttribute("sound"), "vibration");
                                 decisionList.add(decisionExpression);
-                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.setSound");
+                                actionExpression = new ActionExpression("pl.kit.context_aware.lemur.heartDROID.actions.setSound");
                                 actionList.add(actionExpression);
                                 break;
                             case ActionItem.ACTION_SEND_NOTIFICATION:
@@ -513,7 +513,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         attributesToSetList.add(newModel.getAttribute("notificationNumber"));
                         decisionExpression = new DecisionExpression(newModel.getAttribute("notification"), "sent");
                         decisionList.add(decisionExpression);
-                        actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendNotification");
+                        actionExpression = new ActionExpression("pl.kit.context_aware.lemur.heartDROID.actions.sendNotification");
                         actionList.add(actionExpression);
 
                         if(!notificationNumber.equals("")){
@@ -529,7 +529,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                         attributesToSetList.add(newModel.getAttribute("smsNumber"));
                         decisionExpression = new DecisionExpression(newModel.getAttribute("sms"), "sent");
                         decisionList.add(decisionExpression);
-                        actionExpression = new ActionExpression("pl.kit.context_aware.lemur.HeartDROID.actions.sendSMS");
+                        actionExpression = new ActionExpression("pl.kit.context_aware.lemur.heartDROID.actions.sendSMS");
                         actionList.add(actionExpression);
 
                         if(!smsNumber.equals("")){

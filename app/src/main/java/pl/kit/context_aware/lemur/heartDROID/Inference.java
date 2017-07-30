@@ -1,13 +1,14 @@
 package pl.kit.context_aware.lemur.heartDROID;
 
 import android.content.Context;
+import android.util.Log;
+
 import heart.*;
 import heart.exceptions.*;
 import heart.parser.hmr.HMRParser;
 import heart.parser.hmr.runtime.SourceFile;
 import heart.uncertainty.ConflictSetFireAll;
 import heart.xtt.XTTModel;
-
 
 /**
  * Created by Krzysiek on 2016-12-27.
@@ -24,7 +25,7 @@ public class Inference  {
     }
 
     /**
-     * Method runs inference using HeartDROID using model from given path
+     * Method runs inference using heartDROID using model from given path
      * @param path String representation of path to the model, which we want to use in inference
      */
     public void runInference(String path){
@@ -67,5 +68,6 @@ public class Inference  {
         } catch (ParsingSyntaxException e) {
             e.printStackTrace();
         }
+        Log.d("Lemur","Inference");
     }
 }

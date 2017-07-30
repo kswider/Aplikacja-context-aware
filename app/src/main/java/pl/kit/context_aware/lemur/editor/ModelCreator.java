@@ -85,7 +85,7 @@ public class ModelCreator implements Serializable {
 
     /**
      * Method saves current model in 2 files:
-     * 1) modelName.hmr - model which is used by HearTDROID
+     * 1) modelName.hmr - model which is used by heartDROID
      * 2) modelName.ser - serialized model which is used in loading models to application
      */
     public void saveModel(){
@@ -185,10 +185,10 @@ public class ModelCreator implements Serializable {
         //We will use only these arguments in our model, user can't add his own arguments
         final Xattr hour = new Xattr(hour_type, "hour", "hour1", "in", "");
         final Xattr minute = new Xattr(minute_type, "minute", "minute1", "in", "");
-        final Xattr time = new Xattr(time_type, "time", "time1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.GetTime");
-        final Xattr day = new Xattr(day_type, "day", "day1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.GetDayOfAWeek");
-        final Xattr latitude = new Xattr(latitude_type, "latitude", "latitude1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.GetLatitude");
-        final Xattr longitude = new Xattr(longitude_type, "longitude", "longitude1", "in", "pl.kit.context_aware.lemur.HeartDROID.callbacks.GetLongitude");
+        final Xattr time = new Xattr(time_type, "time", "time1", "in", "pl.kit.context_aware.lemur.heartDROID.callbacks.GetTime");
+        final Xattr day = new Xattr(day_type, "day", "day1", "in", "pl.kit.context_aware.lemur.heartDROID.callbacks.GetDayOfAWeek");
+        final Xattr latitude = new Xattr(latitude_type, "latitude", "latitude1", "in", "pl.kit.context_aware.lemur.heartDROID.callbacks.GetLatitude");
+        final Xattr longitude = new Xattr(longitude_type, "longitude", "longitude1", "in", "pl.kit.context_aware.lemur.heartDROID.callbacks.GetLongitude");
         final Xattr sound = new Xattr(sound_type, "sound", "sound1", "inter", "");
         final Xattr bluetooth = new Xattr(on_off_type, "bluetooth", "bluetooth1", "inter", "");
         final Xattr wifi = new Xattr(on_off_type, "wifi", "wifi1", "inter", "");
@@ -196,7 +196,7 @@ public class ModelCreator implements Serializable {
         final Xattr notificationNumber = new Xattr(message_number_type,"notificationNumber","notificationNumber1","inter", "");
         final Xattr sms = new Xattr(message_type, "sms", "sms1", "inter", "");
         final Xattr smsNumber = new Xattr(message_number_type,"smsNumber","smsNumber1","inter", "");
-        final Xattr dayFromCalendar = new Xattr(day_from_calendar_type,"dayFromCalendar","dayFromCalendar1","in","pl.kit.context_aware.lemur.HeartDROID.callbacks.GetDayFromCalendar");
+        final Xattr dayFromCalendar = new Xattr(day_from_calendar_type,"dayFromCalendar","dayFromCalendar1","in","pl.kit.context_aware.lemur.heartDROID.callbacks.GetDayFromCalendar");
 
         // these two arguments are only use to keep info about time ranges, they aren't used in inference
         final Xattr hourRange = new Xattr(hour_type, "hourRange", "hourRange1", "inter", "");
