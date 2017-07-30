@@ -151,7 +151,7 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
         DialogFragment newFragment = new DatePickerFragment();
         ((DatePickerFragment)newFragment).setPosition(-1);
         ((DatePickerFragment) newFragment).setDay(ReadTime.ReadDayofMonth());
-        ((DatePickerFragment) newFragment).setMonth(ReadTime.ReadMonth());
+        ((DatePickerFragment) newFragment).setMonth(ReadTime.ReadMonth()+1);
         ((DatePickerFragment) newFragment).setYear(ReadTime.ReadYear());
         newFragment.show(getFragmentManager(), "Date Picker");
     }
@@ -405,6 +405,11 @@ public class EditScript extends AppCompatActivity implements DayOfWeekPickerFrag
                 }
                 if(days.isEmpty() && daysCyclical.isEmpty()){
                     Toast.makeText(this,getText(R.string.es_EmptyScriptError2),Toast.LENGTH_LONG).show();
+                    return false;
+                }
+
+                if((!days.isEmpty() || !daysCyclical.isEmpty()) && times.isEmpty() && locations.isEmpty()){
+                    Toast.makeText(this,getText(R.string.es_EmptyScriptError3),Toast.LENGTH_LONG).show();
                     return false;
                 }
 

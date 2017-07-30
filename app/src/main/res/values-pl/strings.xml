@@ -126,4 +126,5 @@
     <string name="mfs_sub">"Lemur buszuje w tle "</string>
     <string name="es_InfoTitle">Jak to działa?</string>
     <string name="es_InfoMess">Skrypt uruchamia wszystkie zadane akcje jeśli jednego z zadanych dni o jedym z zadanych czasów znajdziesz się w jednej z zadanych lokacji.\n\nJeśli nie wybierzesz żadnej lokacji to skrypt uruchoomi się o zadnamym czasie bez względu na to gdzie jesteś. Analogiczna sytuacja ma miejsce jeśli nie zadasz żadnego czasu\n\nSkrypt musi zawierać tytuł, co najmniej jedną lokację lub czas i co najmniej jedną akcję.</string>
+    <string name="es_EmptyScriptError3">Musisz sprecyzować czas dla swojego skryptu</string>
 </resources>

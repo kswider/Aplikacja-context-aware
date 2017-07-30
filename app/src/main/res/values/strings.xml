@@ -84,6 +84,7 @@
     <string name="es_Info">Info</string>
     <string name="es_InfoTitle">How does it works?</string>
     <string name="es_InfoMess">The script runs actions specified by you if at one of chosen dates at one of chosen times you are in one of chosen locations.\n\nIf you haven\'t chosen any locations script will run at specified time no matter where you are. Similar situation takes place if you haven\'t chosen any time.\n\n The minimum script contains title, one time or location and one action. </string>
+    <string name="es_EmptyScriptError3">You need to specify time</string>
 
     <!--Time Picker-->
     <string name="tp_cancel">Cancel</string>
