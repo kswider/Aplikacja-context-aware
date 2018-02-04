@@ -14,7 +14,7 @@ In the app you can define your own "sctipts". The script runs actions specified 
 * turn on/off sounds
 
 ## Screenshots
-![alt text](https://github.com/tomaboro/Lemur/blob/master/Screenshots/Screenshot_1.png | width=150)
-![alt text](https://github.com/tomaboro/Lemur/blob/master/Screenshots/Screenshot_2.png | width=150)
-![alt text](https://github.com/tomaboro/Lemur/blob/master/Screenshots/Screenshot_3.png | width=150)
-![alt text](https://github.com/tomaboro/Lemur/blob/master/Screenshots/Screenshot_4.png | width=150)
+![alt text](https://github.com/tomaboro/Lemur/blob/master/Screenshots/Screenshot_1.png?s=20)
+![alt text](https://github.com/tomaboro/Lemur/blob/master/Screenshots/Screenshot_2.png?s=20)
+![alt text](https://github.com/tomaboro/Lemur/blob/master/Screenshots/Screenshot_3.png?s=20)
+![alt text](https://github.com/tomaboro/Lemur/blob/master/Screenshots/Screenshot_4.png?s=20)
